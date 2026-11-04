@@ -1,0 +1,14 @@
+# The `examples/` (40 prompts) and `media/` (contact sheets) folders are
+# (c) MotionSites — see LICENSE.txt, section 2. They may be USED locally with
+# this skill to build websites, but they may NOT be redistributed as a prompt
+# or media collection. This repository is public, so these folders are kept
+# out of git on purpose. Do NOT force-add them.
+#
+# They are present locally (untracked). If they are ever missing, re-fetch
+# them from upstream without committing:
+#   curl -sL https://codeload.github.com/Motionsites-AI/claude-skill/tar.gz/refs/heads/main \
+#     | tar xz --strip-components=5 -C . \
+#       claude-skill-main/plugins/motionsites-web-builder/skills/motionsites-web-builder/examples \
+#       claude-skill-main/plugins/motionsites-web-builder/skills/motionsites-web-builder/media
+examples/
+media/
