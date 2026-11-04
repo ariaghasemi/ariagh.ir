@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="داشبورد نمونه‌ها — کتابخانهٔ بخش‌های موشن‌دار سایت شخصی وردپرسی">
+  <title>داشبورد نمونه‌ها | ariagh</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='3' width='26' height='26' rx='7' fill='%2308080b' stroke='%23c9a96a' stroke-width='2'/%3E%3Cpath d='M10 21V11l6 7 6-7v10' stroke='%23c9a96a' stroke-width='2.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+  <noscript><style>#loader{display:none}</style></noscript>
+</head>
+<body>
+
+  <!-- لودر -->
+  <div id="loader" aria-hidden="true">
+    <div class="loader-mark">A</div>
+    <div class="loader-line"><span id="loader-fill"></span></div>
+    <div class="loader-text">داشبورد نمونه‌ها</div>
+  </div>
+
+  <!-- پس‌زمینهٔ محیطی -->
+  <div class="orbs" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <div class="app">
+
+    <!-- ═══ سایدبار (راست) ═══ -->
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <span class="brand-mark">A</span>
+        <span class="brand-text">
+          <strong>ariagh</strong>
+          <small>داشبورد نمونه‌ها</small>
+        </span>
+      </div>
+
+      <nav class="tab-nav" id="tab-nav" aria-label="تب‌های داشبورد"></nav>
+
+      <div class="side-foot">
+        <div class="wp-chip" title="اتصال به وردپرس در نسخهٔ بعدی فعال می‌شود">
+          <span class="wp-dot"></span>
+          وردپرس: در انتظار اتصال
+        </div>
+        <div class="side-ver">نسخهٔ تست ۰.۱ — هر نمونه پوشهٔ مخصوص خودش را در گیت‌هاب می‌گیرد</div>
+      </div>
+    </aside>
+    <div class="side-backdrop" id="side-backdrop"></div>
+
+    <!-- ═══ محتوای اصلی ═══ -->
+    <main class="main">
+      <header class="topbar">
+        <button class="hamburger" id="hamburger" aria-label="باز کردن منو">
+          <span></span><span></span><span></span>
+        </button>
+        <div class="page-head">
+          <h1 id="tab-title">پیشخوان</h1>
+          <p id="tab-desc">نمای کلی پروژه، نقشهٔ راه افزونه‌ها و وضعیت نمونه‌ها</p>
+        </div>
+        <div class="search" role="search">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input id="search" type="search" placeholder="جستجو در نمونه‌ها…" autocomplete="off">
+        </div>
+      </header>
+
+      <div class="content">
+
+        <!-- ─── پیشخوان ─── -->
+        <section class="panel" id="panel-overview">
+          <div class="kpi-row">
+            <div class="kpi">
+              <span class="kpi-num" data-count="18">۰</span>
+              <span class="kpi-label">نمونهٔ برنامه‌ریزی‌شده</span>
+              <span class="kpi-glow"></span>
+            </div>
+            <div class="kpi">
+              <span class="kpi-num" data-count="18">۰</span>
+              <span class="kpi-label">در صف ساخت</span>
+              <span class="kpi-glow"></span>
+            </div>
+            <div class="kpi">
+              <span class="kpi-num" data-count="0">۰</span>
+              <span class="kpi-label">تکمیل‌شده</span>
+              <span class="kpi-glow"></span>
+            </div>
+            <div class="kpi">
+              <span class="kpi-num" data-count="6">۰</span>
+              <span class="kpi-label">افزونهٔ وردپرس در نقشهٔ راه</span>
+              <span class="kpi-glow"></span>
+            </div>
+          </div>
+
+          <div class="ov-grid">
+            <!-- نقشهٔ راه افزونه‌ها -->
+            <div class="ov-card wide">
+              <div class="ov-head">
+                <h2>نقشهٔ راه افزونه‌ها</h2>
+                <span class="chip chip-gold">۶ افزونهٔ اختصاصی</span>
+              </div>
+              <p class="ov-sub">هر بخش سایت، یک افزونهٔ مستقل که ویجت/تمپلیت خودش را به المنتور اضافه می‌کند.</p>
+              <ul class="roadmap" id="roadmap"></ul>
+            </div>
+
+            <!-- چطور کار می‌کند -->
+            <div class="ov-card">
+              <div class="ov-head"><h2>چطور کار می‌کند؟</h2></div>
+              <ol class="steps-ov">
+                <li><span class="st-no">۰۱</span><span><strong>انتخاب نمونه</strong> از تب‌های کنار، بخش موردنظر سایت را پیدا کنید.</span></li>
+                <li><span class="st-no">۰۲</span><span><strong>دیدن دمو</strong> دکمهٔ «دمو»، پیش‌نمایش زندهٔ همان بخش را باز می‌کند.</span></li>
+                <li><span class="st-no">۰۳</span><span><strong>ورود به سایت</strong> نمونه به‌صورت ویجت/تمپلیت به المنتور اضافه می‌شود.</span></li>
+              </ol>
+            </div>
+
+            <!-- وضعیت -->
+            <div class="ov-card">
+              <div class="ov-head"><h2>وضعیت این مرحله</h2></div>
+              <div class="status-list">
+                <div class="status-row"><span>داشبورد نمونه‌ها</span><span class="chip chip-ok">آماده ✓</span></div>
+                <div class="status-row"><span>کتابخانهٔ نمونه‌ها</span><span class="chip chip-wait">در صف ساخت</span></div>
+                <div class="status-row"><span>اتصال وردپرس / المنتور</span><span class="chip chip-wait">برنامه‌ریزی‌شده</span></div>
+                <div class="status-row"><span>چندزبانه (فا/EN/AR)</span><span class="chip chip-wait">برنامه‌ریزی‌شده</span></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ─── گرید نمونه‌ها ─── -->
+        <section class="panel hidden" id="panel-grid">
+          <div class="grid" id="card-grid"></div>
+          <div class="empty hidden" id="empty">
+            <div class="empty-icon">⌕</div>
+            <p>نمونه‌ای مطابق جستجو یافت نشد.</p>
+          </div>
+        </section>
+
+        <footer class="main-foot">
+          نمونه‌های ساخته‌شده هر کدام پوشهٔ اختصاصی خودشان را در مسیر <code>تست دمو/</code> می‌گیرند —
+          دمو ببینید، دانلود کنید، به سایت اضافه کنید.
+        </footer>
+      </div>
+    </main>
+  </div>
+
+  <!-- ═══ مودال ═══ -->
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-backdrop" id="modal-backdrop"></div>
+    <div class="modal-card">
+      <button class="modal-x" id="modal-x" aria-label="بستن">✕</button>
+      <div class="modal-icon" id="modal-icon">◆</div>
+      <span class="chip chip-gold" id="modal-chip">در صف ساخت</span>
+      <h3 id="modal-title">عنوان نمونه</h3>
+      <p id="modal-text">متن…</p>
+      <div class="modal-actions">
+        <button class="btn btn-gold" id="modal-ok">متوجه شدم</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="lib/gsap.min.js"></script>
+  <script src="lib/ScrollTrigger.min.js"></script>
+  <script src="lib/lenis.min.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
