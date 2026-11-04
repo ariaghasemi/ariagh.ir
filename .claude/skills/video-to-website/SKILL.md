@@ -36,7 +36,7 @@ If the user doesn't specify these, ask briefly or use sensible creative defaults
 
 ## Workflow
 
-**FFmpeg and FFprobe are required and must be on PATH.** Verify first with `ffmpeg -version` and `ffprobe -version` — only install if the check fails (this project runs on Linux; e.g. `apt-get install -y ffmpeg` or a static build). Do NOT reinstall when they already work.
+**FFmpeg and FFprobe are required and must be on PATH.** In this workspace they are already installed at `/home/user/bin/` (static builds) — verify with `ffmpeg -version` and `ffprobe -version` and only install if that check fails (e.g. `apt-get install -y ffmpeg`). Do NOT reinstall when they already work.
 
 ### Step 1: Analyze the Video
 
