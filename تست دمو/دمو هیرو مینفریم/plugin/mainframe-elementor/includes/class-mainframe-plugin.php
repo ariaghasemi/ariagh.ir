@@ -78,11 +78,9 @@ class Mainframe_Plugin {
 		// فونت‌ها و متغیرهای --mf-heading / --mf-body
 		Mainframe_Fonts::init();
 
-		// دستهٔ اختصاصی ویجت‌ها در ویرایشگر المنتور
-		add_action( 'elementor/elements/categories_registered', array( $this, 'register_category' ) );
-
-		// ویجت‌ها فقط وقتی المنتور بالا آمده باشد
-		add_action( 'elementor/loaded', array( $this, 'on_elementor_loaded' ) );
+		// دستهٔ اختصاصی ویجت‌ها و ثبت خود ویجت‌ها:
+		// این دو از فایل اصلی (پیش از plugins_loaded) ثبت می‌شوند تا با تغییر ترتیب
+		// بارگذاری افزونه‌ها از دست نروند — action_register_widgets / action_register_category
 
 		// تنظیمات
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
@@ -104,10 +102,45 @@ class Mainframe_Plugin {
 		Mainframe_Help::instance()->init();
 	}
 
+	/** آیا ویجت‌ها در همین درخواست ثبت شده‌اند؟ (جلوگیری از ثبت دوباره) */
+	private static $widgets_registered = false;
+
 	/**
-	 * بارگذاری کلاس‌های ویجت پس از آماده شدن المنتور.
+	 * قلاب ثبت ویجت‌ها نزد المنتور — از فایل اصلی و پیش از plugins_loaded صدا زده می‌شود
+	 * تا با هر ترتیبی از بارگذاری افزونه‌ها، ویجت‌ها حتماً به ویرایشگر برسند.
+	 *
+	 * @param mixed $widgets_manager شیء مدیر ویجت‌های المنتور.
 	 */
-	public function on_elementor_loaded() {
+	public static function action_register_widgets( $widgets_manager ) {
+		if ( self::$widgets_registered ) {
+			return;
+		}
+		if ( ! is_object( $widgets_manager ) || ! class_exists( '\Elementor\Widget_Base' ) ) {
+			return;
+		}
+		self::$widgets_registered = true;
+
+		self::load_widget_classes();
+
+		$classes = array(
+			'Widget_Mainframe_Scrub_Video',
+			'Widget_Mainframe_Typewriter',
+			'Widget_Mainframe_Intro_Label',
+			'Widget_Mainframe_Pills',
+			'Widget_Mainframe_Navbar',
+		);
+
+		foreach ( $classes as $class ) {
+			if ( class_exists( $class ) ) {
+				$widgets_manager->register( new $class() );
+			}
+		}
+	}
+
+	/**
+	 * بارگذاری امن کلاس‌های ویجت (require_once — امن در برابر اجرای چندباره).
+	 */
+	public static function load_widget_classes() {
 		foreach ( array(
 			'class-widget-scrub-video.php',
 			'class-widget-typewriter.php',
@@ -121,8 +154,13 @@ class Mainframe_Plugin {
 
 	/**
 	 * دستهٔ «مین‌فریم» در انتخاب‌گر ویجت‌های المنتور.
+	 *
+	 * @param mixed $elements_manager شیء مدیر المان‌های المنتور.
 	 */
-	public function register_category( $elements_manager ) {
+	public static function action_register_category( $elements_manager ) {
+		if ( ! is_object( $elements_manager ) || ! method_exists( $elements_manager, 'add_category' ) ) {
+			return;
+		}
 		$elements_manager->add_category(
 			'mainframe',
 			array(

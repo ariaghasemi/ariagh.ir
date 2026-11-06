@@ -221,9 +221,9 @@ class Widget_Mainframe_Scrub_Video extends \Elementor\Widget_Base {
 		$settings = $this->get_settings_for_display();
 
 		$video_url = '';
-		if ( ! empty( $settings['video_media']['url'] ) ) {
+		if ( isset( $settings['video_media']['url'] ) && $settings['video_media']['url'] ) {
 			$video_url = $settings['video_media']['url'];
-		} elseif ( ! empty( $settings['video_url']['url'] ) ) {
+		} elseif ( isset( $settings['video_url']['url'] ) && $settings['video_url']['url'] ) {
 			$video_url = $settings['video_url']['url'];
 		}
 
@@ -259,7 +259,7 @@ class Widget_Mainframe_Scrub_Video extends \Elementor\Widget_Base {
 		if ( 'yes' === $settings['loop'] ) {
 			$video_attr['loop'] = '';
 		}
-		if ( ! empty( $settings['poster']['url'] ) ) {
+		if ( isset( $settings['poster']['url'] ) && $settings['poster']['url'] ) {
 			$video_attr['poster'] = $settings['poster']['url'];
 		}
 		$video_attr['playsinline'] = '';
