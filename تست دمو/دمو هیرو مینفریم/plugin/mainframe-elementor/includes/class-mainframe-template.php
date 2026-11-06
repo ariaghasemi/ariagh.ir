@@ -229,16 +229,22 @@ class Mainframe_Template {
 	}
 
 	public static function repair() {
-		$targets = array(
-			array( self::TEMPLATE_TITLE, 'elementor_library' ),
-			array( self::PAGE_TITLE, 'page' ),
+		// پویش عمومی: هر پستی که `_elementor_page_settings` آن رشتهٔ JSON باشد
+		// (نوشتهٔ نسخه‌های 1.0.0/1.0.1) — مستقل از عنوان، چون کاربر ممکن است
+		// عنوان صفحه/قالب را عوض کرده باشد و پویش با عنوان، آن را پیدا نکند.
+		$ids = get_posts(
+			array(
+				'post_type'              => array( 'page', 'post', 'elementor_library' ),
+				'post_status'            => 'any',
+				'meta_key'               => '_elementor_page_settings',
+				'numberposts'            => -1,
+				'fields'                 => 'ids',
+				'no_found_rows'          => true,
+				'update_post_meta_cache' => false,
+			)
 		);
 
-		foreach ( $targets as $target ) {
-			$post_id = self::find_post( $target[0], $target[1] );
-			if ( ! $post_id ) {
-				continue;
-			}
+		foreach ( $ids as $post_id ) {
 			$value = get_post_meta( $post_id, '_elementor_page_settings', true );
 			if ( is_string( $value ) && '' !== $value ) {
 				$decoded = json_decode( $value, true );

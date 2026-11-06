@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       مین‌فریم — هیروی تعاملی برای المنتور
  * Description:       پنج ویجت اختصاصی المنتور (ویدیوی حرکت با ماوس، تایپ‌نویسر، برچسب تار، دکمه‌های قرصی، نوار بالا) به‌همراه قالب آمادهٔ صفحهٔ هیرو — کاملاً فارسی، قابل ویرایش و بدون کد اضافه.
- * Version:           1.1.0
+ * Version:           1.1.1
  * Author:            ariagh
  * Text Domain:       mainframe-elementor
  * Requires at least: 6.0
@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'MF_VERSION', '1.1.0' );
+define( 'MF_VERSION', '1.1.1' );
 define( 'MF_FILE', __FILE__ );
 define( 'MF_DIR', plugin_dir_path( __FILE__ ) );
 define( 'MF_URL', plugin_dir_url( __FILE__ ) );

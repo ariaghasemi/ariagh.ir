@@ -48,31 +48,52 @@ class Widget_Mainframe_Scrub_Video extends \Elementor\Widget_Base {
 
 	/**
 	 * حالت قرارگیری — با پشتیبانی از دادهٔ ذخیره‌شدهٔ نسخه‌های قبلی (fixed_mode).
+	 *
+	 * نکتهٔ ایمنی: خواندن داده فقط باید در بافت رندر انجام شود. در `get_initial_config`
+	 * (کانفیگ ادیتور برای نمونهٔ ثبت‌شده بدون داده) `data['settings']` برابر null است و
+	 * `get_data('settings')`/`get_settings()` باعث TypeError در `sanitize_settings()` می‌شد. (v1.1.1)
 	 */
 	private function mf_position_mode() {
 		// دادهٔ خام ذخیره‌شده (بدون اعمال پیش‌فرض‌ها) — برای تشخیص نسخهٔ قدیمی.
-		$raw = array();
-		if ( method_exists( $this, 'get_data' ) ) {
-			$raw = $this->get_data( 'settings' );
+		$raw = null;
+		try {
+			if ( method_exists( $this, 'get_data' ) ) {
+				$raw = $this->get_data( 'settings' );
+			}
+		} catch ( \Throwable $e ) {
+			$raw = null;
 		}
 		if ( is_array( $raw ) && array_key_exists( 'fixed_mode', $raw ) && ! array_key_exists( 'position_mode', $raw ) ) {
 			return 'yes' === $raw['fixed_mode'] ? 'fixed' : 'box';
 		}
-		$settings = $this->get_settings();
-		$mode     = isset( $settings['position_mode'] ) && $settings['position_mode'] ? $settings['position_mode'] : 'fill';
+
+		$mode = 'fill';
+		try {
+			$settings = $this->get_settings();
+			$mode     = isset( $settings['position_mode'] ) && $settings['position_mode'] ? $settings['position_mode'] : 'fill';
+		} catch ( \Throwable $e ) {
+			$mode = 'fill';
+		}
 		return in_array( $mode, array( 'fill', 'box', 'fixed' ), true ) ? $mode : 'fill';
 	}
 
 	/**
-	 * کلاس اضافی روی ریشهٔ ویجت — در حالت fill باعث می‌شود ریشه کل کانتینر را بگیرد.
-	 * (پیش از چاپ تگ ریشه اجرا می‌شود؛ هر بار رندر.)
+	 * کلاس اضافی روی ریشهٔ ویجت — در حالت fill ریشه کل کانتینر را می‌گیرد.
+	 *
+	 * به‌جای بازنویسی `get_html_wrapper_class` (که در `get_initial_config` بدون داده
+	 * صدا زده می‌شود و fatal می‌داد)، اینجا وصل می‌شود: `add_render_attributes`
+	 * فقط هنگام رندر واقعی اجرا می‌شود — همان‌جایی که خودِ Elementor هم
+	 * `get_settings()` را صدا می‌زند؛ یعنی داده در دسترس است.
 	 */
-	protected function get_html_wrapper_class() {
-		$class = parent::get_html_wrapper_class();
-		if ( 'fill' === $this->mf_position_mode() ) {
-			$class .= ' mf-scrub-host';
+	protected function add_render_attributes() {
+		parent::add_render_attributes();
+		try {
+			if ( 'fill' === $this->mf_position_mode() ) {
+				$this->add_render_attribute( '_wrapper', 'class', 'mf-scrub-host' );
+			}
+		} catch ( \Throwable $e ) {
+			// در بدترین حالت بدون کلاس host هم رندر سالم انجام می‌شود.
 		}
-		return $class;
 	}
 
 	protected function register_controls() {
