@@ -37,6 +37,15 @@
   /* ── نمونه‌ها ── */
   const SAMPLES = [
     // هیرو
+    {
+      tab: 'hero', title: 'هیرو مین‌فریم (Mainframe)', ready: true,
+      desc: 'بنر تمام‌صفحه با ویدیویی که با ماوس جلو و عقب می‌رود، تایپ‌نویسر و دکمه‌های قرصی — همراه با افزونهٔ اختصاصی المنتور (ویجت + قالب آماده).',
+      tags: ['المنتور', 'افزونه', 'ویدیویی'],
+      mock: 'text',
+      image: 'images/mainframe-preview.svg',
+      demoUrl: 'https://ariaghasemi.github.io/ariagh.ir/%D8%AA%D8%B3%D8%AA%20%D8%AF%D9%85%D9%88/%D8%AF%D9%85%D9%88%20%D9%87%DB%8C%D8%B1%D9%88%20%D9%85%DB%8C%D9%86%D9%81%D8%B1%DB%8C%D9%85/dist/',
+      downloadUrl: 'downloads/mainframe-elementor.zip',
+    },
     { tab: 'hero', title: 'هیرو سه‌بعدی', desc: 'بنر تمام‌صفحه با عمق، نور و حرکت سه‌بعدی — سنگین‌ترین امضای بصری سایت.', tags: ['سه‌بعدی', 'WebGL', 'موشن'], mock: 'layers' },
     { tab: 'hero', title: 'هیرو موشن کلاسیک', desc: 'تیتر متحرک، لایه‌های شناور و ورود اسلایسی — سریع، سبک و چشم‌گیر.', tags: ['GSAP', '۲بعدی', 'متن‌حرکتی'], mock: 'text' },
     // درباره من
@@ -66,7 +75,7 @@
 
   /* ── نقشهٔ راه افزونه‌ها ── */
   const PLUGINS = [
-    { name: 'افزونهٔ هیرو (بنر موشن صفحهٔ اصلی)', pct: 0 },
+    { name: 'افزونهٔ هیرو (بنر موشن صفحهٔ اصلی)', pct: 100, state: 'آماده — دانلود از کارت هیرو مین‌فریم' },
     { name: 'افزونهٔ درباره من (تمپلیت کامل المنتور)', pct: 0 },
     { name: 'افزونهٔ صفحهٔ محصولات', pct: 0 },
     { name: 'افزونهٔ نمونه‌کارها', pct: 0 },
@@ -139,12 +148,20 @@
   function cardHTML(s, idx, showTab) {
     const tab = TABS.find((t) => t.id === s.tab);
     const num = String(idx + 1).padStart(2, '0');
+    const thumb = s.image
+      ? `<img class="thumb-img" src="${s.image}" alt="پیش‌نمایش ${s.title}" loading="lazy">`
+      : thumbHTML(s.mock);
+    const chip = showTab
+      ? `<span class="chip chip-gold card-tab-chip">${tab ? tab.name : ''}</span>`
+      : s.ready
+        ? '<span class="chip chip-ok">آماده</span>'
+        : '<span class="chip chip-wait">در صف ساخت</span>';
     return `<article class="card" data-idx="${idx}">
       <div class="card-top">
         <span class="card-idx">#${num}</span>
-        ${showTab ? `<span class="chip chip-gold card-tab-chip">${tab ? tab.name : ''}</span>` : '<span class="chip chip-wait">در صف ساخت</span>'}
+        ${chip}
       </div>
-      <div class="thumb">${thumbHTML(s.mock)}</div>
+      <div class="thumb">${thumb}</div>
       <div class="card-body">
         <h3>${s.title}</h3>
         <p>${s.desc}</p>
@@ -216,7 +233,7 @@
     document.getElementById('roadmap').innerHTML = PLUGINS.map((p) => `
       <li>
         <span class="rm-name">${p.name}</span>
-        <span class="rm-state">در دست توسعه</span>
+        <span class="rm-state">${p.state || 'در دست توسعه'}</span>
         <span class="rm-bar"><i style="width:${p.pct}%"></i></span>
       </li>`).join('');
   }
@@ -272,7 +289,24 @@
 
   grid.addEventListener('click', (e) => {
     const btn = e.target.closest('[data-action]');
-    if (btn) openModal(parseInt(btn.dataset.idx, 10), btn.dataset.action);
+    if (!btn) return;
+    const s = SAMPLES[parseInt(btn.dataset.idx, 10)];
+    const action = btn.dataset.action;
+    // نمونه‌های دارای لینک واقعی: دمو → پیش‌نمایش زنده، دانلود → فایل
+    if (s && action === 'demo' && s.demoUrl) {
+      window.open(s.demoUrl, '_blank', 'noopener');
+      return;
+    }
+    if (s && action === 'download' && s.downloadUrl) {
+      const a = document.createElement('a');
+      a.href = s.downloadUrl;
+      a.setAttribute('download', '');
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      return;
+    }
+    openModal(parseInt(btn.dataset.idx, 10), action);
   });
 
   searchEl.addEventListener('input', () => renderGrid(false));

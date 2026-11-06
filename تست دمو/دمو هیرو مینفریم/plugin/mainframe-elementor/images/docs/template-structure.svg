@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" font-family="Tahoma, 'Segoe UI', Arial, sans-serif">
+  <defs>
+    <marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#4b5563"/>
+    </marker>
+  </defs>
+  <style>
+    .box { fill: #17191f; stroke: #2c303a; stroke-width: 1.5; }
+    .boxW { fill: #17191f; stroke: #e8eaee; stroke-width: 1.8; }
+    .h { fill: #e8eaee; font-size: 16.5px; font-weight: bold; }
+    .s { fill: #8b93a1; font-size: 13px; }
+    .m { fill: #cfd4dc; font-size: 12.5px; font-family: ui-monospace, Menlo, Consolas, monospace; }
+    .ln { stroke: #4b5563; stroke-width: 2; fill: none; }
+  </style>
+
+  <rect width="1200" height="760" rx="16" fill="#0c0d10"/>
+
+  <!-- ریشه -->
+  <rect class="boxW" x="350" y="36" width="500" height="96" rx="14"/>
+  <text class="h" x="600" y="70" text-anchor="middle" font-size="18" direction="rtl">کانتینر ریشه — هیرو</text>
+  <text class="s" x="600" y="96" text-anchor="middle" direction="rtl">ارتفاع 100vh · ستونی · بدون پس‌زمینه</text>
+  <text class="m" x="600" y="118" text-anchor="middle">justify: center (desktop) / flex-end (mobile)</text>
+
+  <!-- اتوبوس ردیف فرزندان -->
+  <path class="ln" d="M600 132 V164"/>
+  <path class="ln" d="M210 164 H990"/>
+  <path class="ln" d="M210 164 V194" marker-end="url(#arw)"/>
+  <path class="ln" d="M600 164 V194" marker-end="url(#arw)"/>
+  <path class="ln" d="M990 164 V194" marker-end="url(#arw)"/>
+
+  <!-- فرزند ۱: ویدیو -->
+  <rect class="box" x="60" y="200" width="300" height="100" rx="14"/>
+  <text class="h" x="210" y="234" text-anchor="middle" direction="rtl">ویجت: ویدیوی حرکت با ماوس</text>
+  <text class="m" x="210" y="260" text-anchor="middle">position: fixed · z = 0</text>
+  <text class="s" x="210" y="284" text-anchor="middle" direction="rtl">حساسیت 0.8 · قاب 70% center</text>
+
+  <!-- فرزند ۲: نوار بالا -->
+  <rect class="box" x="450" y="200" width="300" height="100" rx="14"/>
+  <text class="h" x="600" y="234" text-anchor="middle" direction="rtl">ویجت: نوار بالا</text>
+  <text class="m" x="600" y="260" text-anchor="middle">position: fixed · z = 10</text>
+  <text class="s" x="600" y="284" text-anchor="middle" direction="rtl">لوگو 26/21 · لینک‌ها 23px</text>
+
+  <!-- فرزند ۳: کانتینر محتوا -->
+  <rect class="box" x="840" y="200" width="300" height="100" rx="14"/>
+  <text class="h" x="990" y="234" text-anchor="middle" direction="rtl">کانتینر محتوا</text>
+  <text class="m" x="990" y="260" text-anchor="middle">width: 100% · max-width: 576px</text>
+  <text class="s" x="990" y="284" text-anchor="middle" direction="rtl">فاصلهٔ ستونی 20 / 24 پیکسل</text>
+
+  <!-- اتوبوس نوه‌ها -->
+  <path class="ln" d="M990 300 V336"/>
+  <path class="ln" d="M210 336 H990"/>
+  <path class="ln" d="M210 336 V370" marker-end="url(#arw)"/>
+  <path class="ln" d="M600 336 V370" marker-end="url(#arw)"/>
+  <path class="ln" d="M990 336 V370" marker-end="url(#arw)"/>
+
+  <!-- نوه ۱ -->
+  <rect class="box" x="60" y="376" width="300" height="92" rx="14"/>
+  <text class="h" x="210" y="410" text-anchor="middle" direction="rtl">ویجت: برچسب مقدمه (تار)</text>
+  <text class="m" x="210" y="436" text-anchor="middle">filter: blur(4px)</text>
+  <text class="s" x="210" y="458" text-anchor="middle">clamp(18px, 4vw, 26px)</text>
+
+  <!-- نوه ۲ -->
+  <rect class="box" x="450" y="376" width="300" height="92" rx="14"/>
+  <text class="h" x="600" y="410" text-anchor="middle" direction="rtl">ویجت: تایپ‌نویسر</text>
+  <text class="m" x="600" y="436" text-anchor="middle">speed: 38ms · delay: 600ms</text>
+  <text class="s" x="600" y="458" text-anchor="middle" direction="rtl">بصر چشمک‌زن تا پایان تایپ</text>
+
+  <!-- نوه ۳ -->
+  <rect class="box" x="840" y="376" width="300" height="92" rx="14"/>
+  <text class="h" x="990" y="410" text-anchor="middle" direction="rtl">ویجت: دکمه‌های قرصی</text>
+  <text class="m" x="990" y="436" text-anchor="middle">fade: 400ms · 4 solid + 1 outline</text>
+  <text class="s" x="990" y="458" text-anchor="middle" direction="rtl">کپی ایمیل با یک کلیک</text>
+
+  <!-- جعبهٔ قواعد -->
+  <rect x="60" y="520" width="1080" height="176" rx="14" fill="#101216" stroke="#3a3f4b" stroke-width="1.5"/>
+  <text x="1116" y="556" text-anchor="end" font-size="17" font-weight="bold" fill="#e8eaee" direction="rtl">قواعد چیدمان قالب</text>
+  <text class="s" x="1116" y="588" text-anchor="end" direction="rtl">1 — ویدیو و نوار بالا از نوع fixed هستند و از جریان چیدمان خارج‌اند؛ تنها کانتینر محتوا روی چیدمان اثر می‌گذارد.</text>
+  <text class="s" x="1116" y="618" text-anchor="end" direction="rtl">2 — فاصلهٔ بلوک‌ها با flex_gap خود کانتینر تنظیم می‌شود (20px موبایل / 24px دسکتاپ)، نه با حاشیهٔ کدی.</text>
+  <text class="s" x="1116" y="648" text-anchor="end" direction="rtl">3 — هیچ المان HTML سفارشی و هیچ کد JavaScript یا CSS درون صفحه نیست؛ همهٔ رفتارها از دل ویجت‌ها می‌آیند.</text>
+  <text class="s" x="1116" y="678" text-anchor="end" direction="rtl">4 — پس از درج قالب، هر گره در ویرایشگر المنتور باز می‌شود و کاملاً قابل ویرایش است.</text>
+
+  <!-- راهنمای رنگ -->
+  <rect x="60" y="722" width="22" height="14" rx="4" fill="#17191f" stroke="#e8eaee" stroke-width="1.5"/>
+  <text class="s" x="92" y="734" direction="rtl">کانتینر استاندارد المنتور</text>
+  <rect x="320" y="722" width="22" height="14" rx="4" fill="#17191f" stroke="#2c303a" stroke-width="1.5"/>
+  <text class="s" x="352" y="734" direction="rtl">ویجت اختصاصی مین‌فریم</text>
+</svg>

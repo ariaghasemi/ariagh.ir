@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" font-family="Tahoma, 'Segoe UI', Arial, sans-serif">
+  <defs>
+    <marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#4b5563"/>
+    </marker>
+    <marker id="arwW" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#f5f6f8"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="760" rx="16" fill="#0c0d10"/>
+  <style>
+    .bx { fill: #17191f; stroke: #2c303a; stroke-width: 1.5; }
+    .t1 { fill: #e8eaee; font-size: 17px; font-weight: bold; }
+    .t2 { fill: #8b93a1; font-size: 13.5px; }
+    .mono { fill: #cfd4dc; font-size: 13.5px; font-family: ui-monospace, Menlo, Consolas, monospace; }
+    .lbl { fill: #9aa1ad; font-size: 13px; font-weight: bold; }
+    .ln { stroke: #4b5563; stroke-width: 2; fill: none; }
+  </style>
+
+  <!-- ردیف ۱ -->
+  <rect class="bx" x="50" y="64" width="230" height="90" rx="14"/>
+  <text class="t1" x="165" y="100" text-anchor="middle" direction="rtl">حرکت ماوس</text>
+  <text class="mono" x="165" y="128" text-anchor="middle">mousemove</text>
+
+  <path class="ln" d="M280 109 H324" marker-end="url(#arw)"/>
+
+  <rect class="bx" x="330" y="64" width="300" height="90" rx="14"/>
+  <text class="t1" x="480" y="100" text-anchor="middle" direction="rtl">اختلاف جابه‌جایی</text>
+  <text class="mono" x="480" y="128" text-anchor="middle">delta = clientX − prevX</text>
+
+  <path class="ln" d="M630 109 H684" marker-end="url(#arw)"/>
+
+  <rect class="bx" x="690" y="64" width="440" height="90" rx="14"/>
+  <text class="t1" x="910" y="96" text-anchor="middle" direction="rtl">تبدیل به زمان ویدیو</text>
+  <text class="mono" x="910" y="122" text-anchor="middle">offset = (delta ÷ width) × sensitivity</text>
+  <text class="mono" x="910" y="144" text-anchor="middle">× duration</text>
+
+  <path class="ln" d="M910 154 V182 H1005 V204" marker-end="url(#arw)"/>
+
+  <!-- ردیف ۲ -->
+  <rect class="bx" x="860" y="210" width="290" height="80" rx="14"/>
+  <text class="t1" x="1005" y="244" text-anchor="middle" direction="rtl">مهار مقدار</text>
+  <text class="mono" x="1005" y="272" text-anchor="middle">clamp(…, 0, duration)</text>
+
+  <path class="ln" d="M860 250 H771" marker-end="url(#arw)"/>
+
+  <!-- لوزی تصمیم ۱ -->
+  <polygon points="515,250 640,180 765,250 640,320" fill="#101216" stroke="#e8eaee" stroke-width="1.5"/>
+  <text x="640" y="242" text-anchor="middle" font-size="15" font-weight="bold" fill="#e8eaee" direction="rtl">آیا seek دیگری</text>
+  <text x="640" y="268" text-anchor="middle" font-size="15" font-weight="bold" fill="#e8eaee" direction="rtl">اجراست؟</text>
+
+  <!-- بله → صبر -->
+  <path class="ln" d="M515 250 H476" marker-end="url(#arw)"/>
+  <text class="lbl" x="496" y="238" text-anchor="middle">بله</text>
+
+  <rect class="bx" x="170" y="210" width="300" height="80" rx="14"/>
+  <text class="t1" x="320" y="244" text-anchor="middle" direction="rtl">صبر کن</text>
+  <text class="t2" x="320" y="270" text-anchor="middle" direction="rtl">هدف در targetTime انبار می‌شود</text>
+
+  <!-- خیر → اجرا -->
+  <path class="ln" d="M640 320 V364" marker-end="url(#arw)"/>
+  <text class="lbl" x="658" y="348">خیر</text>
+
+  <rect class="bx" x="440" y="370" width="400" height="76" rx="14"/>
+  <text class="t1" x="640" y="400" text-anchor="middle" direction="rtl">اجرای seek</text>
+  <text class="mono" x="640" y="428" text-anchor="middle">video.currentTime = target</text>
+
+  <!-- صبر → onSeeked -->
+  <path class="ln" d="M400 290 V525 H434" marker-end="url(#arw)"/>
+
+  <!-- ردیف ۳ -->
+  <rect class="bx" x="440" y="490" width="400" height="70" rx="14"/>
+  <text class="t1" x="640" y="520" text-anchor="middle" direction="rtl">رویداد onSeeked</text>
+  <text class="t2" x="640" y="546" text-anchor="middle" direction="rtl">به محض پایان هر seek فراخوانی می‌شود</text>
+
+  <path class="ln" d="M640 446 V484" marker-end="url(#arw)"/>
+
+  <!-- لوزی تصمیم ۲ -->
+  <path class="ln" d="M640 560 V564" marker-end="url(#arw)"/>
+  <polygon points="500,630 640,570 780,630 640,690" fill="#101216" stroke="#e8eaee" stroke-width="1.5"/>
+  <text class="mono" x="640" y="624" text-anchor="middle" font-size="13">| currentTime − target |</text>
+  <text x="640" y="650" text-anchor="middle" font-size="14" fill="#e8eaee" direction="rtl">بیش از 0.05 ثانیه؟</text>
+
+  <!-- بله → seek بعدی → حلقه -->
+  <path class="ln" d="M780 630 H824" marker-end="url(#arw)"/>
+  <text class="lbl" x="802" y="618" text-anchor="middle">بله</text>
+
+  <rect class="bx" x="830" y="595" width="310" height="70" rx="14"/>
+  <text class="t1" x="985" y="625" text-anchor="middle" direction="rtl">seek بعدی همین‌جا</text>
+  <text class="mono" x="985" y="651" text-anchor="middle">currentTime = target</text>
+
+  <path class="ln" d="M985 595 V408 H846" marker-end="url(#arw)"/>
+  <text class="t2" x="997" y="500">حلقهٔ تکمیل</text>
+
+  <!-- خیر → پایان -->
+  <path class="ln" d="M640 690 V700" marker-end="url(#arw)"/>
+  <text class="lbl" x="614" y="700" text-anchor="end">خیر</text>
+
+  <rect x="440" y="706" width="400" height="42" rx="12" fill="#f5f6f8"/>
+  <text x="640" y="733" text-anchor="middle" font-size="16" font-weight="bold" fill="#0c0d10" direction="rtl">فریم درست نمایش داده می‌شود</text>
+
+  <!-- یادداشت کناری -->
+  <rect x="40" y="470" width="340" height="150" rx="14" fill="none" stroke="#3a3f4b" stroke-width="1.5" stroke-dasharray="7 7"/>
+  <text x="210" y="504" text-anchor="middle" font-size="16" font-weight="bold" fill="#e8eaee" direction="rtl">چرا صف seek؟</text>
+  <text class="t2" x="210" y="534" text-anchor="middle" direction="rtl">اجرای همزمان ده‌ها seek باعث</text>
+  <text class="t2" x="210" y="560" text-anchor="middle" direction="rtl">لرزش و قفل شدن ویدیو می‌شود؛</text>
+  <text class="t2" x="210" y="586" text-anchor="middle" direction="rtl">راه‌حل: فقط یک seek در هر لحظه</text>
+  <text class="mono" x="210" y="608" text-anchor="middle" font-size="12.5">seeking flag + onSeeked</text>
+</svg>

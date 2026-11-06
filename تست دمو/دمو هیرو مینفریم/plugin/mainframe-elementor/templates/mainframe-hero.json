@@ -1,0 +1,334 @@
+{
+  "content": [
+    {
+      "id": "a1b2c3d4",
+      "elType": "container",
+      "settings": {
+        "content_width": "full",
+        "container_type": "flex",
+        "flex_direction": "column",
+        "justify_content": "center",
+        "justify_content_tablet": "center",
+        "justify_content_mobile": "flex-end",
+        "min_height": {
+          "unit": "vh",
+          "size": 100,
+          "sizes": []
+        },
+        "padding": {
+          "unit": "px",
+          "top": "0",
+          "right": "40",
+          "bottom": "0",
+          "left": "40",
+          "isLinked": false
+        },
+        "padding_tablet": {
+          "unit": "px",
+          "top": "0",
+          "right": "40",
+          "bottom": "0",
+          "left": "40",
+          "isLinked": false
+        },
+        "padding_mobile": {
+          "unit": "px",
+          "top": "0",
+          "right": "20",
+          "bottom": "48",
+          "left": "20",
+          "isLinked": false
+        },
+        "margin": {
+          "unit": "px",
+          "top": "0",
+          "right": "0",
+          "bottom": "0",
+          "left": "0",
+          "isLinked": true
+        },
+        "flex_gap": {
+          "unit": "px",
+          "size": 0,
+          "sizes": []
+        }
+      },
+      "elements": [
+        {
+          "id": "b1e2d3c4",
+          "elType": "widget",
+          "widgetType": "mainframe-scrub-video",
+          "settings": {
+            "video_url": {
+              "url": "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260826_041744_63efcd78-bf7d-4039-99e2-2461e8a61903.mp4",
+              "is_external": true,
+              "nofollow": true
+            },
+            "sensitivity": 0.8,
+            "object_position": "70% center",
+            "fixed_mode": "yes",
+            "height": {
+              "unit": "px",
+              "size": 420,
+              "sizes": []
+            },
+            "z_index": 0,
+            "autoplay": "",
+            "muted": "yes",
+            "loop": "",
+            "preload": "auto"
+          },
+          "elements": []
+        },
+        {
+          "id": "c2f3e4d5",
+          "elType": "widget",
+          "widgetType": "mainframe-navbar",
+          "settings": {
+            "logo_text": "Mainframe®",
+            "logo_link": {
+              "url": "#"
+            },
+            "logo_size": 26,
+            "logo_size_tablet": 26,
+            "logo_size_mobile": 21,
+            "show_mark": "yes",
+            "mark_text": "✳︎",
+            "mark_size": 30,
+            "mark_size_tablet": 30,
+            "mark_size_mobile": 25,
+            "links": [
+              {
+                "id": "lk100001",
+                "label": "Labs",
+                "link": {
+                  "url": "#"
+                }
+              },
+              {
+                "id": "lk100002",
+                "label": "Studio",
+                "link": {
+                  "url": "#"
+                }
+              },
+              {
+                "id": "lk100003",
+                "label": "Openings",
+                "link": {
+                  "url": "#"
+                }
+              },
+              {
+                "id": "lk100004",
+                "label": "Shop",
+                "link": {
+                  "url": "#"
+                }
+              }
+            ],
+            "separator": ", ",
+            "cta_label": "Get in touch",
+            "cta_link": {
+              "url": "#"
+            },
+            "links_size": 23,
+            "position": "fixed",
+            "z_index": 10,
+            "padding": {
+              "unit": "px",
+              "top": "20",
+              "right": "32",
+              "bottom": "20",
+              "left": "32",
+              "isLinked": true
+            },
+            "padding_tablet": {
+              "unit": "px",
+              "top": "20",
+              "right": "32",
+              "bottom": "20",
+              "left": "32",
+              "isLinked": true
+            },
+            "padding_mobile": {
+              "unit": "px",
+              "top": "16",
+              "right": "20",
+              "bottom": "16",
+              "left": "20",
+              "isLinked": true
+            },
+            "hover_opacity": 60,
+            "breakpoint": "768",
+            "overlay_bg": "rgba(0,0,0,0.9)",
+            "overlay_blur": 12,
+            "overlay_link_size": 32,
+            "overlay_color": "#FFFFFF",
+            "color": "#FFFFFF",
+            "burger_color": "#FFFFFF"
+          },
+          "elements": []
+        },
+        {
+          "id": "d3a4b5c6",
+          "elType": "container",
+          "settings": {
+            "content_width": "boxed",
+            "container_type": "flex",
+            "flex_direction": "column",
+            "width": {
+              "unit": "%",
+              "size": 100,
+              "sizes": []
+            },
+            "max_width": {
+              "unit": "px",
+              "size": 576,
+              "sizes": []
+            },
+            "flex_gap": {
+              "unit": "px",
+              "size": 24,
+              "sizes": []
+            },
+            "flex_gap_tablet": {
+              "unit": "px",
+              "size": 24,
+              "sizes": []
+            },
+            "flex_gap_mobile": {
+              "unit": "px",
+              "size": 20,
+              "sizes": []
+            },
+            "padding": {
+              "unit": "px",
+              "top": "0",
+              "right": "0",
+              "bottom": "0",
+              "left": "0",
+              "isLinked": true
+            },
+            "margin": {
+              "unit": "px",
+              "top": "0",
+              "right": "0",
+              "bottom": "0",
+              "left": "0",
+              "isLinked": true
+            }
+          },
+          "elements": [
+            {
+              "id": "e4b5c6d7",
+              "elType": "widget",
+              "widgetType": "mainframe-intro-label",
+              "settings": {
+                "line1": "Hey there, meet A.R.I.A,",
+                "line2": "Mainframe's Adaptive Response Interface Agent",
+                "blur": 4,
+                "font_size": "clamp(18px, 4vw, 26px)",
+                "line_height": "1.3",
+                "color": "#FFFFFF",
+                "weight": "400",
+                "direction": "ltr"
+              },
+              "elements": []
+            },
+            {
+              "id": "f5c6d7e8",
+              "elType": "widget",
+              "widgetType": "mainframe-typewriter",
+              "settings": {
+                "text": "Glad you stopped in. Good taste tends to find us. Now, what are we building?",
+                "speed": 38,
+                "delay": 600,
+                "font_size": "clamp(18px, 4vw, 26px)",
+                "line_height": "1.35",
+                "min_height": "54px",
+                "color": "#FFFFFF",
+                "weight": "400",
+                "direction": "ltr",
+                "cursor": "yes",
+                "cursor_color": "#FFFFFF"
+              },
+              "elements": []
+            },
+            {
+              "id": "a6d7e8f9",
+              "elType": "widget",
+              "widgetType": "mainframe-pills",
+              "settings": {
+                "items": [
+                  {
+                    "id": "pl100001",
+                    "type": "link",
+                    "label": "Pitch us an idea",
+                    "link": {
+                      "url": "#"
+                    },
+                    "style": "solid"
+                  },
+                  {
+                    "id": "pl100002",
+                    "type": "link",
+                    "label": "Come work here",
+                    "link": {
+                      "url": "#"
+                    },
+                    "style": "solid"
+                  },
+                  {
+                    "id": "pl100003",
+                    "type": "link",
+                    "label": "Send a brief hello",
+                    "link": {
+                      "url": "#"
+                    },
+                    "style": "solid"
+                  },
+                  {
+                    "id": "pl100004",
+                    "type": "link",
+                    "label": "See how we operate",
+                    "link": {
+                      "url": "#"
+                    },
+                    "style": "solid"
+                  },
+                  {
+                    "id": "pl100005",
+                    "type": "copy",
+                    "copy_prefix": "Reach us:",
+                    "email": "hello@mainframe.co",
+                    "style": "outline"
+                  }
+                ],
+                "fade_delay": 400,
+                "fade_duration": 400,
+                "font_size": "",
+                "show_icon": "yes",
+                "solid_bg": "#FFFFFF",
+                "solid_text": "#000000",
+                "solid_hover_bg": "#000000",
+                "solid_hover_text": "#FFFFFF",
+                "outline_border": "#FFFFFF",
+                "outline_text": "#FFFFFF",
+                "outline_hover_bg": "#FFFFFF",
+                "outline_hover_text": "#000000"
+              },
+              "elements": []
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "page_settings": {
+    "hide_title": "yes"
+  },
+  "version": "0.4",
+  "title": "هیرو مین‌فریم (قالب آماده)",
+  "type": "page"
+}

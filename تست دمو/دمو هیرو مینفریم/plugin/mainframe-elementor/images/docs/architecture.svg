@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" font-family="Tahoma, 'Segoe UI', Arial, sans-serif">
+  <defs>
+    <marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#4b5563"/>
+    </marker>
+    <marker id="arwW" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#e8eaee"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="760" rx="16" fill="#0c0d10"/>
+
+  <!-- A: وردپرس + المنتور -->
+  <rect x="400" y="36" width="400" height="66" rx="14" fill="#f5f6f8"/>
+  <text x="600" y="66" text-anchor="middle" font-size="20" font-weight="bold" fill="#0c0d10" direction="rtl">وردپرس + المنتور</text>
+  <text x="600" y="90" text-anchor="middle" font-size="13" fill="#5b6270" direction="rtl">پیش‌نیاز فعال بودن افزونه</text>
+
+  <line x1="600" y1="102" x2="600" y2="144" stroke="#4b5563" stroke-width="2" marker-end="url(#arw)"/>
+  <text x="622" y="130" font-size="13" fill="#8b93a1" font-family="ui-monospace, Menlo, Consolas, monospace">plugins_loaded</text>
+
+  <!-- B: هسته -->
+  <rect x="330" y="150" width="540" height="70" rx="14" fill="#17191f" stroke="#3a3f4b" stroke-width="1.5"/>
+  <text x="600" y="180" text-anchor="middle" font-size="20" font-weight="bold" fill="#e8eaee" direction="rtl">هستهٔ افزونهٔ مین‌فریم</text>
+  <text x="600" y="204" text-anchor="middle" font-size="13" fill="#8b93a1" direction="rtl">منوی مدیریت، تنظیمات، ثبت دارایی‌ها، قلاب‌ها</text>
+
+  <!-- bus -->
+  <line x1="600" y1="220" x2="600" y2="250" stroke="#4b5563" stroke-width="2"/>
+  <line x1="230" y1="250" x2="970" y2="250" stroke="#4b5563" stroke-width="2"/>
+  <line x1="230" y1="250" x2="230" y2="278" stroke="#4b5563" stroke-width="2" marker-end="url(#arw)"/>
+  <line x1="600" y1="250" x2="600" y2="278" stroke="#4b5563" stroke-width="2" marker-end="url(#arw)"/>
+  <line x1="970" y1="250" x2="970" y2="278" stroke="#4b5563" stroke-width="2" marker-end="url(#arw)"/>
+
+  <!-- C1: قالب -->
+  <rect x="80" y="284" width="300" height="86" rx="14" fill="#17191f" stroke="#2c303a"/>
+  <text x="230" y="316" text-anchor="middle" font-size="17" font-weight="bold" fill="#e8eaee" direction="rtl">قالب آماده (JSON)</text>
+  <text x="230" y="342" text-anchor="middle" font-size="13" fill="#8b93a1" direction="rtl">ورود به «قالب‌های المنتور»</text>
+  <text x="230" y="362" text-anchor="middle" font-size="12" fill="#6b7280" direction="rtl">کانتینرها، بدون کد اضافه</text>
+
+  <!-- C2: ویجت‌ها -->
+  <rect x="450" y="284" width="300" height="86" rx="14" fill="#17191f" stroke="#2c303a"/>
+  <text x="600" y="316" text-anchor="middle" font-size="17" font-weight="bold" fill="#e8eaee" direction="rtl">پنج ویجت اختصاصی</text>
+  <text x="600" y="342" text-anchor="middle" font-size="13" fill="#8b93a1" direction="rtl">کنترل و راهنمای فارسی</text>
+  <text x="600" y="362" text-anchor="middle" font-size="12" fill="#6b7280" font-family="ui-monospace, Menlo, Consolas, monospace">elementor/loaded</text>
+
+  <!-- C3: فونت‌ها -->
+  <rect x="820" y="284" width="300" height="86" rx="14" fill="#17191f" stroke="#2c303a"/>
+  <text x="970" y="316" text-anchor="middle" font-size="17" font-weight="bold" fill="#e8eaee" direction="rtl">فونت‌ها و متغیرها</text>
+  <text x="970" y="342" text-anchor="middle" font-size="13" fill="#8b93a1" direction="rtl">دو سبک‌برگهٔ Helvetica Now</text>
+  <text x="970" y="362" text-anchor="middle" font-size="12" fill="#6b7280" font-family="ui-monospace, Menlo, Consolas, monospace">--mf-heading / --mf-body</text>
+
+  <!-- bus to D1 -->
+  <line x1="600" y1="370" x2="600" y2="404" stroke="#4b5563" stroke-width="2" marker-end="url(#arw)"/>
+
+  <!-- D1: راهنما -->
+  <rect x="450" y="410" width="300" height="86" rx="14" fill="#17191f" stroke="#2c303a"/>
+  <text x="600" y="442" text-anchor="middle" font-size="17" font-weight="bold" fill="#e8eaee" direction="rtl">صفحهٔ راهنمای جامع</text>
+  <text x="600" y="468" text-anchor="middle" font-size="13" fill="#8b93a1" direction="rtl">معماری، مکانیزم فیلم، ویجت‌ها</text>
+  <text x="600" y="488" text-anchor="middle" font-size="12" fill="#6b7280" direction="rtl">تنظیمات و عیب‌یابی</text>
+
+  <!-- arrow to assets -->
+  <line x1="600" y1="496" x2="600" y2="540" stroke="#4b5563" stroke-width="2" marker-end="url(#arw)"/>
+  <text x="622" y="526" font-size="13" fill="#8b93a1" font-family="ui-monospace, Menlo, Consolas, monospace">wp_enqueue_scripts</text>
+
+  <!-- E: دارایی‌ها -->
+  <rect x="330" y="546" width="540" height="70" rx="14" fill="#17191f" stroke="#3a3f4b" stroke-width="1.5"/>
+  <text x="600" y="576" text-anchor="middle" font-size="18" font-weight="bold" fill="#e8eaee" font-family="ui-monospace, Menlo, Consolas, monospace">mainframe-frontend.js / .css</text>
+  <text x="600" y="600" text-anchor="middle" font-size="13" fill="#8b93a1" direction="rtl">فقط وقتی ویجتی در صفحه حاضر باشد بارگذاری می‌شود</text>
+
+  <!-- arrow to output -->
+  <line x1="600" y1="616" x2="600" y2="656" stroke="#e8eaee" stroke-width="2" marker-end="url(#arwW)"/>
+
+  <!-- F: خروجی -->
+  <rect x="240" y="662" width="720" height="66" rx="14" fill="#f5f6f8"/>
+  <text x="600" y="692" text-anchor="middle" font-size="19" font-weight="bold" fill="#0c0d10" direction="rtl">خروجی: صفحهٔ هیروی مین‌فریم</text>
+  <text x="600" y="716" text-anchor="middle" font-size="13" fill="#5b6270" direction="rtl">کانتینرهای تمیز المنتور — بدون هیچ کد اضافه در المان‌ها</text>
+</svg>
