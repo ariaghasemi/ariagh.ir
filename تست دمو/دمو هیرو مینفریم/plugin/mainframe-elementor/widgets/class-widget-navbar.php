@@ -61,6 +61,15 @@ class Widget_Mainframe_Navbar extends \Elementor\Widget_Base {
 		);
 
 		$this->add_control(
+			'logo_image',
+			array(
+				'label'       => 'تصویر لوگو',
+				'type'        => \Elementor\Controls_Manager::MEDIA,
+				'description' => 'اگر تصویر انتخاب شود، جای متن لوگو نمایش داده می‌شود و ارتفاعش از «اندازهٔ لوگو» پیروی می‌کند (واکنش‌گرا).',
+			)
+		);
+
+		$this->add_control(
 			'logo_link',
 			array(
 				'label'   => 'پیوند لوگو',
@@ -173,6 +182,21 @@ class Widget_Mainframe_Navbar extends \Elementor\Widget_Base {
 		);
 
 		$this->add_control(
+			'links_gap',
+			array(
+				'label'       => 'فاصلهٔ بین لینک‌ها (پیکسل)',
+				'type'        => \Elementor\Controls_Manager::NUMBER,
+				'default'     => 0,
+				'min'         => 0,
+				'max'         => 40,
+				'description' => '0 = فاصله فقط از جداکننده (دمو). عدد بزرگ‌تر فاصلهٔ ثابت بین همهٔ آیتم‌ها (حتی کنار جداکننده) می‌گذارد. تغییر آنی است.',
+				'selectors'   => array(
+					'{{WRAPPER}} .mf-nav-links' => 'gap: {{VALUE}}px;',
+				),
+			)
+		);
+
+		$this->add_control(
 			'cta_label',
 			array(
 				'label'       => 'دعوت‌نامه (CTA)',
@@ -192,6 +216,23 @@ class Widget_Mainframe_Navbar extends \Elementor\Widget_Base {
 		);
 
 		$this->add_control(
+			'cta_style',
+			array(
+				'label'       => 'ظاهر CTA',
+				'type'        => \Elementor\Controls_Manager::SELECT,
+				'default'     => 'underline',
+				'options'     => array(
+					'underline' => 'زیرخط‌دار (دمو)',
+					'none'      => 'بدون زیرخط',
+				),
+				'description' => 'تغییر آنی است.',
+				'selectors'   => array(
+					'{{WRAPPER}} .mf-nav-cta' => 'text-decoration: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
 			'links_size',
 			array(
 				'label'       => 'اندازهٔ لینک‌ها و CTA (پیکسل)',
@@ -199,7 +240,7 @@ class Widget_Mainframe_Navbar extends \Elementor\Widget_Base {
 				'default'     => 23,
 				'min'         => 12,
 				'max'         => 48,
-				'description' => '23 همان اندازهٔ دمو.',
+				'description' => '23 همان اندازهٔ دمو. با کنترل واکنش‌گرا برای تبلت/موبایل می‌توانید جداگانه بگذارید.',
 			)
 		);
 
@@ -220,11 +261,41 @@ class Widget_Mainframe_Navbar extends \Elementor\Widget_Base {
 				'type'        => \Elementor\Controls_Manager::SELECT,
 				'default'     => 'fixed',
 				'options'     => array(
-					'fixed'   => 'ثابت — شناور روی ویدیو (دمو)',
-					'absolute'=> 'مطلق — نسبت به نزدیک‌ترین والد',
+					'fixed'   => 'ثابت — شناور روی کل صفحه',
+					'absolute'=> 'مطلق — بخشی از بنر (قالب هیرو)',
 					'static'  => 'عادی — در جریان محتوا',
 				),
-				'description' => 'در حالت ثابت، نوار از جریان محتوا خارج می‌شود و همیشه بالای صفحه می‌ماند.',
+				'description' => 'در حالت ثابت، نوار همیشه بالای صفحه می‌ماند. در قالب هیرو از «مطلق» استفاده شده تا نوار با بنر حرکت کند.',
+			)
+		);
+
+		$this->add_control(
+			'hide_on_scroll',
+			array(
+				'label'       => 'پنهان هنگام اسکرول به پایین',
+				'type'        => \Elementor\Controls_Manager::SWITCHER,
+				'label_on'    => 'روشن',
+				'label_off'   => 'خاموش',
+				'default'     => '',
+				'condition'   => array( 'position' => 'fixed' ),
+				'description' => 'روشن: با اسکرول به پایین نوار بالا می‌رود و با اسکرول به بالا برمی‌گردد (مثل سایت‌های حرفه‌ای). هنگام باز بودن منو پنهان نمی‌شود.',
+			)
+		);
+
+		$this->add_control(
+			'direction',
+			array(
+				'label'       => 'جهت نوار',
+				'type'        => \Elementor\Controls_Manager::SELECT,
+				'default'     => 'ltr',
+				'options'     => array(
+					'ltr' => 'چپ به راست (دمو)',
+					'rtl' => 'راست به چپ — برای سایت فارسی (لوگو راست، منو وسط، CTA چپ)',
+				),
+				'description' => 'ترتیب کلی عناصر نوار و منو. تغییر آنی است.',
+				'selectors'   => array(
+					'{{WRAPPER}} .mf-navbar' => 'direction: {{VALUE}};',
+				),
 			)
 		);
 
@@ -294,6 +365,36 @@ class Widget_Mainframe_Navbar extends \Elementor\Widget_Base {
 		);
 
 		$this->add_control(
+			'burger_width',
+			array(
+				'label'       => 'طول خط همبرگر (پیکسل)',
+				'type'        => \Elementor\Controls_Manager::NUMBER,
+				'default'     => 24,
+				'min'         => 12,
+				'max'         => 48,
+				'description' => '24 همان دمو. تغییر آنی است.',
+				'selectors'   => array(
+					'{{WRAPPER}} .mf-burger span' => 'width: {{VALUE}}px;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'burger_gap',
+			array(
+				'label'       => 'فاصلهٔ خطوط همبرگر (پیکسل)',
+				'type'        => \Elementor\Controls_Manager::NUMBER,
+				'default'     => 5,
+				'min'         => 2,
+				'max'         => 14,
+				'description' => '5 همان دمو؛ حالت باز/بسته هم خودکار با همین فاصله تنظیم می‌شود. تغییر آنی است.',
+				'selectors'   => array(
+					'{{WRAPPER}} .mf-burger' => '--mf-burger-gap: {{VALUE}}px;',
+				),
+			)
+		);
+
+		$this->add_control(
 			'overlay_bg',
 			array(
 				'label'       => 'پس‌زمینهٔ اورلی',
@@ -347,6 +448,39 @@ class Widget_Mainframe_Navbar extends \Elementor\Widget_Base {
 		);
 
 		$this->add_control(
+			'bar_bg',
+			array(
+				'label'       => 'پس‌زمینهٔ نوار',
+				'type'        => \Elementor\Controls_Manager::COLOR,
+				'default'     => '',
+				'description' => 'خالی = بدون پس‌زمینه (دمو — نوار روی ویدیو شفاف است). رنگ بدهید تا روی محتوا خوانا شود. تغییر آنی است.',
+				'selectors'   => array(
+					'{{WRAPPER}} .mf-navbar-bar' => 'background-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'bar_blur',
+			array(
+				'label'       => 'تاری پس‌زمینهٔ نوار',
+				'type'        => \Elementor\Controls_Manager::SELECT,
+				'default'     => '',
+				'options'     => array(
+					''   => 'بدون تاری (دمو)',
+					'4'  => 'کم (۴ پیکسل)',
+					'8'  => 'متوسط (۸ پیکسل)',
+					'12' => 'زیاد (۱۲ پیکسل)',
+					'20' => 'خیلی زیاد (۲۰ پیکسل)',
+				),
+				'description' => 'backdrop-filter روی نوار؛ با پس‌زمینهٔ نیمه‌شفاف ترکیب خوبی می‌سازد. تغییر آنی است.',
+				'selectors'   => array(
+					'{{WRAPPER}} .mf-navbar-bar' => 'backdrop-filter: blur({{VALUE}}px);',
+				),
+			)
+		);
+
+		$this->add_control(
 			'color',
 			array(
 				'label'       => 'رنگ متن نوار',
@@ -391,6 +525,10 @@ class Widget_Mainframe_Navbar extends \Elementor\Widget_Base {
 
 		$hover = intval( mf_num( $settings['hover_opacity'], 60 ) );
 
+		$links_size   = intval( mf_num( $settings['links_size'], 23 ) );
+		$links_t      = intval( mf_num( ! empty( $settings['links_size_tablet'] ) ? $settings['links_size_tablet'] : null, $links_size ) );
+		$links_m      = intval( mf_num( ! empty( $settings['links_size_mobile'] ) ? $settings['links_size_mobile'] : null, $links_size ) );
+
 		$vars = 'position:' . esc_attr( $position ) . ';top:0;left:0;right:0;z-index:' . $z . ';'
 			. 'color:' . esc_attr( $settings['color'] ) . ';'
 			. '--mf-burger-color:' . esc_attr( $settings['burger_color'] ) . ';'
@@ -399,31 +537,40 @@ class Widget_Mainframe_Navbar extends \Elementor\Widget_Base {
 			. '--mf-nav-pad-m:' . $pad_m . ';'
 			. '--mf-logo:' . $logo_size . 'px;' . '--mf-logo-t:' . $logo_t . 'px;' . '--mf-logo-m:' . $logo_m . 'px;'
 			. '--mf-mark:' . $mark_size . 'px;' . '--mf-mark-t:' . $mark_t . 'px;' . '--mf-mark-m:' . $mark_m . 'px;'
-			. '--mf-links:' . intval( mf_num( $settings['links_size'], 23 ) ) . 'px;'
+			. '--mf-links:' . $links_size . 'px;' . '--mf-links-t:' . $links_t . 'px;' . '--mf-links-m:' . $links_m . 'px;'
 			. '--mf-hover-op:' . ( $hover / 100 ) . ';'
 			. '--mf-overlay-bg:' . esc_attr( $settings['overlay_bg'] ) . ';'
 			. '--mf-overlay-blur:' . intval( mf_num( $settings['overlay_blur'], 12 ) ) . 'px;'
 			. '--mf-overlay-size:' . intval( mf_num( $settings['overlay_link_size'], 32 ) ) . 'px;'
 			. '--mf-overlay-color:' . esc_attr( $settings['overlay_color'] ) . ';';
 
-		$this->add_render_attribute(
-			'header',
-			array(
-				'class' => array( 'mf-navbar', 'mf-bp-' . $breakpoint ),
-				'style' => $vars,
-			)
+		$header_classes = array( 'mf-navbar', 'mf-bp-' . $breakpoint );
+		$header_attrs    = array(
+			'class' => $header_classes,
+			'style' => $vars,
 		);
+		if ( 'yes' === ( isset( $settings['hide_on_scroll'] ) ? $settings['hide_on_scroll'] : '' ) ) {
+			$header_attrs['data-hide-scroll'] = '1';
+		}
 
-		$logo_href = ! empty( $settings['logo_link']['url'] ) ? $settings['logo_link']['url'] : '#';
-		$cta_href  = ! empty( $settings['cta_link']['url'] ) ? $settings['cta_link']['url'] : '#';
-		$separator = $settings['separator'];
+		$this->add_render_attribute( 'header', $header_attrs );
+
+		$logo_href  = ! empty( $settings['logo_link']['url'] ) ? $settings['logo_link']['url'] : '#';
+		$cta_href   = ! empty( $settings['cta_link']['url'] ) ? $settings['cta_link']['url'] : '#';
+		$separator  = $settings['separator'];
+		$cta_label  = isset( $settings['cta_label'] ) ? $settings['cta_label'] : '';
+		$logo_image = isset( $settings['logo_image']['url'] ) ? $settings['logo_image']['url'] : '';
 
 		echo '<header ' . $this->get_render_attribute_string( 'header' ) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput
 
 		// ─── نوار دسکتاپ ───
 		echo '<div class="mf-navbar-bar">';
-		echo '<a class="mf-logo" href="' . esc_url( $logo_href ) . '">';
-		echo '<span class="mf-logo-text">' . esc_html( $settings['logo_text'] ) . '</span>';
+		echo '<a class="mf-logo" href="' . esc_url( $logo_href ) . '"' . mf_link_target( $settings['logo_link'] ) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput
+		if ( $logo_image ) {
+			echo '<img class="mf-logo-img" src="' . esc_url( $logo_image ) . '" alt="' . esc_attr( $settings['logo_text'] ) . '">';
+		} else {
+			echo '<span class="mf-logo-text">' . esc_html( $settings['logo_text'] ) . '</span>';
+		}
 		if ( 'yes' === $settings['show_mark'] ) {
 			echo '<span class="mf-mark" aria-hidden="true">' . esc_html( $settings['mark_text'] ) . '</span>';
 		}
@@ -435,11 +582,13 @@ class Widget_Mainframe_Navbar extends \Elementor\Widget_Base {
 				echo '<span class="mf-sep">' . esc_html( $separator ) . '</span>';
 			}
 			$href = ! empty( $link['link']['url'] ) ? $link['link']['url'] : '#';
-			echo '<a href="' . esc_url( $href ) . '">' . esc_html( $link['label'] ) . '</a>';
+			echo '<a href="' . esc_url( $href ) . '"' . mf_link_target( $link['link'] ) . '>' . esc_html( $link['label'] ) . '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput
 		}
 		echo '</nav>';
 
-		echo '<a class="mf-nav-cta" href="' . esc_url( $cta_href ) . '">' . esc_html( $settings['cta_label'] ) . '</a>';
+		if ( '' !== (string) $cta_label ) {
+			echo '<a class="mf-nav-cta" href="' . esc_url( $cta_href ) . '"' . mf_link_target( $settings['cta_link'] ) . '>' . esc_html( $cta_label ) . '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput
+		}
 
 		// همبرگر
 		echo '<button type="button" class="mf-burger" aria-label="باز کردن منو" aria-expanded="false">';
@@ -451,9 +600,11 @@ class Widget_Mainframe_Navbar extends \Elementor\Widget_Base {
 		echo '<div class="mf-nav-overlay">';
 		foreach ( $links as $link ) {
 			$href = ! empty( $link['link']['url'] ) ? $link['link']['url'] : '#';
-			echo '<a href="' . esc_url( $href ) . '">' . esc_html( $link['label'] ) . '</a>';
+			echo '<a href="' . esc_url( $href ) . '"' . mf_link_target( $link['link'] ) . '>' . esc_html( $link['label'] ) . '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput
 		}
-		echo '<a class="mf-overlay-cta" href="' . esc_url( $cta_href ) . '">' . esc_html( $settings['cta_label'] ) . '</a>';
+		if ( '' !== (string) $cta_label ) {
+			echo '<a class="mf-overlay-cta" href="' . esc_url( $cta_href ) . '"' . mf_link_target( $settings['cta_link'] ) . '>' . esc_html( $cta_label ) . '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput
+		}
 		echo '</div>';
 
 		echo '</header>';

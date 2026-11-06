@@ -18,7 +18,7 @@
   <!-- ریشه -->
   <rect class="boxW" x="350" y="36" width="500" height="96" rx="14"/>
   <text class="h" x="600" y="70" text-anchor="middle" font-size="18" direction="rtl">کانتینر ریشه — هیرو</text>
-  <text class="s" x="600" y="96" text-anchor="middle" direction="rtl">ارتفاع 100vh · ستونی · بدون پس‌زمینه</text>
+  <text class="s" x="600" y="96" text-anchor="middle" direction="rtl">ارتفاع قابل تنظیم (پیش‌فرض 100vh) · ستونی · بدون پس‌زمینه</text>
   <text class="m" x="600" y="118" text-anchor="middle">justify: center (desktop) / flex-end (mobile)</text>
 
   <!-- اتوبوس ردیف فرزندان -->
@@ -31,13 +31,13 @@
   <!-- فرزند ۱: ویدیو -->
   <rect class="box" x="60" y="200" width="300" height="100" rx="14"/>
   <text class="h" x="210" y="234" text-anchor="middle" direction="rtl">ویجت: ویدیوی حرکت با ماوس</text>
-  <text class="m" x="210" y="260" text-anchor="middle">position: fixed · z = 0</text>
+  <text class="m" x="210" y="260" text-anchor="middle">fill: absolute · z = 0</text>
   <text class="s" x="210" y="284" text-anchor="middle" direction="rtl">حساسیت 0.8 · قاب 70% center</text>
 
   <!-- فرزند ۲: نوار بالا -->
   <rect class="box" x="450" y="200" width="300" height="100" rx="14"/>
   <text class="h" x="600" y="234" text-anchor="middle" direction="rtl">ویجت: نوار بالا</text>
-  <text class="m" x="600" y="260" text-anchor="middle">position: fixed · z = 10</text>
+  <text class="m" x="600" y="260" text-anchor="middle">position: absolute · z = 10</text>
   <text class="s" x="600" y="284" text-anchor="middle" direction="rtl">لوگو 26/21 · لینک‌ها 23px</text>
 
   <!-- فرزند ۳: کانتینر محتوا -->
@@ -74,7 +74,7 @@
   <!-- جعبهٔ قواعد -->
   <rect x="60" y="520" width="1080" height="176" rx="14" fill="#101216" stroke="#3a3f4b" stroke-width="1.5"/>
   <text x="1116" y="556" text-anchor="end" font-size="17" font-weight="bold" fill="#e8eaee" direction="rtl">قواعد چیدمان قالب</text>
-  <text class="s" x="1116" y="588" text-anchor="end" direction="rtl">1 — ویدیو و نوار بالا از نوع fixed هستند و از جریان چیدمان خارج‌اند؛ تنها کانتینر محتوا روی چیدمان اثر می‌گذارد.</text>
+  <text class="s" x="1116" y="588" text-anchor="end" direction="rtl">1 — ویدیو (پرکنندهٔ کانتینر) و نوار بالا از جریان چیدمان خارج‌اند؛ ارتفاع بنر را کانتینر ریشه تعیین می‌کند.</text>
   <text class="s" x="1116" y="618" text-anchor="end" direction="rtl">2 — فاصلهٔ بلوک‌ها با flex_gap خود کانتینر تنظیم می‌شود (20px موبایل / 24px دسکتاپ)، نه با حاشیهٔ کدی.</text>
   <text class="s" x="1116" y="648" text-anchor="end" direction="rtl">3 — هیچ المان HTML سفارشی و هیچ کد JavaScript یا CSS درون صفحه نیست؛ همهٔ رفتارها از دل ویجت‌ها می‌آیند.</text>
   <text class="s" x="1116" y="678" text-anchor="end" direction="rtl">4 — پس از درج قالب، هر گره در ویرایشگر المنتور باز می‌شود و کاملاً قابل ویرایش است.</text>

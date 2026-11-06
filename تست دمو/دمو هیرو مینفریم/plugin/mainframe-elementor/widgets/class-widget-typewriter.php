@@ -87,6 +87,44 @@ class Widget_Mainframe_Typewriter extends \Elementor\Widget_Base {
 			)
 		);
 
+		$this->add_control(
+			'start_on_view',
+			array(
+				'label'       => 'شروع هنگام دیده‌شدن',
+				'type'        => \Elementor\Controls_Manager::SWITCHER,
+				'label_on'    => 'روشن',
+				'label_off'   => 'خاموش',
+				'default'     => '',
+				'description' => 'روشن: تایپ فقط وقتی ویجت وارد دید صفحه شود شروع می‌شود (مناسب المان‌های پایین‌صفحه). خاموش: فوری هنگام لود (دمو).',
+			)
+		);
+
+		$this->add_control(
+			'loop',
+			array(
+				'label'       => 'تکرار (حلقه)',
+				'type'        => \Elementor\Controls_Manager::SWITCHER,
+				'label_on'    => 'روشن',
+				'label_off'   => 'خاموش',
+				'default'     => '',
+				'description' => 'روشن: پس از پایان تایپ، مکث کرده و دوباره از اول تایپ می‌شود.',
+			)
+		);
+
+		$this->add_control(
+			'loop_pause',
+			array(
+				'label'       => 'مکث بین تکرارها (میلی‌ثانیه)',
+				'type'        => \Elementor\Controls_Manager::NUMBER,
+				'default'     => 1200,
+				'min'         => 200,
+				'max'         => 10000,
+				'step'        => 100,
+				'condition'   => array( 'loop' => 'yes' ),
+				'description' => 'چقدر مکث کند قبل از شروع دوباره. 1200 مقدار پیشنهادی.',
+			)
+		);
+
 		$this->end_controls_section();
 
 		$this->start_controls_section(
@@ -94,6 +132,54 @@ class Widget_Mainframe_Typewriter extends \Elementor\Widget_Base {
 			array(
 				'label' => 'ظاهر متن',
 				'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
+			)
+		);
+
+		$this->add_control(
+			'align',
+			array(
+				'label'       => 'چیدمان متن',
+				'type'        => \Elementor\Controls_Manager::SELECT,
+				'default'     => 'start',
+				'options'     => array(
+					'start'  => 'از ابتدا (چپ در انگلیسی)',
+					'center' => 'وسط‌چین',
+					'end'    => 'از انتها (راست در انگلیسی)',
+					'left'   => 'چپ',
+					'right'  => 'راست',
+				),
+				'description' => 'چینش خط تایپ‌شده. تغییر آنی است و بدون رندر مجدد اعمال می‌شود.',
+				'selectors'   => array(
+					'{{WRAPPER}} .mf-typewriter' => 'text-align: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'letter_spacing',
+			array(
+				'label'       => 'فاصلهٔ حروف',
+				'type'        => \Elementor\Controls_Manager::TEXT,
+				'default'     => '',
+				'placeholder' => 'مثلاً: 0.05em یا 1px',
+				'description' => 'خالی = حالت عادی. تغییر آنی است.',
+				'selectors'   => array(
+					'{{WRAPPER}} .mf-typewriter' => 'letter-spacing: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'font_family',
+			array(
+				'label'       => 'فونت دلخواه',
+				'type'        => \Elementor\Controls_Manager::TEXT,
+				'default'     => '',
+				'placeholder' => "خالی = فونت متن سایت؛ مثال: 'Vazirmatn', sans-serif",
+				'description' => 'خالی بگذارید تا از فونت متن سایت استفاده شود (همان دمو). برای فونت تیتر: var(--mf-heading, inherit) وارد کنید. تغییر آنی است.',
+				'selectors'   => array(
+					'{{WRAPPER}} .mf-typewriter' => 'font-family: {{VALUE}};',
+				),
 			)
 		);
 
@@ -196,6 +282,26 @@ class Widget_Mainframe_Typewriter extends \Elementor\Widget_Base {
 			)
 		);
 
+		$this->add_control(
+			'cursor_blink',
+			array(
+				'label'       => 'سرعت چشمک',
+				'type'        => \Elementor\Controls_Manager::SELECT,
+				'default'     => '1s',
+				'options'     => array(
+					'1s'   => 'معمولی — ۱ ثانیه (دمو)',
+					'0.5s' => 'سریع — نیم ثانیه',
+					'2s'   => 'کند — ۲ ثانیه',
+					'0s'   => 'ثابت (بدون چشمک)',
+				),
+				'description' => 'دورهٔ چشمک‌زدن بصر. تغییر آنی است.',
+				'condition'   => array( 'cursor' => 'yes' ),
+				'selectors'   => array(
+					'{{WRAPPER}} .mf-typewriter-cursor' => 'animation-duration: {{VALUE}};',
+				),
+			)
+		);
+
 		$this->end_controls_section();
 	}
 
@@ -212,11 +318,14 @@ class Widget_Mainframe_Typewriter extends \Elementor\Widget_Base {
 		$this->add_render_attribute(
 			'wrap',
 			array(
-				'class'      => 'mf-typewriter',
-				'style'      => $style,
-				'data-text'  => $settings['text'],
-				'data-speed' => (string) mf_num( $settings['speed'], 38 ),
-				'data-delay' => (string) mf_num( $settings['delay'], 600 ),
+				'class'          => 'mf-typewriter',
+				'style'          => $style,
+				'data-text'      => $settings['text'],
+				'data-speed'     => (string) mf_num( $settings['speed'], 38 ),
+				'data-delay'     => (string) mf_num( $settings['delay'], 600 ),
+				'data-loop'      => 'yes' === ( isset( $settings['loop'] ) ? $settings['loop'] : '' ) ? '1' : '0',
+				'data-loop-pause' => (string) mf_num( isset( $settings['loop_pause'] ) ? $settings['loop_pause'] : null, 1200 ),
+				'data-onview'    => 'yes' === ( isset( $settings['start_on_view'] ) ? $settings['start_on_view'] : '' ) ? '1' : '0',
 			)
 		);
 

@@ -71,6 +71,46 @@ class Widget_Mainframe_Intro_Label extends \Elementor\Widget_Base {
 		);
 
 		$this->add_control(
+			'show_line2',
+			array(
+				'label'       => 'نمایش خط دوم',
+				'type'        => \Elementor\Controls_Manager::SWITCHER,
+				'label_on'    => 'روشن',
+				'label_off'   => 'خاموش',
+				'default'     => 'yes',
+				'description' => 'خاموش: فقط خط اول نمایش داده می‌شود.',
+			)
+		);
+
+		$this->add_control(
+			'entrance',
+			array(
+				'label'       => 'انیمیشن ورود',
+				'type'        => \Elementor\Controls_Manager::SELECT,
+				'default'     => '',
+				'options'     => array(
+					''       => 'هیچ (دمو — بدون انیمیشن)',
+					'fade'   => 'محو شدن',
+					'fade-up' => 'محو + بالا آمدن',
+				),
+				'description' => 'هنگام ورود به صفحه چگونه ظاهر شود. با هر رندر مجدد در ادیتور دوباره اجرا می‌شود تا نتیجه را ببینید.',
+			)
+		);
+
+		$this->add_control(
+			'entrance_duration',
+			array(
+				'label'       => 'مدت انیمیشن (میلی‌ثانیه)',
+				'type'        => \Elementor\Controls_Manager::NUMBER,
+				'default'     => 800,
+				'min'         => 100,
+				'max'         => 3000,
+				'step'        => 50,
+				'description' => 'فقط وقتی انیمیشن ورود فعال باشد اعمال می‌شود.',
+			)
+		);
+
+		$this->add_control(
 			'blur',
 			array(
 				'label'       => 'میزان تاری (پیکسل)',
@@ -90,6 +130,70 @@ class Widget_Mainframe_Intro_Label extends \Elementor\Widget_Base {
 			array(
 				'label' => 'ظاهر',
 				'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
+			)
+		);
+
+		$this->add_control(
+			'align',
+			array(
+				'label'       => 'چیدمان متن',
+				'type'        => \Elementor\Controls_Manager::SELECT,
+				'default'     => 'start',
+				'options'     => array(
+					'start'  => 'از ابتدا (چپ در انگلیسی)',
+					'center' => 'وسط‌چین',
+					'end'    => 'از انتها (راست در انگلیسی)',
+					'left'   => 'چپ',
+					'right'  => 'راست',
+				),
+				'description' => 'تغییر آنی است و بدون رندر مجدد اعمال می‌شود.',
+				'selectors'   => array(
+					'{{WRAPPER}} .mf-intro' => 'text-align: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'opacity',
+			array(
+				'label'       => 'شفافیت (درصد)',
+				'type'        => \Elementor\Controls_Manager::NUMBER,
+				'default'     => 100,
+				'min'         => 0,
+				'max'         => 100,
+				'step'        => 1,
+				'description' => '100 = دیده‌شدن کامل (دمو). برای محوتر شدن کم کنید. تغییر آنی است.',
+				'selectors'   => array(
+					'{{WRAPPER}} .mf-intro' => 'opacity: calc({{VALUE}} / 100);',
+				),
+			)
+		);
+
+		$this->add_control(
+			'letter_spacing',
+			array(
+				'label'       => 'فاصلهٔ حروف',
+				'type'        => \Elementor\Controls_Manager::TEXT,
+				'default'     => '',
+				'placeholder' => 'مثلاً: 0.03em',
+				'description' => 'خالی = حالت عادی. تغییر آنی است.',
+				'selectors'   => array(
+					'{{WRAPPER}} .mf-intro' => 'letter-spacing: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'font_family',
+			array(
+				'label'       => 'فونت دلخواه',
+				'type'        => \Elementor\Controls_Manager::TEXT,
+				'default'     => '',
+				'placeholder' => "خالی = فونت متن سایت؛ مثال: 'Vazirmatn', sans-serif",
+				'description' => 'خالی = فونت متن سایت (دمو). برای فونت تیتر: var(--mf-heading, inherit). تغییر آنی است.',
+				'selectors'   => array(
+					'{{WRAPPER}} .mf-intro' => 'font-family: {{VALUE}};',
+				),
 			)
 		);
 
@@ -164,10 +268,17 @@ class Widget_Mainframe_Intro_Label extends \Elementor\Widget_Base {
 			. 'font-weight:' . esc_attr( $settings['weight'] ) . ';'
 			. 'direction:' . esc_attr( $settings['direction'] ) . ';';
 
+		$entrance = isset( $settings['entrance'] ) ? $settings['entrance'] : '';
+		$classes  = array( 'mf-intro' );
+		if ( $entrance ) {
+			$classes[] = 'mf-intro--' . sanitize_html_class( $entrance );
+			$wrap_style .= '--mf-intro-dur:' . intval( mf_num( isset( $settings['entrance_duration'] ) ? $settings['entrance_duration'] : null, 800 ) ) . 'ms;';
+		}
+
 		$this->add_render_attribute(
 			'wrap',
 			array(
-				'class' => 'mf-intro',
+				'class' => $classes,
 				'style' => $wrap_style,
 			)
 		);
@@ -180,11 +291,15 @@ class Widget_Mainframe_Intro_Label extends \Elementor\Widget_Base {
 			)
 		);
 
+		$show_line2 = 'yes' === ( isset( $settings['show_line2'] ) ? $settings['show_line2'] : 'yes' );
+
 		echo '<div ' . $this->get_render_attribute_string( 'wrap' ) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput
 		echo '<div ' . $this->get_render_attribute_string( 'blur' ) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput
 		echo esc_html( $settings['line1'] );
-		echo '<br>';
-		echo esc_html( $settings['line2'] );
+		if ( $show_line2 && '' !== (string) $settings['line2'] ) {
+			echo '<br>';
+			echo esc_html( $settings['line2'] );
+		}
 		echo '</div>';
 		echo '</div>';
 	}

@@ -7,6 +7,7 @@
         "content_width": "full",
         "container_type": "flex",
         "flex_direction": "column",
+        "css_classes": "mf-hero",
         "justify_content": "center",
         "justify_content_tablet": "center",
         "justify_content_mobile": "flex-end",
@@ -66,12 +67,7 @@
             },
             "sensitivity": 0.8,
             "object_position": "70% center",
-            "fixed_mode": "yes",
-            "height": {
-              "unit": "px",
-              "size": 420,
-              "sizes": []
-            },
+            "position_mode": "fill",
             "z_index": 0,
             "autoplay": "",
             "muted": "yes",
@@ -133,7 +129,7 @@
               "url": "#"
             },
             "links_size": 23,
-            "position": "fixed",
+            "position": "absolute",
             "z_index": 10,
             "padding": {
               "unit": "px",
@@ -177,6 +173,8 @@
             "content_width": "boxed",
             "container_type": "flex",
             "flex_direction": "column",
+            "position": "relative",
+            "z_index": 1,
             "width": {
               "unit": "%",
               "size": 100,

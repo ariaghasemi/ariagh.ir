@@ -34,6 +34,27 @@ function mf_num( $v, $default = 0 ) {
 	return is_numeric( $v ) ? $v + 0 : $default;
 }
 
+/**
+ * ویژگی‌های target/rel برای لینک‌های کنترل URL (باز شدن در پنجرهٔ جدید / nofollow).
+ * خروجی: رشتهٔ آمادهٔ درج در تگ <a> (با فاصلهٔ ابتدا) یا رشتهٔ خالی.
+ */
+function mf_link_target( $link ) {
+	$link = is_array( $link ) ? $link : array();
+	$rel  = '';
+	$attr = '';
+	if ( ! empty( $link['is_external'] ) ) {
+		$attr = ' target="_blank"';
+		$rel  = 'noopener';
+	}
+	if ( ! empty( $link['nofollow'] ) ) {
+		$rel = trim( $rel . ' nofollow' );
+	}
+	if ( $rel ) {
+		$attr .= ' rel="' . esc_attr( $rel ) . '"';
+	}
+	return $attr;
+}
+
 class Mainframe_Plugin {
 
 	/** @var Mainframe_Plugin */
@@ -187,7 +208,8 @@ class Mainframe_Plugin {
 		wp_register_script(
 			'mainframe-frontend',
 			MF_URL . 'assets/js/mainframe-frontend.js',
-			array(),
+			// بدون این وابستگی، هوک‌های elementorFrontend در ادیتور ممکن است هنوز آماده نباشند.
+			array( 'elementor-frontend' ),
 			MF_VERSION,
 			true
 		);

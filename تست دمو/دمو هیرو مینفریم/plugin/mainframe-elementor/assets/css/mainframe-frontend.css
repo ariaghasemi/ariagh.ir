@@ -17,7 +17,7 @@
   margin-left: 2px;
   background: #fff;
   vertical-align: middle;
-  animation: mf-blink 1s step-end infinite;
+  animation: mf-blink var(--mf-cursor-blink, 1s) step-end infinite;
 }
 
 @keyframes mf-blink {
@@ -39,11 +39,29 @@
   display: block;
 }
 
+/* انیمیشن ورود (کنترل «انیمیشن ورود») */
+.mf-intro--fade {
+  animation: mf-intro-fade var(--mf-intro-dur, 800ms) ease backwards;
+}
+
+.mf-intro--fade-up {
+  animation: mf-intro-fade-up var(--mf-intro-dur, 800ms) ease backwards;
+}
+
+@keyframes mf-intro-fade {
+  from { opacity: 0; }
+}
+
+@keyframes mf-intro-fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+}
+
 /* ─────────── دکمه‌های قرصی ─────────── */
 .mf-pills {
   display: flex;
   flex-wrap: wrap;
-  row-gap: 4px;
+  /* معادل دقیق فاصله‌های دمو (marginهای قبلی): عمودی 4px+0.4em، افقی 0.4em */
+  gap: calc(4px + 0.4em) 0.4em;
   margin: 0;
   direction: ltr;
   font-family: var(--mf-body, inherit);
@@ -70,7 +88,7 @@
   justify-content: center;
   white-space: nowrap;
   border-radius: 9999px;
-  margin: 0 0.2em 0.4em;          /* دمو: mx-[0.2em] mb-[0.4em] */
+  margin: 0;                     /* فاصله‌ها با gap ردیف (بالا) */
   padding: 0.3em 16px;            /* دمو: py-[0.3em] px-4 */
   font-size: inherit;
   font-family: inherit;
@@ -121,6 +139,12 @@
   flex: none;
 }
 
+/* ─────────── کانتینر هیرو (قالب بنر) ─────────── */
+.mf-hero {
+  overflow: hidden;                /* بریدن ویدیو و نوار به مرزهای بنر */
+  isolation: isolate;              /* حبس z-index ها داخل بنر */
+}
+
 /* ─────────── ویدیوی حرکت با ماوس ─────────── */
 .mf-scrub {
   display: block;
@@ -131,8 +155,45 @@
   pointer-events: none;            /* کلیک‌ها به محتوا برسد؛ scrub روی window است */
 }
 
+/* حالت پرکردن کانتینر (بنر هیرو) */
+.mf-scrub--fill {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* ریشهٔ ویجت کل کانتینر پدر را بگیرد (کلاس از PHP + پشتیبان :has) */
+.elementor-widget.mf-scrub-host,
+.elementor-widget:has(> .elementor-widget-container > .mf-scrub--fill),
+.elementor-widget:has(> .mf-scrub--fill) {
+  position: absolute !important;
+  inset: 0 !important;
+  margin: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.elementor-widget.mf-scrub-host > .elementor-widget-container {
+  height: 100%;
+}
+
+/* پوشش رنگی (کنترل‌های رنگ/شفافیت selector دارند) */
+.mf-scrub-overlay {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* پنهان‌سازی در موبایل */
+@media (max-width: 767px) {
+  .mf-scrub--hide-mobile { display: none !important; }
+}
+
 .mf-scrub video {
   display: block;
+  object-fit: cover;               /* پیش‌فرض دمو — با کنترل selector جایگزین می‌شود */
 }
 
 /* ─────────── نوار بالا ─────────── */
@@ -140,6 +201,12 @@
   direction: ltr;
   font-family: var(--mf-body, inherit);
   color: #fff;
+  transition: transform 0.3s ease;
+}
+
+/* پنهان‌شدن هنگام اسکرول به پایین (کنترل «پنهان هنگام اسکرول») */
+.mf-nav--hide-on-scroll.mf-nav--hidden {
+  transform: translateY(-100%);
 }
 
 .mf-navbar-bar {
@@ -164,6 +231,12 @@
   font-size: var(--mf-logo, 26px);
   font-weight: 500;
   letter-spacing: -0.025em;        /* دمو: tracking-tight */
+}
+
+.mf-logo-img {
+  display: block;
+  height: var(--mf-logo, 26px);
+  width: auto;
 }
 
 .mf-mark {
@@ -206,7 +279,7 @@
 .mf-burger {
   display: none;
   flex-direction: column;
-  gap: 5px;                        /* دمو: gap-[5px] */
+  gap: var(--mf-burger-gap, 5px);  /* دمو: gap-[5px] — با کنترل قابل تنظیم */
   padding: 4px;
   background: none;
   border: 0;
@@ -220,8 +293,9 @@
   transition: transform 0.3s ease, opacity 0.3s ease; /* دمو: duration-300 */
 }
 
+/* حالت باز: X با فاصلهٔ خطوط هماهنگ (gap + ارتفاع خط) */
 .mf-navbar.is-open .mf-burger span:nth-child(1) {
-  transform: translateY(7px) rotate(45deg);
+  transform: translateY(calc(var(--mf-burger-gap, 5px) + 2px)) rotate(45deg);
 }
 
 .mf-navbar.is-open .mf-burger span:nth-child(2) {
@@ -229,7 +303,7 @@
 }
 
 .mf-navbar.is-open .mf-burger span:nth-child(3) {
-  transform: translateY(-7px) rotate(-45deg);
+  transform: translateY(calc(-1 * (var(--mf-burger-gap, 5px) + 2px))) rotate(-45deg);
 }
 
 /* اورلی موبایل */
@@ -292,16 +366,23 @@
 
 /* ─────────── واکنش‌گرایی مقادیر نوار ─────────── */
 .mf-logo-text { font-size: var(--mf-logo, 26px); }
+.mf-logo-img { height: var(--mf-logo, 26px); }
 .mf-mark { font-size: var(--mf-mark, 30px); }
 
 @media (min-width: 768px) and (max-width: 1024px) {
   .mf-navbar-bar { padding: var(--mf-nav-pad-t, var(--mf-nav-pad)); }
   .mf-logo-text { font-size: var(--mf-logo-t, var(--mf-logo)); }
+  .mf-logo-img { height: var(--mf-logo-t, var(--mf-logo)); }
   .mf-mark { font-size: var(--mf-mark-t, var(--mf-mark)); }
+  .mf-nav-links,
+  .mf-nav-cta { font-size: var(--mf-links-t, var(--mf-links, 23px)); }
 }
 
 @media (max-width: 767px) {
   .mf-navbar-bar { padding: var(--mf-nav-pad-m, var(--mf-nav-pad)); }
   .mf-logo-text { font-size: var(--mf-logo-m, var(--mf-logo)); }
+  .mf-logo-img { height: var(--mf-logo-m, var(--mf-logo)); }
   .mf-mark { font-size: var(--mf-mark-m, var(--mf-mark)); }
+  .mf-nav-links,
+  .mf-nav-cta { font-size: var(--mf-links-m, var(--mf-links, 23px)); }
 }

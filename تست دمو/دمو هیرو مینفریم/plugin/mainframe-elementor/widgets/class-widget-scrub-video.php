@@ -5,6 +5,11 @@
  * رفتار: ویدیو با حرکت افقی ماوس جلو/عقب می‌رود.
  * قانون: offset = (delta ÷ عرض پنجره) × حساسیت × duration
  * صف seek: فقط یک seek همزمان؛ با onSeeked در صورت جا افتادن هدف، seek بعدی.
+ *
+ * حالت‌های قرارگیری (position_mode):
+ *  - fill  = پرکردن کانتینر (بنر هیرو — پیش‌فرض)؛ ریشهٔ ویجت absolute می‌شود
+ *  - box   = جعبه‌ای در جریان محتوا با ارتفاع دلخواه
+ *  - fixed = تمام‌صفحه ثابت (کل پنجره را می‌پوشاند)
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -30,7 +35,7 @@ class Widget_Mainframe_Scrub_Video extends \Elementor\Widget_Base {
 	}
 
 	public function get_keywords() {
-		return array( 'ویدیو', 'ماوس', 'اسکرول', 'کاراکتر', 'mousemove', 'scrub' );
+		return array( 'ویدیو', 'ماوس', 'اسکرول', 'کاراکتر', 'mousemove', 'scrub', 'بنر', 'هیرو' );
 	}
 
 	public function get_script_depends() {
@@ -39,6 +44,35 @@ class Widget_Mainframe_Scrub_Video extends \Elementor\Widget_Base {
 
 	public function get_style_depends() {
 		return array( 'mainframe-frontend' );
+	}
+
+	/**
+	 * حالت قرارگیری — با پشتیبانی از دادهٔ ذخیره‌شدهٔ نسخه‌های قبلی (fixed_mode).
+	 */
+	private function mf_position_mode() {
+		// دادهٔ خام ذخیره‌شده (بدون اعمال پیش‌فرض‌ها) — برای تشخیص نسخهٔ قدیمی.
+		$raw = array();
+		if ( method_exists( $this, 'get_data' ) ) {
+			$raw = $this->get_data( 'settings' );
+		}
+		if ( is_array( $raw ) && array_key_exists( 'fixed_mode', $raw ) && ! array_key_exists( 'position_mode', $raw ) ) {
+			return 'yes' === $raw['fixed_mode'] ? 'fixed' : 'box';
+		}
+		$settings = $this->get_settings();
+		$mode     = isset( $settings['position_mode'] ) && $settings['position_mode'] ? $settings['position_mode'] : 'fill';
+		return in_array( $mode, array( 'fill', 'box', 'fixed' ), true ) ? $mode : 'fill';
+	}
+
+	/**
+	 * کلاس اضافی روی ریشهٔ ویجت — در حالت fill باعث می‌شود ریشه کل کانتینر را بگیرد.
+	 * (پیش از چاپ تگ ریشه اجرا می‌شود؛ هر بار رندر.)
+	 */
+	protected function get_html_wrapper_class() {
+		$class = parent::get_html_wrapper_class();
+		if ( 'fill' === $this->mf_position_mode() ) {
+			$class .= ' mf-scrub-host';
+		}
+		return $class;
 	}
 
 	protected function register_controls() {
@@ -67,9 +101,9 @@ class Widget_Mainframe_Scrub_Video extends \Elementor\Widget_Base {
 				'label'       => 'لینک ویدیو',
 				'type'        => \Elementor\Controls_Manager::URL,
 				'default'     => array(
-					'url' => 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260826_041744_63efcd78-bf7d-4039-99e2-2461e8a61903.mp4',
-					'is_external' => true,
-					'nofollow'    => true,
+					'url'          => 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260826_041744_63efcd78-bf7d-4039-99e2-2461e8a61903.mp4',
+					'is_external'  => true,
+					'nofollow'     => true,
 				),
 				'description' => 'برای ویدیویی که روی سرور دیگری میزبانی می‌شود. پیش‌فرض، ویدیوی ابری دموی Mainframe است. حتماً با https:// شروع شود.',
 				'condition'   => array( 'video_media' => '' ),
@@ -81,8 +115,23 @@ class Widget_Mainframe_Scrub_Video extends \Elementor\Widget_Base {
 		$this->start_controls_section(
 			'section_behavior',
 			array(
-				'label' => 'رفتار حرکت',
+				'label' => 'رفتار حرکت و قرارگیری',
 				'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
+			)
+		);
+
+		$this->add_control(
+			'position_mode',
+			array(
+				'label'       => 'حالت قرارگیری',
+				'type'        => \Elementor\Controls_Manager::SELECT,
+				'default'     => 'fill',
+				'options'     => array(
+					'fill'  => 'پرکردن کانتینر — بنر هیرو (پیش‌فرض)',
+					'box'   => 'جعبه‌ای — در جریان محتوا با ارتفاع دلخواه',
+					'fixed' => 'تمام‌صفحه ثابت — پوشش کل پنجره',
+				),
+				'description' => 'fill: ویدیو کل کانتینر پدر را مثل بنر اسلایدر پر می‌کند و ارتفاع از کانتینر می‌آید (تنظیمات کانتینر ← چیدمان ← حداقل ارتفاع). fixed: مثل نسخه‌های قبل، روی کل صفحه ثابت. box: ویدیو عضوی از جریان محتواست.',
 			)
 		);
 
@@ -110,14 +159,86 @@ class Widget_Mainframe_Scrub_Video extends \Elementor\Widget_Base {
 		);
 
 		$this->add_control(
-			'fixed_mode',
+			'object_fit',
 			array(
-				'label'       => 'تمام‌صفحه ثابت',
+				'label'       => 'نحوهٔ پر کردن قاب (object-fit)',
+				'type'        => \Elementor\Controls_Manager::SELECT,
+				'default'     => 'cover',
+				'options'     => array(
+					'cover'       => 'cover — پر کردن بدون حاشیه (دمو)',
+					'contain'     => 'contain — نمایش کامل با حاشیه',
+					'fill'        => 'fill — کشیدگی تا اندازهٔ قاب',
+					'scale-down'  => 'scale-down — کوچک‌تر از هر دو',
+				),
+				'description' => 'ویدیو چگونه داخل قاب جا شود. تغییر آنی است و بدون رندر مجدد اعمال می‌شود.',
+				'selectors'   => array(
+					'{{WRAPPER}} .mf-scrub video' => 'object-fit: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'overlay_color',
+			array(
+				'label'       => 'پوشش رنگی روی ویدیو',
+				'type'        => \Elementor\Controls_Manager::COLOR,
+				'default'     => '#000000',
+				'description' => 'رنگ لایهٔ نیمه‌شفاف روی ویدیو برای خوانایی بهتر متن. به‌تنهایی اثری ندارد؛ شفافیت آن را با گزینهٔ کنترل کنید.',
+				'selectors'   => array(
+					'{{WRAPPER}} .mf-scrub-overlay' => 'background-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'overlay_opacity',
+			array(
+				'label'       => 'شفافیت پوشش (درصد)',
+				'type'        => \Elementor\Controls_Manager::NUMBER,
+				'default'     => 0,
+				'min'         => 0,
+				'max'         => 100,
+				'step'        => 1,
+				'description' => '0 = بدون پوشش (دمو). 30 تا 50 برای خوانایی متن روی ویدیوی شلوغ مناسب است. تغییر آنی است.',
+				'selectors'   => array(
+					'{{WRAPPER}} .mf-scrub-overlay' => 'opacity: calc({{VALUE}} / 100);',
+				),
+			)
+		);
+
+		$this->add_control(
+			'touch_scrub',
+			array(
+				'label'       => 'اسکرول لمسی (موبایل)',
 				'type'        => \Elementor\Controls_Manager::SWITCHER,
 				'label_on'    => 'روشن',
 				'label_off'   => 'خاموش',
 				'default'     => 'yes',
-				'description' => 'روشن: ویدیو position:fixed می‌شود و تمام صفحه را مثل دمو می‌پوشاند (پشت محتوا، لایهٔ 0). خاموش: ویدیو داخل جریان محتوا می‌ماند و به‌عنوان «کاراکتر» یا ویدیوی جعبه‌ای با ارتفاع دلخواه استفاده می‌شود.',
+				'description' => 'روشن: کشیدن افقی انگشت روی ویدیو، آن را جلو/عقب می‌برد. کشیدن عمودی همچنان اسکرول صفحه را انجام می‌دهد (قفل محور هوشمند — بدون اختلال در اسکرول).',
+			)
+		);
+
+		$this->add_control(
+			'reverse',
+			array(
+				'label'       => 'جهت معکوس',
+				'type'        => \Elementor\Controls_Manager::SWITCHER,
+				'label_on'    => 'روشن',
+				'label_off'   => 'خاموش',
+				'default'     => '',
+				'description' => 'روشن: حرکت ماوس به راست، ویدیو را به عقب می‌برد. برای ویدیوهایی که جهت طبیعی‌شان برعکس است.',
+			)
+		);
+
+		$this->add_control(
+			'hide_mobile',
+			array(
+				'label'       => 'پنهان در موبایل',
+				'type'        => \Elementor\Controls_Manager::SWITCHER,
+				'label_on'    => 'روشن',
+				'label_off'   => 'خاموش',
+				'default'     => '',
+				'description' => 'روشن: در صفحه‌های کمتر از ۷۶۸ پیکسل ویدیو نمایش داده نمی‌شود (صرفه‌جویی در توجه و بارگذاری). برای این حالت به کانتینر پدر پس‌زمینه بدهید تا خالی دیده نشود.',
 			)
 		);
 
@@ -132,7 +253,8 @@ class Widget_Mainframe_Scrub_Video extends \Elementor\Widget_Base {
 					'px' => array( 'min' => 120, 'max' => 1200 ),
 					'vh' => array( 'min' => 10, 'max' => 100 ),
 				),
-				'description' => 'فقط وقتی «تمام‌صفحه ثابت» خاموش باشد اعمال می‌شود؛ در حالت تمام‌صفحه نادیده گرفته می‌شود.',
+				'description' => 'فقط در حالت «جعبه‌ای» اعمال می‌شود. در حالت پرکردن، ارتفاع از کانتینر پدر می‌آید.',
+				'condition'   => array( 'position_mode' => 'box' ),
 			)
 		);
 
@@ -144,8 +266,8 @@ class Widget_Mainframe_Scrub_Video extends \Elementor\Widget_Base {
 				'default'     => 0,
 				'min'         => -10,
 				'max'         => 99,
-				'description' => 'در حالت تمام‌صفحه، 0 یعنی پشت محتوا (همان دمو). عدد منفی عمیق‌تر، عدد مثبت جلوتر.',
-				'condition'   => array( 'fixed_mode' => 'yes' ),
+				'description' => '0 یعنی پشت محتوا (همان دمو). در حالت پرکردن، محتوای روی ویدیو باید z-index بزرگ‌تر داشته باشد (در قالب آماده محتوا 1 و نوار بالا 10 است).',
+				'condition'   => array( 'position_mode!' => 'box' ),
 			)
 		);
 
@@ -186,6 +308,19 @@ class Widget_Mainframe_Scrub_Video extends \Elementor\Widget_Base {
 				'type'        => \Elementor\Controls_Manager::SWITCHER,
 				'default'     => '',
 				'description' => 'در پایان ویدیو از اول شروع شود. دمو خاموش است؛ برای پس‌زمینه‌های دائمی روشن کنید.',
+			)
+		);
+
+		$this->add_control(
+			'start_offset',
+			array(
+				'label'       => 'شروع از (ثانیه)',
+				'type'        => \Elementor\Controls_Manager::NUMBER,
+				'default'     => 0,
+				'min'         => 0,
+				'max'         => 3600,
+				'step'        => 0.5,
+				'description' => 'ویدیو به‌جای ثانیهٔ صفر، از این لحظه شروع شود (مثلاً 5 تا از صحنهٔ وسط). 0 یعنی ابتدای ویدیو.',
 			)
 		);
 
@@ -231,20 +366,38 @@ class Widget_Mainframe_Scrub_Video extends \Elementor\Widget_Base {
 			return;
 		}
 
-		$fixed = 'yes' === $settings['fixed_mode'];
+		$mode = $this->mf_position_mode();
+		$z    = intval( mf_num( isset( $settings['z_index'] ) ? $settings['z_index'] : null, 0 ) );
 
-		$wrap_style = $fixed
-			? 'position:fixed;inset:0;z-index:' . intval( $settings['z_index'] ) . ';'
-			: 'position:relative;width:100%;height:' . esc_attr( mf_dim_unit( $settings['height'] ) ) . ';overflow:hidden;';
+		$wrap_class = array( 'mf-scrub' );
+		$wrap_style = '';
 
-		$this->add_render_attribute(
-			'wrap',
-			array(
-				'class'     => array( 'mf-scrub', $fixed ? 'mf-scrub--fixed' : 'mf-scrub--box' ),
-				'data-sensitivity' => str_replace( ',', '.', (string) mf_num( $settings['sensitivity'], 0.8 ) ),
-				'style'     => $wrap_style,
-			)
+		if ( 'fixed' === $mode ) {
+			$wrap_class[] = 'mf-scrub--fixed';
+			$wrap_style   = 'position:fixed;inset:0;z-index:' . $z . ';';
+		} elseif ( 'box' === $mode ) {
+			$wrap_class[] = 'mf-scrub--box';
+			$wrap_style   = 'position:relative;width:100%;height:' . esc_attr( mf_dim_unit( $settings['height'] ) ) . ';overflow:hidden;z-index:' . $z . ';';
+		} else {
+			// fill — ریشه با کلاس mf-scrub-host کل کانتینر را می‌گیرد؛ این لایه داخل آن را پر می‌کند.
+			$wrap_class[] = 'mf-scrub--fill';
+			$wrap_style   = 'position:absolute;inset:0;z-index:' . $z . ';overflow:hidden;pointer-events:none;';
+		}
+
+		if ( 'yes' === ( isset( $settings['hide_mobile'] ) ? $settings['hide_mobile'] : '' ) ) {
+			$wrap_class[] = 'mf-scrub--hide-mobile';
+		}
+
+		$attrs = array(
+			'class'          => $wrap_class,
+			'data-sensitivity' => str_replace( ',', '.', (string) mf_num( $settings['sensitivity'], 0.8 ) ),
+			'data-reverse'   => 'yes' === ( isset( $settings['reverse'] ) ? $settings['reverse'] : '' ) ? '1' : '0',
+			'data-touch'     => 'yes' === ( isset( $settings['touch_scrub'] ) ? $settings['touch_scrub'] : 'yes' ) ? '1' : '0',
+			'data-start'     => (string) mf_num( isset( $settings['start_offset'] ) ? $settings['start_offset'] : null, 0 ),
+			'style'          => $wrap_style,
 		);
+
+		$this->add_render_attribute( 'wrap', $attrs );
 
 		$video_attr = array(
 			'src'     => $video_url,
@@ -265,11 +418,13 @@ class Widget_Mainframe_Scrub_Video extends \Elementor\Widget_Base {
 		$video_attr['playsinline'] = '';
 		$this->add_render_attribute( 'video', $video_attr );
 
-		$video_style = 'width:100%;height:100%;object-fit:cover;object-position:'
+		// object-fit از کنترل selector (CSS زنده) می‌آید — فقط بقیهٔ استایل‌ها inline.
+		$video_style = 'width:100%;height:100%;object-position:'
 			. esc_attr( $settings['object_position'] ? $settings['object_position'] : '70% center' ) . ';display:block;';
 
 		echo '<div ' . $this->get_render_attribute_string( 'wrap' ) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput
 		echo '<video ' . $this->get_render_attribute_string( 'video' ) . ' style="' . esc_attr( $video_style ) . '"></video>'; // phpcs:ignore WordPress.Security.EscapeOutput
+		echo '<div class="mf-scrub-overlay" aria-hidden="true"></div>'; // phpcs:ignore WordPress.Security.EscapeOutput
 		echo '</div>';
 	}
 }
@@ -277,12 +432,10 @@ class Widget_Mainframe_Scrub_Video extends \Elementor\Widget_Base {
 /**
  * تبدیل خروجی اسلایدر به رشتهٔ واحددار (مثلاً 420px).
  */
-if ( ! function_exists( 'mf_dim_unit' ) ) {
-	function mf_dim_unit( $v ) {
-		if ( ! is_array( $v ) || empty( $v['size'] ) ) {
-			return '420px';
-		}
-		$unit = isset( $v['unit'] ) && $v['unit'] ? $v['unit'] : 'px';
-		return $v['size'] . $unit;
+function mf_dim_unit( $v ) {
+	if ( ! is_array( $v ) || empty( $v['size'] ) ) {
+		return '420px';
 	}
+	$unit = isset( $v['unit'] ) && $v['unit'] ? $v['unit'] : 'px';
+	return $v['size'] . $unit;
 }

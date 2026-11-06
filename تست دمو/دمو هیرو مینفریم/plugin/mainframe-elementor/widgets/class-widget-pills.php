@@ -201,6 +201,29 @@ class Widget_Mainframe_Pills extends \Elementor\Widget_Base {
 			)
 		);
 
+		$this->add_control(
+			'copy_feedback',
+			array(
+				'label'       => 'متن بازخورد کپی',
+				'type'        => \Elementor\Controls_Manager::TEXT,
+				'default'     => 'کپی شد',
+				'description' => 'پس از کپی موفق ایمیل، متن دکمه موقتاً به این عبارت تغییر می‌کند و پس از مدت زیر برمی‌گردد. خالی = بدون بازخورد.',
+			)
+		);
+
+		$this->add_control(
+			'copy_duration',
+			array(
+				'label'       => 'مدت نمایش بازخورد (میلی‌ثانیه)',
+				'type'        => \Elementor\Controls_Manager::NUMBER,
+				'default'     => 1600,
+				'min'         => 400,
+				'max'         => 5000,
+				'step'        => 100,
+				'description' => 'چند میلی‌ثانیه متن «کپی شد» نمایش داده شود.',
+			)
+		);
+
 		$this->end_controls_section();
 
 		$this->start_controls_section(
@@ -208,6 +231,84 @@ class Widget_Mainframe_Pills extends \Elementor\Widget_Base {
 			array(
 				'label' => 'ظاهر',
 				'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
+			)
+		);
+
+		$this->add_control(
+			'direction',
+			array(
+				'label'       => 'جهت ردیف',
+				'type'        => \Elementor\Controls_Manager::SELECT,
+				'default'     => 'ltr',
+				'options'     => array(
+					'ltr' => 'چپ به راست (دمو)',
+					'rtl' => 'راست به چپ — برای سایت فارسی',
+				),
+				'description' => 'ترتیب قرارگیری دکمه‌ها. تغییر آنی است.',
+				'selectors'   => array(
+					'{{WRAPPER}} .mf-pills' => 'direction: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'justify',
+			array(
+				'label'       => 'چیدمان افقی',
+				'type'        => \Elementor\Controls_Manager::SELECT,
+				'default'     => 'flex-start',
+				'options'     => array(
+					'flex-start'  => 'چسبیده به شروع (دمو)',
+					'center'      => 'وسط‌چین',
+					'flex-end'    => 'چسبیده به انتها',
+					'space-between' => 'همه‌جا (توزیع مساوی)',
+				),
+				'description' => 'تغییر آنی است.',
+				'selectors'   => array(
+					'{{WRAPPER}} .mf-pills' => 'justify-content: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'gap',
+			array(
+				'label'       => 'فاصلهٔ بین دکمه‌ها',
+				'type'        => \Elementor\Controls_Manager::TEXT,
+				'default'     => '',
+				'placeholder' => 'خالی = دمو؛ مثال: 12px یا 12px 8px (عمودی افقی)',
+				'description' => 'خالی بگذارید تا فاصلهٔ دقیق دمو اعمال شود. مقدار CSS: «12px» یا «8px 12px». تغییر آنی است.',
+				'selectors'   => array(
+					'{{WRAPPER}} .mf-pills' => 'gap: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'radius',
+			array(
+				'label'       => 'گِردی گوشه',
+				'type'        => \Elementor\Controls_Manager::TEXT,
+				'default'     => '',
+				'placeholder' => 'خالی = کاملاً گرد (9999px)؛ مثال: 8px',
+				'description' => 'خالی = قرص کاملاً گرد (دمو). مقدار دلخواه مثل 10px برای گوشه‌های کمتر. تغییر آنی است.',
+				'selectors'   => array(
+					'{{WRAPPER}} .mf-pill' => 'border-radius: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'padding',
+			array(
+				'label'       => 'حاشیهٔ داخلی دکمه',
+				'type'        => \Elementor\Controls_Manager::TEXT,
+				'default'     => '',
+				'placeholder' => 'خالی = دمو؛ مثال: 10px 22px (عمودی افقی)',
+				'description' => 'خالی = اندازهٔ دمو (0.3em 16px). مقدار CSS دلخواه وارد کنید. تغییر آنی است.',
+				'selectors'   => array(
+					'{{WRAPPER}} .mf-pill' => 'padding: {{VALUE}};',
+				),
 			)
 		);
 
@@ -340,6 +441,9 @@ class Widget_Mainframe_Pills extends \Elementor\Widget_Base {
 
 		echo '<div ' . $this->get_render_attribute_string( 'wrap' ) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput
 
+		$copy_fb   = isset( $settings['copy_feedback'] ) ? $settings['copy_feedback'] : 'کپی شد';
+		$copy_dur  = intval( mf_num( isset( $settings['copy_duration'] ) ? $settings['copy_duration'] : null, 1600 ) );
+
 		foreach ( $items as $item ) {
 			$type  = isset( $item['type'] ) ? $item['type'] : 'link';
 			$style = isset( $item['style'] ) ? $item['style'] : 'solid';
@@ -350,15 +454,15 @@ class Widget_Mainframe_Pills extends \Elementor\Widget_Base {
 				$icon       = 'yes' === $settings['show_icon']
 					? '<svg class="mf-pill-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><rect x="4.25" y="4.25" width="6.5" height="6.5" rx="1.2"/><rect x="1.25" y="1.25" width="6.5" height="6.5" rx="1.2"/></svg>'
 					: '';
-				echo '<button type="button" class="mf-pill mf-pill--outline mf-pill--copy" data-email="' . esc_attr( $item_email ) . '" aria-label="' . esc_attr( 'کپی ' . $item_email ) . '">';
-				echo '<span>' . esc_html( $prefix ) . ' <span class="mf-pill-u">' . esc_html( $item_email ) . '</span></span>';
+				echo '<button type="button" class="mf-pill mf-pill--outline mf-pill--copy" data-email="' . esc_attr( $item_email ) . '" data-copied="' . esc_attr( $copy_fb ) . '" data-copied-dur="' . esc_attr( $copy_dur ) . '" aria-label="' . esc_attr( 'کپی ' . $item_email ) . '">';
+				echo '<span class="mf-pill-label">' . esc_html( $prefix ) . ' <span class="mf-pill-u">' . esc_html( $item_email ) . '</span></span>';
 				echo $icon; // phpcs:ignore WordPress.Security.EscapeOutput -- SVG ثابت و داخلی
 				echo '</button>';
 			} else {
 				$label = isset( $item['label'] ) ? $item['label'] : '';
 				$href  = ! empty( $item['link']['url'] ) ? $item['link']['url'] : '#';
 				$cls   = 'solid' === $style ? 'mf-pill mf-pill--solid' : 'mf-pill mf-pill--outline';
-				echo '<a class="' . esc_attr( $cls ) . '" href="' . esc_url( $href ) . '">' . esc_html( $label ) . '</a>';
+				echo '<a class="' . esc_attr( $cls ) . '" href="' . esc_url( $href ) . '"' . mf_link_target( $item['link'] ) . '>' . esc_html( $label ) . '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput
 			}
 		}
 

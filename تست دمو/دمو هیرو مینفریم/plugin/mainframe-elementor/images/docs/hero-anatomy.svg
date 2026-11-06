@@ -64,7 +64,7 @@
   </g>
 
   <!-- زیرنویس ماکت -->
-  <text x="80" y="576" font-size="12.5" fill="#6b7280" font-family="ui-monospace, Menlo, Consolas, monospace">height: 100vh · content: max-width 576px · video: object-position 70% center</text>
+  <text x="80" y="576" font-size="12.5" fill="#6b7280" font-family="ui-monospace, Menlo, Consolas, monospace">min-height: 100vh (قابل تنظیم) · content: max-width 576px · video: fill · object-position 70% center</text>
 
   <!-- شماره‌های روی ماکت -->
   <circle class="num" cx="770" cy="300" r="17"/>
