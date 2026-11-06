@@ -58,7 +58,9 @@ class Mainframe_Template {
 
 		update_post_meta( $post_id, '_elementor_edit_mode', 'builder' );
 		update_post_meta( $post_id, '_elementor_data', wp_slash( wp_json_encode( $content ) ) );
-		update_post_meta( $post_id, '_elementor_page_settings', wp_slash( wp_json_encode( $page_settings ) ) );
+		// نکته: المنتور این متا را به‌صورت «آرایه» می‌خواند (وردپرس خودش serialize می‌کند)؛
+		// ذخیره به‌صورت رشتهٔ JSON باعث TypeError در sanitize_settings می‌شد. (v1.0.2)
+		update_post_meta( $post_id, '_elementor_page_settings', $page_settings );
 		if ( defined( 'ELEMENTOR_VERSION' ) ) {
 			update_post_meta( $post_id, '_elementor_version', ELEMENTOR_VERSION );
 		}
@@ -209,6 +211,44 @@ class Mainframe_Template {
 		}
 		$id = self::import_page();
 		self::redirect_with( $id ? 'page_ok' : 'page_fail' );
+	}
+
+	/**
+	 * تعمیر دادهٔ خراب نسخه‌های قبلی (1.0.0 و 1.0.1):
+	 * آنجا `_elementor_page_settings` به‌صورت رشتهٔ JSON ذخیره شده بود
+	 * و المنتور هنگام باز کردن سند با TypeError «sanitize_settings must be
+	 * of the type array» می‌مرد. این متد رشته را به آرایه تبدیل می‌کند.
+	 * فقط یک بار در هر نسخه اجرا می‌شود.
+	 */
+	public static function maybe_repair() {
+		if ( get_option( 'mf_meta_repaired' ) === MF_VERSION ) {
+			return;
+		}
+		self::repair();
+		update_option( 'mf_meta_repaired', MF_VERSION );
+	}
+
+	public static function repair() {
+		$targets = array(
+			array( self::TEMPLATE_TITLE, 'elementor_library' ),
+			array( self::PAGE_TITLE, 'page' ),
+		);
+
+		foreach ( $targets as $target ) {
+			$post_id = self::find_post( $target[0], $target[1] );
+			if ( ! $post_id ) {
+				continue;
+			}
+			$value = get_post_meta( $post_id, '_elementor_page_settings', true );
+			if ( is_string( $value ) && '' !== $value ) {
+				$decoded = json_decode( $value, true );
+				if ( is_array( $decoded ) ) {
+					update_post_meta( $post_id, '_elementor_page_settings', $decoded );
+				} else {
+					delete_post_meta( $post_id, '_elementor_page_settings' );
+				}
+			}
+		}
 	}
 
 	/**

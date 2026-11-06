@@ -84,6 +84,10 @@ class Mainframe_Plugin {
 
 		// تنظیمات
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
+
+		// تعمیر دادهٔ قدیمی در هر درخواست مدیریت (پس از آپلود افزونهٔ جدید،
+		// قبل از باز شدن ویرایشگر اجرا می‌شود؛ فقط یک بار در هر نسخه)
+		add_action( 'admin_init', array( 'Mainframe_Template', 'maybe_repair' ) );
 		add_action( 'admin_menu', array( $this, 'register_menu' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_assets' ) );
 
