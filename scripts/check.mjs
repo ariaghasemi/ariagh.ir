@@ -25,6 +25,8 @@ async function checkHtml(file) {
   for (const [, attr, url] of html.matchAll(/(?:href|src)="([^"]+)"/g)) {
     if (!url || url.startsWith('#') || url.startsWith('data:') || url.startsWith('mailto:') || url.startsWith('tel:')) continue;
     if (/^https?:\/\//.test(url)) continue;
+    // root-absolute, as used by bundlers (Vite serves /src/main.tsx)
+    if (url.startsWith('/')) continue;
     const target = resolve(dir, url);
     if (!(await exists(target))) problems.push(`${rel(file)} → missing ${url}`);
   }
