@@ -1,0 +1,246 @@
+/* =============================================================================
+   hero-3d · Hero · Depth
+   A stage with genuine perspective: rings and dust sit at real negative Z, the
+   headline carries two extruded copies behind it, and the whole field tilts
+   with the pointer. No WebGL — so it ports to WordPress untouched.
+   ========================================================================== */
+
+.hero3d {
+  position: relative;
+  display: grid;
+  align-content: center;
+  gap: var(--sp-5);
+  min-height: 100vh;
+  padding-block: clamp(3.5rem, 9vh, 7rem);
+  overflow: hidden;
+  perspective: 1200px;
+  perspective-origin: 50% 42%;
+}
+
+/* ---- depth field --------------------------------------------------------- */
+.hero3d__field {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform: rotateX(calc(var(--py, 0) * -5deg)) rotateY(calc(var(--px, 0) * 7deg));
+  pointer-events: none;
+}
+
+.ring {
+  position: absolute;
+  inset-inline-start: 50%;
+  top: 42%;
+  width: var(--size);
+  aspect-ratio: 1;
+  translate: -50% 0;
+  border-radius: 50%;
+  border: 1px solid var(--brass-line);
+  transform: translateZ(var(--z))
+    translate3d(calc(var(--px, 0) * var(--d)), calc(var(--py, 0) * var(--d)), 0)
+    scale(var(--s-scale, 1));
+}
+
+.ring--solid {
+  border: 0;
+  background: radial-gradient(circle at 38% 32%, var(--brass-bright), var(--lapis-700) 62%, transparent 74%);
+  opacity: 0.5;
+  filter: blur(0.4px);
+}
+
+.orb {
+  position: absolute;
+  inset-inline-start: 20%;
+  top: 22%;
+  width: 21vmin;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 34% 28%,
+    var(--brass-bright) 0%,
+    var(--lapis-500) 42%,
+    color-mix(in oklab, var(--lapis-900) 80%, transparent) 74%,
+    transparent 78%
+  );
+  box-shadow: 0 0 90px -10px var(--accent-glow);
+  transform: translateZ(-90px)
+    translate3d(calc(var(--px, 0) * var(--d)), calc(var(--py, 0) * var(--d)), 0)
+    scale(var(--s-scale, 1));
+}
+
+[dir='ltr'] .orb {
+  inset-inline-start: auto;
+  inset-inline-end: 20%;
+}
+
+.dust {
+  position: absolute;
+  inset-inline-start: var(--x);
+  top: var(--y);
+  width: var(--s);
+  height: var(--s);
+  border-radius: 50%;
+  background: var(--brass-bright);
+  opacity: 0.55;
+  transform: translateZ(var(--z))
+    translate3d(calc(var(--px, 0) * var(--d)), calc(var(--py, 0) * var(--d)), 0)
+    scale(var(--s-scale, 1));
+}
+
+/* ---- floor grid ---------------------------------------------------------- */
+.hero3d__floor {
+  position: absolute;
+  inset-inline: -20%;
+  bottom: -6%;
+  height: 44%;
+  transform: rotateX(74deg) translateZ(-160px);
+  transform-origin: bottom center;
+  background-image:
+    linear-gradient(to right, var(--line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+  background-size: 68px 68px;
+  -webkit-mask-image: linear-gradient(to top, #000 5%, transparent 72%);
+  mask-image: linear-gradient(to top, #000 5%, transparent 72%);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+/* ---- content ------------------------------------------------------------- */
+.hero3d__content {
+  position: relative;
+  display: grid;
+  gap: var(--sp-4);
+  justify-items: start;
+  text-align: start;
+  transform-style: preserve-3d;
+}
+
+.hero3d__title {
+  transform-style: preserve-3d;
+  margin-block: var(--sp-2);
+}
+
+.wordset {
+  display: inline;
+}
+
+.word {
+  position: relative;
+  display: inline-block;
+  transform-style: preserve-3d;
+  white-space: nowrap;
+}
+
+.word + .word {
+  margin-inline-start: 0.26em;
+}
+
+/* two extruded copies pushed back in Z — real depth, not a shadow */
+.word::before,
+.word::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.word::before {
+  transform: translateZ(-16px);
+  color: var(--brass);
+  opacity: 0.85;
+}
+
+.word::after {
+  transform: translateZ(-34px);
+  color: var(--lapis-700);
+  opacity: 0.7;
+}
+
+.hero3d__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  margin-top: var(--sp-2);
+}
+
+.hero3d__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-6);
+  margin: var(--sp-6) 0 0;
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--brass-line);
+  width: 100%;
+  max-width: 620px;
+}
+
+.hero3d__meta div {
+  display: grid;
+  gap: 2px;
+}
+
+.hero3d__meta dt {
+  font-size: var(--fs-xs);
+  color: var(--text-3);
+  letter-spacing: var(--tracking-label);
+}
+
+.hero3d__meta dd {
+  font-size: 2rem;
+  line-height: 1.1;
+  color: var(--text);
+}
+
+/* ---- language switch ----------------------------------------------------- */
+[data-lang] {
+  display: none;
+}
+
+html[lang='fa'] [data-lang='fa'],
+html[lang='en'] [data-lang='en'],
+html[lang='ar'] [data-lang='ar'] {
+  display: revert;
+}
+
+.hero3d__title [data-lang],
+.s-kicker [data-lang],
+.hero3d__actions [data-lang] {
+  display: none;
+}
+
+html[lang='fa'] .s-kicker [data-lang='fa'],
+html[lang='en'] .s-kicker [data-lang='en'],
+html[lang='fa'] .hero3d__actions [data-lang='fa'],
+html[lang='en'] .hero3d__actions [data-lang='en'] {
+  display: inline;
+}
+
+html[lang='fa'] .hero3d__title [data-lang='fa'],
+html[lang='en'] .hero3d__title [data-lang='en'] {
+  display: inline;
+}
+
+/* ---- entrance ------------------------------------------------------------ */
+/* Hidden only when the timeline is actually able to run — if the script fails,
+   the content is simply visible. */
+.js-anim .hero3d .word,
+.js-anim .hero3d .s-kicker,
+.js-anim .hero3d .s-lede,
+.js-anim .hero3d .hero3d__actions,
+.js-anim .hero3d .hero3d__meta {
+  opacity: 0;
+}
+
+@media (max-width: 640px) {
+  .hero3d__meta {
+    gap: var(--sp-5);
+  }
+
+  .hero3d__meta dd {
+    font-size: 1.5rem;
+  }
+
+  .orb {
+    width: 30vmin;
+  }
+}

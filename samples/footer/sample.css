@@ -1,0 +1,306 @@
+/* =============================================================================
+   footer — a brass rule, a newsletter, a sitemap, and a wordmark that runs to
+   both edges. The last thing a visitor sees, so it carries the brand.
+   ========================================================================== */
+
+body.sample {
+  display: flex;
+  flex-direction: column;
+}
+
+.footerbody {
+  flex: 1;
+  display: grid;
+  align-content: center;
+  gap: var(--sp-3);
+  justify-items: start;
+  text-align: start;
+  width: min(1240px, 100% - 3rem);
+  margin-inline: auto;
+  padding-block: clamp(3rem, 10vh, 6rem);
+}
+
+.footerbody__note {
+  color: var(--text-3);
+  font-size: var(--fs-sm);
+  max-width: 48ch;
+}
+
+/* ---- shell --------------------------------------------------------------- */
+.sitefoot {
+  position: relative;
+  background: linear-gradient(180deg, var(--surface-1), var(--surface-inset));
+  border-top: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.sitefoot__rule {
+  height: 1px;
+  border: 0;
+  margin: 0;
+  background: linear-gradient(90deg, transparent, var(--brass) 18%, var(--brass) 82%, transparent);
+  opacity: 0.7;
+}
+
+/* ---- top: pitch + newsletter --------------------------------------------- */
+.sitefoot__top {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: clamp(1.75rem, 4vw, 3.5rem);
+  align-items: end;
+  padding-block: clamp(2.5rem, 6vw, 4rem);
+}
+
+.sitefoot__pitch h2 {
+  font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+  font-weight: 600;
+  letter-spacing: var(--tracking-tight);
+  margin-bottom: var(--sp-3);
+}
+
+.sitefoot__pitch p {
+  font-size: var(--fs-sm);
+  color: var(--text-2);
+  max-width: 44ch;
+}
+
+.news__field {
+  display: flex;
+  gap: var(--sp-2);
+  padding: var(--sp-2);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-md);
+  background: var(--surface-2);
+  transition: border-color var(--dur-sm) var(--ease-out-quart);
+}
+
+.news__field:focus-within {
+  border-color: var(--accent-line);
+}
+
+.news__field input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.4rem var(--sp-3);
+  background: none;
+  border: 0;
+  font-size: var(--fs-sm);
+}
+
+.news__field input::placeholder {
+  color: var(--text-3);
+}
+
+.news__field input:focus {
+  outline: none;
+}
+
+.news__msg {
+  min-height: 1.2em;
+  margin-top: var(--sp-2);
+  font-size: var(--fs-xs);
+  color: var(--accent);
+}
+
+.news__msg[data-error='true'] {
+  color: var(--status-blocked);
+}
+
+/* ---- sitemap ------------------------------------------------------------- */
+.sitefoot__map {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: var(--sp-5);
+  padding-block: var(--sp-5);
+  border-top: 1px solid var(--line);
+}
+
+.sitefoot__map > div {
+  display: grid;
+  gap: var(--sp-2);
+  align-content: start;
+}
+
+.sitefoot__label {
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  color: var(--brass);
+  margin-bottom: var(--sp-1);
+}
+
+.sitefoot__map a {
+  font-size: var(--fs-sm);
+  color: var(--text-3);
+  transition: color var(--dur-sm) var(--ease-out-quart), transform var(--dur-sm) var(--ease-out-quart);
+  justify-self: start;
+}
+
+.sitefoot__map a:hover {
+  color: var(--text);
+  transform: translateX(-3px);
+}
+
+[dir='ltr'] .sitefoot__map a:hover {
+  transform: translateX(3px);
+}
+
+/* ---- wordmark ------------------------------------------------------------ */
+.sitefoot__wordmark {
+  padding-inline: 1rem;
+  padding-block: var(--sp-5) var(--sp-3);
+  user-select: none;
+}
+
+.sitefoot__wordmark span {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 13.2vw;
+  line-height: 0.86;
+  letter-spacing: -0.02em;
+  text-align: center;
+  white-space: nowrap;
+  background: linear-gradient(180deg, var(--text) 12%, var(--brass) 58%, color-mix(in oklab, var(--brass) 40%, transparent) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ---- bottom bar ---------------------------------------------------------- */
+.sitefoot__bottom {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-5);
+  flex-wrap: wrap;
+  padding-block: var(--sp-4);
+  border-top: 1px solid var(--line);
+}
+
+.sitefoot__copy {
+  font-size: var(--fs-xs);
+  color: var(--text-3);
+}
+
+.sitefoot__lang {
+  display: flex;
+  gap: var(--sp-1);
+  margin-inline-start: auto;
+}
+
+.sitefoot__lang button {
+  padding: 0.25rem 0.6rem;
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  font-size: var(--fs-xs);
+  color: var(--text-3);
+  transition:
+    color var(--dur-sm) var(--ease-out-quart),
+    border-color var(--dur-sm) var(--ease-out-quart);
+}
+
+.sitefoot__lang button:hover {
+  color: var(--text);
+}
+
+.sitefoot__lang button[aria-pressed='true'] {
+  color: var(--text);
+  border-color: var(--brass-line);
+  background: var(--brass-soft);
+}
+
+.sitefoot__social {
+  display: flex;
+  gap: var(--sp-2);
+}
+
+.sitefoot__social a {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  color: var(--text-3);
+  transition:
+    color var(--dur-sm) var(--ease-out-quart),
+    border-color var(--dur-sm) var(--ease-out-quart);
+}
+
+.sitefoot__social a:hover {
+  color: var(--text);
+  border-color: var(--brass-line);
+}
+
+.sitefoot__top {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: 0.35rem 0.7rem;
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  font-size: var(--fs-xs);
+  color: var(--text-2);
+  transition: border-color var(--dur-sm) var(--ease-out-quart), color var(--dur-sm) var(--ease-out-quart);
+}
+
+.sitefoot__top:hover {
+  color: var(--text);
+  border-color: var(--brass-line);
+}
+
+/* ---- language switch ----------------------------------------------------- */
+[data-lang] {
+  display: none;
+}
+
+html[lang='fa'] [data-lang='fa'],
+html[lang='en'] [data-lang='en'],
+html[lang='ar'] [data-lang='ar'] {
+  display: revert;
+}
+
+.s-kicker [data-lang],
+.footerbody__note [data-lang],
+.sitefoot__pitch [data-lang],
+.news [data-lang],
+.sitefoot__label [data-lang],
+.sitefoot__map [data-lang],
+.sitefoot__copy [data-lang],
+.sitefoot__top [data-lang] {
+  display: none;
+}
+
+html[lang='fa'] .s-kicker [data-lang='fa'],
+html[lang='en'] .s-kicker [data-lang='en'],
+html[lang='fa'] .footerbody__note [data-lang='fa'],
+html[lang='en'] .footerbody__note [data-lang='en'],
+html[lang='fa'] .news [data-lang='fa'],
+html[lang='en'] .news [data-lang='en'],
+html[lang='fa'] .sitefoot__label [data-lang='fa'],
+html[lang='en'] .sitefoot__label [data-lang='en'],
+html[lang='fa'] .sitefoot__map [data-lang='fa'],
+html[lang='en'] .sitefoot__map [data-lang='en'],
+html[lang='fa'] .sitefoot__copy [data-lang='fa'],
+html[lang='en'] .sitefoot__copy [data-lang='en'],
+html[lang='fa'] .sitefoot__top [data-lang='fa'],
+html[lang='en'] .sitefoot__top [data-lang='en'] {
+  display: inline;
+}
+
+html[lang='fa'] .sitefoot__pitch h2 [data-lang='fa'],
+html[lang='en'] .sitefoot__pitch h2 [data-lang='en'],
+html[lang='fa'] .sitefoot__pitch p [data-lang='fa'],
+html[lang='en'] .sitefoot__pitch p [data-lang='en'] {
+  display: block;
+}
+
+@media (max-width: 640px) {
+  .sitefoot__bottom {
+    gap: var(--sp-3);
+  }
+
+  .sitefoot__lang {
+    margin-inline-start: 0;
+  }
+}

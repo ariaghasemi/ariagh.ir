@@ -1,0 +1,200 @@
+/* =============================================================================
+   about-3d · About · Depth
+   Panels stacked in real Z that fan open as the page is scrubbed, a portrait
+   card riding on top, and fact chips floating nearer the viewer than either.
+   ========================================================================== */
+
+.about3d {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: center;
+  min-height: 100vh;
+  padding: clamp(3.5rem, 9vh, 7rem) clamp(1.5rem, 5vw, 4.5rem);
+  width: min(1240px, 100%);
+  margin-inline: auto;
+  overflow: hidden;
+}
+
+/* ---- text column --------------------------------------------------------- */
+.about3d__text {
+  display: grid;
+  gap: var(--sp-4);
+  justify-items: start;
+  text-align: start;
+  max-width: 46ch;
+}
+
+.about3d__title {
+  font-size: clamp(2rem, 3.6vw, 3.1rem);
+}
+
+.about3d__body {
+  display: grid;
+  gap: var(--sp-4);
+  color: var(--text-2);
+}
+
+.about3d__sign {
+  font-size: 1.6rem;
+  color: var(--brass);
+  padding-top: var(--sp-3);
+  border-top: 1px solid var(--brass-line);
+  width: 100%;
+}
+
+/* ---- stage --------------------------------------------------------------- */
+.about3d__stage {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  max-height: 74vh;
+  margin-inline: auto;
+  width: 100%;
+  max-width: 520px;
+  perspective: 1100px;
+  perspective-origin: 50% 50%;
+}
+
+.about3d__box {
+  position: absolute;
+  inset: 12%;
+  transform-style: preserve-3d;
+  transform: rotateY(calc(-18deg + var(--open, 0) * 18deg + var(--px, 0) * 9deg))
+    rotateX(calc(var(--py, 0) * -7deg));
+  will-change: transform;
+}
+
+/* the fanned panels */
+.leaf {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--r-lg);
+  border: 1px solid var(--brass-line);
+  background: linear-gradient(150deg, var(--surface-3), var(--surface-1) 70%);
+  box-shadow: var(--elev-2);
+  transform: translateZ(var(--z)) rotate(var(--rot));
+}
+
+.leaf:nth-child(2) {
+  background: linear-gradient(150deg, color-mix(in oklab, var(--lapis-700) 45%, var(--surface-2)), var(--surface-1));
+}
+
+/* the card that rides on top */
+.about3d__card {
+  position: absolute;
+  inset: 6%;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-5);
+  border-radius: var(--r-lg);
+  border: 1px solid var(--line-strong);
+  background: linear-gradient(165deg, var(--surface-2), var(--surface-1));
+  box-shadow: var(--elev-3);
+  transform: translateZ(46px);
+}
+
+.about3d__card .s-monogram {
+  width: 58%;
+  margin-bottom: var(--sp-3);
+}
+
+.about3d__cardname {
+  font-size: var(--fs-h3);
+  font-weight: 600;
+  letter-spacing: var(--tracking-tight);
+}
+
+.about3d__cardrole {
+  font-size: var(--fs-xs);
+  color: var(--text-3);
+  letter-spacing: var(--tracking-label);
+}
+
+/* ---- floating facts ------------------------------------------------------ */
+.chip3d {
+  position: absolute;
+  inset-inline-start: var(--x);
+  inset-inline-end: var(--end, auto);
+  top: var(--y);
+  display: flex;
+  align-items: baseline;
+  gap: 0.4em;
+  padding: 0.55rem 0.9rem;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--brass-line);
+  background: color-mix(in oklab, var(--surface-2) 88%, transparent);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--elev-2);
+  font-size: var(--fs-xs);
+  color: var(--text-3);
+  white-space: nowrap;
+  transform: translateZ(var(--z))
+    translate3d(calc(var(--px, 0) * var(--d) * -1), calc(var(--py, 0) * var(--d) * -1), 0);
+}
+
+.chip3d b {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--text);
+  line-height: 1;
+}
+
+[dir='ltr'] .chip3d {
+  transform: translateZ(var(--z)) translate3d(calc(var(--px, 0) * var(--d)), calc(var(--py, 0) * var(--d)), 0);
+}
+
+/* ---- language switch ----------------------------------------------------- */
+[data-lang] {
+  display: none;
+}
+
+html[lang='fa'] [data-lang='fa'],
+html[lang='en'] [data-lang='en'],
+html[lang='ar'] [data-lang='ar'] {
+  display: revert;
+}
+
+.s-kicker [data-lang],
+.about3d__cardname [data-lang],
+.about3d__cardrole [data-lang],
+.chip3d [data-lang] {
+  display: none;
+}
+
+html[lang='fa'] .s-kicker [data-lang='fa'],
+html[lang='en'] .s-kicker [data-lang='en'],
+html[lang='fa'] .about3d__cardname [data-lang='fa'],
+html[lang='en'] .about3d__cardname [data-lang='en'],
+html[lang='fa'] .about3d__cardrole [data-lang='fa'],
+html[lang='en'] .about3d__cardrole [data-lang='en'],
+html[lang='fa'] .chip3d [data-lang='fa'],
+html[lang='en'] .chip3d [data-lang='en'] {
+  display: inline;
+}
+
+html[lang='fa'] .about3d__title [data-lang='fa'],
+html[lang='en'] .about3d__title [data-lang='en'] {
+  display: block;
+}
+
+/* ---- entrance ------------------------------------------------------------ */
+.js-anim .about3d__text > *,
+.js-anim .chip3d {
+  opacity: 0;
+}
+
+@media (max-width: 720px) {
+  .about3d__stage {
+    max-height: none;
+    aspect-ratio: 1 / 1;
+    max-width: 400px;
+  }
+
+  .chip3d {
+    font-size: 10px;
+    padding: 0.4rem 0.7rem;
+  }
+}

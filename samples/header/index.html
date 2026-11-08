@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>هدر</title>
+    <link rel="stylesheet" href="../../assets/css/tokens.css" />
+    <link rel="stylesheet" href="../../assets/css/base.css" />
+    <link rel="stylesheet" href="../../assets/css/sample.css" />
+    <link rel="stylesheet" href="sample.css" />
+  </head>
+  <body class="sample">
+    <header class="sitehead" id="header">
+      <div class="sitehead__inner">
+        <a class="brand" href="#">
+          <span class="brand__mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32">
+              <rect x="8" y="8" width="16" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.4" />
+              <rect x="8" y="8" width="16" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.4" transform="rotate(45 16 16)" />
+              <circle cx="16" cy="16" r="3.1" fill="var(--accent)" />
+            </svg>
+          </span>
+          <span class="brand__name">Aria Ghasemi</span>
+        </a>
+
+        <nav class="nav" id="nav" aria-label="اصلی">
+          <a class="nav__item" href="#" data-mega="work">
+            <span data-lang="fa">نمونه‌کارها</span>
+            <span data-lang="en">Work</span>
+          </a>
+          <a class="nav__item" href="#" data-mega="studio">
+            <span data-lang="fa">استودیو</span>
+            <span data-lang="en">Studio</span>
+          </a>
+          <a class="nav__item" href="#">
+            <span data-lang="fa">فروشگاه</span>
+            <span data-lang="en">Shop</span>
+          </a>
+          <a class="nav__item" href="#">
+            <span data-lang="fa">نوشته‌ها</span>
+            <span data-lang="en">Writing</span>
+          </a>
+          <span class="nav__ink" id="ink" aria-hidden="true"></span>
+        </nav>
+
+        <div class="sitehead__end">
+          <div class="langsw" id="langsw" role="group" aria-label="زبان">
+            <button type="button" data-lang-code="fa" aria-pressed="true">فا</button>
+            <button type="button" data-lang-code="en" aria-pressed="false">En</button>
+            <button type="button" data-lang-code="ar" aria-pressed="false">ع</button>
+          </div>
+          <a class="btn btn--accent btn--sm" href="#">
+            <span data-lang="fa">شروع یک پروژه</span>
+            <span data-lang="en">Start a project</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="mega" id="mega" aria-hidden="true">
+        <div class="mega__panel" data-panel="work">
+          <div class="mega__col">
+            <p class="mega__label">
+              <span data-lang="fa">برگزیده</span>
+              <span data-lang="en">Selected</span>
+            </p>
+            <a href="#">Negarestan</a><a href="#">Dastan</a><a href="#">Fajr</a>
+          </div>
+          <div class="mega__col">
+            <p class="mega__label">
+              <span data-lang="fa">بر پایهٔ نوع</span>
+              <span data-lang="en">By type</span>
+            </p>
+            <a href="#">
+              <span data-lang="fa">هویت</span>
+              <span data-lang="en">Identity</span>
+            </a>
+            <a href="#">
+              <span data-lang="fa">وب‌سایت</span>
+              <span data-lang="en">Website</span>
+            </a>
+            <a href="#">
+              <span data-lang="fa">افزونه</span>
+              <span data-lang="en">Plugin</span>
+            </a>
+          </div>
+          <div class="mega__card">
+            <span class="f-art f-art--rings mini"><i></i><i></i><i></i></span>
+            <p>
+              <span data-lang="fa">آخرین پروژه — هویتِ دیجیتالِ نگارخانه</span>
+              <span data-lang="en">Latest — gallery digital identity</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="mega__panel" data-panel="studio">
+          <div class="mega__col">
+            <p class="mega__label">
+              <span data-lang="fa">درباره</span>
+              <span data-lang="en">About</span>
+            </p>
+            <a href="#">
+              <span data-lang="fa">روشِ کار</span>
+              <span data-lang="en">How I work</span>
+            </a>
+            <a href="#">
+              <span data-lang="fa">سیستم طراحی</span>
+              <span data-lang="en">Design system</span>
+            </a>
+          </div>
+          <div class="mega__col">
+            <p class="mega__label">
+              <span data-lang="fa">ابزارها</span>
+              <span data-lang="en">Tooling</span>
+            </p>
+            <a href="#">WordPress</a><a href="#">Elementor</a><a href="#">GSAP</a>
+          </div>
+          <div class="mega__card">
+            <span class="f-art f-art--grid mini"><i></i><i></i><i></i></span>
+            <p>
+              <span data-lang="fa">همه چیز روی یک سیستمِ نشانه ساخته می‌شود</span>
+              <span data-lang="en">Everything is built on one token system</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="headbody">
+      <section class="headbody__hero s-wrap">
+        <p class="s-kicker">
+          <span data-lang="fa">هدر · رفتار</span>
+          <span data-lang="en">Header · behaviour</span>
+        </p>
+        <h1 class="s-title">
+          <span data-lang="fa">با اسکرول فشرده می‌شود</span>
+          <span data-lang="en">It condenses as you scroll</span>
+        </h1>
+        <p class="s-lede">
+          <span data-lang="fa"
+            >خطِ زیرِ منو دنبالِ نشانگر می‌رود، مگامنو با کیبورد هم باز می‌شود و جهتِ نوشتار از زبانِ فعال می‌آید — نه از قالب.</span
+          >
+          <span data-lang="en"
+            >The underline follows the pointer, the mega menu opens from the keyboard too, and the writing direction comes from the active language — not from the theme.</span
+          >
+        </p>
+      </section>
+      <div class="headbody__spacer s-wrap">
+        <p data-lang="fa">به پایین بروید تا فشرده‌شدنِ هدر را ببینید.</p>
+        <p data-lang="en">Scroll to watch the header condense.</p>
+      </div>
+    </main>
+
+    <script src="../../assets/vendor/gsap.min.js"></script>
+    <script src="../../assets/js/sample-shell.js"></script>
+    <script src="sample.js"></script>
+  </body>
+</html>

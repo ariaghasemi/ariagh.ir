@@ -1,0 +1,190 @@
+/* =============================================================================
+   tokens.css — the single source of truth for the ariagh.ir design system.
+   Consumed by the dashboard AND by every sample in /samples, so a token change
+   propagates everywhere. This is the file each WordPress plugin will ship.
+   ========================================================================== */
+
+@import url('../vendor/fonts.css');
+
+/* -----------------------------------------------------------------------------
+   Palette — "Lapis & Brass"
+   Grounded in the material world of Persian lacquer work: lapis lazuli pigment
+   for depth, Neyshabur turquoise as the one interactive accent, brass for the
+   structural lines. One bright accent only; everything else stays disciplined.
+   -------------------------------------------------------------------------- */
+
+:root {
+  /* surfaces: near-black is avoided; the base is a deep inked indigo */
+  --surface-0: #05070f;
+  --surface-1: #0a0e1c;
+  --surface-2: #0f1528;
+  --surface-3: #151d36;
+  --surface-inset: #03050c;
+
+  --line: #1c2646;
+  --line-strong: #2a3768;
+
+  /* text: ivory, not pure white — keeps the warmth of the parchment mode */
+  --text: #f2eee6;
+  --text-2: #b4bedb;
+  --text-3: #7b87ac;
+
+  /* the single interactive accent */
+  --accent: #35d6c0;
+  --accent-ink: #04231f;
+  --accent-soft: rgba(53, 214, 192, 0.12);
+  --accent-line: rgba(53, 214, 192, 0.34);
+  --accent-glow: rgba(53, 214, 192, 0.22);
+
+  /* structural metal — rules, frames, premium details only */
+  --brass: #c9a961;
+  --brass-bright: #ebd9a8;
+  --brass-line: rgba(201, 169, 97, 0.26);
+  --brass-soft: rgba(201, 169, 97, 0.08);
+
+  /* lapis, used for depth gradients rather than as an accent */
+  --lapis-900: #101a4d;
+  --lapis-700: #1e2f86;
+  --lapis-500: #2b3fa0;
+
+  /* status — warm amber stays in the brass family; madder is reserved for
+     blocked/failed so it never competes with turquoise */
+  --status-ready: #35d6c0;
+  --status-wip: #d8a93a;
+  --status-planned: #7b87ac;
+  --status-blocked: #d2486e;
+
+  /* type families */
+  --font-sans: 'Vazirmatn', 'IRANSans', Tahoma, 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Instrument Serif', 'Times New Roman', Georgia, serif;
+  --font-mono: ui-monospace, 'SFMono-Regular', 'Cascadia Mono', Menlo, monospace;
+
+  /* type scale — fluid, with extra leading for Persian */
+  --fs-display: clamp(2.6rem, 5.6vw, 4.75rem);
+  --fs-h1: clamp(1.8rem, 3.2vw, 2.55rem);
+  --fs-h2: clamp(1.35rem, 2vw, 1.7rem);
+  --fs-h3: 1.0625rem;
+  --fs-body: 0.9375rem;
+  --fs-sm: 0.8125rem;
+  --fs-xs: 0.6875rem;
+
+  --lh-display: 1.1;
+  --lh-heading: 1.4;
+  --lh-body: 1.85;
+  --lh-latin: 1.65;
+
+  --tracking-display: -0.03em;
+  --tracking-tight: -0.015em;
+  --tracking-label: 0.06em;
+
+  /* space — 4px base */
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.5rem;
+  --sp-6: 2rem;
+  --sp-7: 3rem;
+  --sp-8: 4rem;
+
+  /* radii — varied by hierarchy, never one radius for everything */
+  --r-xs: 4px;
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 18px;
+  --r-xl: 26px;
+  --r-pill: 999px;
+
+  /* elevation — deep shadows suited to a dark ground; no soft grey haze */
+  --elev-1: 0 1px 2px rgba(0, 0, 0, 0.45);
+  --elev-2: 0 14px 34px -18px rgba(0, 0, 0, 0.7);
+  --elev-3: 0 36px 72px -28px rgba(0, 0, 0, 0.85);
+
+  /* motion */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-in-out-quint: cubic-bezier(0.83, 0, 0.17, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-xs: 120ms;
+  --dur-sm: 200ms;
+  --dur-md: 380ms;
+  --dur-lg: 640ms;
+  --dur-xl: 1000ms;
+
+  /* chrome */
+  --rail-w: 268px;
+  --topbar-h: 64px;
+  --grain-opacity: 0.035;
+
+  color-scheme: dark;
+}
+
+/* -----------------------------------------------------------------------------
+   Parchment (light) — the same system inverted onto hand-made paper.
+   -------------------------------------------------------------------------- */
+[data-theme='light'] {
+  --surface-0: #f3efe5;
+  --surface-1: #fcfaf4;
+  --surface-2: #ffffff;
+  --surface-3: #efeade;
+  --surface-inset: #e9e3d5;
+
+  --line: #ded6c4;
+  --line-strong: #c6bba3;
+
+  --text: #131827;
+  --text-2: #4b5573;
+  --text-3: #78829d;
+
+  --accent: #0e8c7e;
+  --accent-ink: #fbfdfc;
+  --accent-soft: rgba(14, 140, 126, 0.1);
+  --accent-line: rgba(14, 140, 126, 0.32);
+  --accent-glow: rgba(14, 140, 126, 0.18);
+
+  --brass: #96762b;
+  --brass-bright: #6f5718;
+  --brass-line: rgba(150, 118, 43, 0.3);
+  --brass-soft: rgba(150, 118, 43, 0.07);
+
+  --lapis-900: #1a2a70;
+  --lapis-700: #2b3fa0;
+  --lapis-500: #4359c8;
+
+  --status-ready: #0e8c7e;
+  --status-wip: #a5761a;
+  --status-planned: #78829d;
+  --status-blocked: #b32c50;
+
+  --elev-1: 0 1px 2px rgba(60, 48, 24, 0.08);
+  --elev-2: 0 14px 30px -20px rgba(60, 48, 24, 0.28);
+  --elev-3: 0 32px 60px -30px rgba(60, 48, 24, 0.35);
+
+  --grain-opacity: 0.05;
+
+  color-scheme: light;
+}
+
+/* -----------------------------------------------------------------------------
+   Fine grain — a single textured layer over the whole product so flat fills
+   never look like a screenshot of a CSS file.
+   -------------------------------------------------------------------------- */
+:root::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: var(--grain-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-xs: 1ms;
+    --dur-sm: 1ms;
+    --dur-md: 1ms;
+    --dur-lg: 1ms;
+    --dur-xl: 1ms;
+  }
+}

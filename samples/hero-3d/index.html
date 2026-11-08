@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>هیرو · عمق</title>
+    <link rel="stylesheet" href="../../assets/css/tokens.css" />
+    <link rel="stylesheet" href="../../assets/css/base.css" />
+    <link rel="stylesheet" href="../../assets/css/sample.css" />
+    <link rel="stylesheet" href="sample.css" />
+  </head>
+  <body class="sample">
+    <section class="hero3d" id="scene">
+      <!-- depth field: real 3D layers, pushed back in Z -->
+      <div class="hero3d__field" id="field" aria-hidden="true">
+        <span class="ring" style="--size: 46vmin; --z: -420px; --d: 14px"></span>
+        <span class="ring" style="--size: 34vmin; --z: -300px; --d: 24px"></span>
+        <span class="ring" style="--size: 24vmin; --z: -190px; --d: 38px"></span>
+        <span class="ring ring--solid" style="--size: 15vmin; --z: -110px; --d: 54px"></span>
+        <span class="orb" style="--d: 66px"></span>
+        <span class="dust" style="--x: 18%; --y: 24%; --z: -60px; --s: 5px; --d: 80px"></span>
+        <span class="dust" style="--x: 82%; --y: 32%; --z: -140px; --s: 3px; --d: 120px"></span>
+        <span class="dust" style="--x: 68%; --y: 74%; --z: -40px; --s: 4px; --d: 96px"></span>
+        <span class="dust" style="--x: 30%; --y: 78%; --z: -220px; --s: 3px; --d: 150px"></span>
+        <span class="dust" style="--x: 52%; --y: 16%; --z: -260px; --s: 2px; --d: 170px"></span>
+      </div>
+
+      <div class="hero3d__floor" aria-hidden="true"></div>
+
+      <div class="hero3d__content s-wrap">
+        <p class="s-kicker">
+          <span data-lang="fa">تهران · ۱۴۰۴</span>
+          <span data-lang="en">Tehran · 2026</span>
+        </p>
+
+        <h1 class="s-title hero3d__title">
+          <span class="wordset" data-lang="fa"
+            ><span class="word" data-text="آریا">آریا</span><span class="word" data-text="قاسمی">قاسمی</span></span
+          >
+          <span class="wordset" data-lang="en"
+            ><span class="word" data-text="Aria">Aria</span><span class="word" data-text="Ghasemi">Ghasemi</span></span
+          >
+        </h1>
+
+        <p class="s-lede">
+          <span data-lang="fa"
+            >تجربه‌های وبِ چندزبانه می‌سازم — جایی که طراحی، حرکت و مهندسی یک تصمیمِ واحد می‌شوند.</span
+          >
+          <span data-lang="en"
+            >I build multilingual web experiences — where design, motion and engineering become a single decision.</span
+          >
+        </p>
+
+        <div class="hero3d__actions">
+          <a class="btn btn--accent" href="#">
+            <span data-lang="fa">دیدن نمونه‌کارها</span>
+            <span data-lang="en">See the work</span>
+          </a>
+          <a class="btn btn--ghost" href="#">
+            <span data-lang="fa">تماس با من</span>
+            <span data-lang="en">Get in touch</span>
+          </a>
+        </div>
+
+        <dl class="hero3d__meta">
+          <div>
+            <dt data-lang="fa">سال تجربه</dt>
+            <dt data-lang="en">Years of practice</dt>
+            <dd class="serif" data-count="12">0</dd>
+          </div>
+          <div>
+            <dt data-lang="fa">پروژه تحویل‌شده</dt>
+            <dt data-lang="en">Projects shipped</dt>
+            <dd class="serif" data-count="48">0</dd>
+          </div>
+          <div>
+            <dt data-lang="fa">زبانِ رابط</dt>
+            <dt data-lang="en">Interface languages</dt>
+            <dd class="serif" data-count="3">0</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <script src="../../assets/vendor/gsap.min.js"></script>
+    <script src="../../assets/js/sample-shell.js"></script>
+    <script src="sample.js"></script>
+  </body>
+</html>

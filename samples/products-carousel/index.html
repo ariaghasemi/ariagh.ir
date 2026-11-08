@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>کاروسل محصولات</title>
+    <link rel="stylesheet" href="../../assets/css/tokens.css" />
+    <link rel="stylesheet" href="../../assets/css/base.css" />
+    <link rel="stylesheet" href="../../assets/css/sample.css" />
+    <link rel="stylesheet" href="sample.css" />
+  </head>
+  <body class="sample">
+    <section class="products">
+      <header class="products__head">
+        <p class="s-kicker">
+          <span data-lang="fa">فروشگاه · منتخب</span>
+          <span data-lang="en">Shop · selected</span>
+        </p>
+        <h2 class="s-title products__title">
+          <span data-lang="fa">اشیایی برای میزِ کار</span>
+          <span data-lang="en">Objects for the desk</span>
+        </h2>
+      </header>
+
+      <div class="products__rail" id="rail" tabindex="0" role="region" aria-label="محصولات">
+        <article class="pcard" style="--c1: #6f86ff; --c2: #101a4d">
+          <div class="pcard__art"><i class="vessel"></i></div>
+          <div class="pcard__meta">
+            <h3>
+              <span data-lang="fa">تندیسِ لاجورد</span>
+              <span data-lang="en">Lapis sculpture</span>
+            </h3>
+            <p>
+              <span data-lang="fa">سنگِ تراش‌خورده با پایهٔ برنجی</span>
+              <span data-lang="en">Cut stone on a brass base</span>
+            </p>
+            <b class="serif">4,800,000</b>
+          </div>
+        </article>
+
+        <article class="pcard" style="--c1: #43e3cd; --c2: #0b4f49">
+          <div class="pcard__art"><i class="vessel vessel--round"></i></div>
+          <div class="pcard__meta">
+            <h3>
+              <span data-lang="fa">گلدانِ فیروزه</span>
+              <span data-lang="en">Turquoise vase</span>
+            </h3>
+            <p>
+              <span data-lang="fa">لعابِ دستی، فیروزهٔ نیشابور</span>
+              <span data-lang="en">Hand glaze, Neyshabur turquoise</span>
+            </p>
+            <b class="serif">2,150,000</b>
+          </div>
+        </article>
+
+        <article class="pcard" style="--c1: #e8c872; --c2: #6b4a12">
+          <div class="pcard__art"><i class="vessel vessel--wide"></i></div>
+          <div class="pcard__meta">
+            <h3>
+              <span data-lang="fa">قلمدانِ برنج</span>
+              <span data-lang="en">Brass pen box</span>
+            </h3>
+            <p>
+              <span data-lang="fa">قلم‌کاریِ اصفهان، روکشِ زر</span>
+              <span data-lang="en">Isfahan pen-work, gold leaf</span>
+            </p>
+            <b class="serif">3,400,000</b>
+          </div>
+        </article>
+
+        <article class="pcard" style="--c1: #f0849f; --c2: #59101f">
+          <div class="pcard__art"><i class="vessel vessel--tall"></i></div>
+          <div class="pcard__meta">
+            <h3>
+              <span data-lang="fa">جامِ روناس</span>
+              <span data-lang="en">Madder goblet</span>
+            </h3>
+            <p>
+              <span data-lang="fa">شیشهٔ دمیده‌شده، رنگِ روناس</span>
+              <span data-lang="en">Blown glass, madder red</span>
+            </p>
+            <b class="serif">1,780,000</b>
+          </div>
+        </article>
+
+        <article class="pcard" style="--c1: #f4efe4; --c2: #6d6656">
+          <div class="pcard__art"><i class="vessel vessel--slim"></i></div>
+          <div class="pcard__meta">
+            <h3>
+              <span data-lang="fa">پیه‌سوزِ عاج</span>
+              <span data-lang="en">Ivory oil lamp</span>
+            </h3>
+            <p>
+              <span data-lang="fa">قالب‌گیریِ سنتی، نورِ گرم</span>
+              <span data-lang="en">Traditional mould, warm light</span>
+            </p>
+            <b class="serif">2,940,000</b>
+          </div>
+        </article>
+      </div>
+
+      <div class="products__foot">
+        <div class="progress"><b id="progress"></b></div>
+        <div class="products__nav">
+          <span class="counter"><b id="idx">01</b><i>/</i><span id="total">05</span></span>
+          <button class="iconbtn" id="prev" type="button" aria-label="قبلی">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 6l-6 6 6 6" /></svg>
+          </button>
+          <button class="iconbtn" id="next" type="button" aria-label="بعدی">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6l6 6-6 6" /></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <script src="../../assets/vendor/gsap.min.js"></script>
+    <script src="../../assets/js/sample-shell.js"></script>
+    <script src="sample.js"></script>
+  </body>
+</html>

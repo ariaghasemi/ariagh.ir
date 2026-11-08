@@ -1,0 +1,294 @@
+/* =============================================================================
+   products-carousel — a scroll-snap rail where the side cards fall back in
+   real perspective. Native scrolling means drag, wheel, touch and keyboard all
+   work without a single line of drag code.
+   ========================================================================== */
+
+.products {
+  display: grid;
+  align-content: center;
+  gap: clamp(1.75rem, 4vw, 3rem);
+  min-height: 100vh;
+  padding-block: clamp(3rem, 8vh, 6rem);
+  overflow: hidden;
+}
+
+.products__head {
+  width: min(1240px, 100% - 3rem);
+  margin-inline: auto;
+  display: grid;
+  gap: var(--sp-3);
+  justify-items: start;
+  text-align: start;
+}
+
+.products__title {
+  font-size: clamp(1.8rem, 3.2vw, 2.8rem);
+}
+
+/* ---- rail ---------------------------------------------------------------- */
+.products__rail {
+  --card: 300px;
+  display: flex;
+  gap: var(--sp-5);
+  padding-block: var(--sp-5);
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  perspective: 1400px;
+  perspective-origin: 50% 50%;
+  transform-style: preserve-3d;
+  scrollbar-width: none;
+  cursor: grab;
+}
+
+.products__rail::-webkit-scrollbar {
+  display: none;
+}
+
+/* spacer tracks: these let the first and last card reach the centre */
+.products__rail::before,
+.products__rail::after {
+  content: '';
+  flex: 0 0 calc(50% - var(--card) / 2);
+}
+
+.products__rail:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: var(--r-md);
+}
+
+/* ---- card ---------------------------------------------------------------- */
+.pcard {
+  flex: 0 0 var(--card);
+  scroll-snap-align: center;
+  display: grid;
+  gap: var(--sp-4);
+  padding: var(--sp-4);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: linear-gradient(170deg, var(--surface-2), var(--surface-1));
+  box-shadow: var(--elev-2);
+  transform-style: preserve-3d;
+  /* --dist runs -1 … 1 from the rail centre, --away is its absolute value */
+  transform: rotateY(calc(var(--dist, 0) * 24deg)) translateZ(calc(var(--away, 0) * -190px))
+    scale(calc(1 - var(--away, 0) * 0.13));
+  opacity: calc(1 - var(--away, 0) * 0.42);
+  transition: border-color var(--dur-md) var(--ease-out-quart);
+  will-change: transform, opacity;
+}
+
+.pcard:hover {
+  border-color: var(--brass-line);
+}
+
+/* the object: built from gradients, no image needed */
+.pcard__art {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  background:
+    radial-gradient(80% 70% at 50% 22%, color-mix(in oklab, var(--c1) 26%, transparent), transparent 70%),
+    linear-gradient(180deg, var(--surface-2), var(--surface-inset));
+  border: 1px solid var(--line);
+  display: grid;
+  place-items: center;
+}
+
+.pcard__art::after {
+  content: '';
+  position: absolute;
+  inset-inline: 12%;
+  bottom: 8%;
+  height: 8px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, color-mix(in oklab, var(--c2) 70%, transparent), transparent 72%);
+  filter: blur(3px);
+}
+
+.vessel {
+  position: relative;
+  width: 84px;
+  height: 104px;
+  border-radius: 42px 42px 34px 34px / 28px 28px 40px 40px;
+  background: linear-gradient(150deg, var(--c1), var(--c2) 78%);
+  box-shadow:
+    inset -6px -10px 22px color-mix(in oklab, var(--c2) 80%, transparent),
+    inset 8px 10px 20px color-mix(in oklab, #ffffff 22%, transparent),
+    0 22px 34px -18px color-mix(in oklab, var(--c2) 90%, transparent);
+}
+
+.vessel::before {
+  content: '';
+  position: absolute;
+  inset-inline-start: 50%;
+  top: -22px;
+  width: 26px;
+  height: 30px;
+  translate: -50% 0;
+  border-radius: 6px 6px 3px 3px;
+  background: linear-gradient(150deg, var(--c1), var(--c2) 82%);
+}
+
+.vessel::after {
+  content: '';
+  position: absolute;
+  inset-inline-start: 22%;
+  top: 14%;
+  width: 22%;
+  height: 34%;
+  border-radius: 50%;
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.62), transparent 68%);
+  filter: blur(1px);
+}
+
+.vessel--round {
+  width: 104px;
+  height: 92px;
+  border-radius: 50% 50% 44% 44% / 56% 56% 44% 44%;
+}
+
+.vessel--wide {
+  width: 120px;
+  height: 78px;
+  border-radius: 40px 40px 30px 30px / 46px 46px 34px 34px;
+}
+
+.vessel--tall {
+  width: 66px;
+  height: 122px;
+  border-radius: 30px 30px 22px 22px / 22px 22px 34px 34px;
+}
+
+.vessel--slim {
+  width: 58px;
+  height: 112px;
+  border-radius: 26px 26px 18px 18px / 18px 18px 30px 30px;
+}
+
+/* ---- meta ---------------------------------------------------------------- */
+.pcard__meta {
+  display: grid;
+  gap: var(--sp-2);
+}
+
+.pcard__meta h3 {
+  font-size: var(--fs-h3);
+  font-weight: 600;
+  letter-spacing: var(--tracking-tight);
+}
+
+.pcard__meta p {
+  font-size: var(--fs-xs);
+  color: var(--text-3);
+}
+
+.pcard__meta b {
+  font-size: 1.15rem;
+  color: var(--brass);
+  margin-top: var(--sp-1);
+}
+
+/* ---- footer -------------------------------------------------------------- */
+.products__foot {
+  width: min(1240px, 100% - 3rem);
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-5);
+}
+
+.progress {
+  flex: 1;
+  height: 2px;
+  border-radius: var(--r-pill);
+  background: var(--surface-3);
+  overflow: hidden;
+}
+
+.progress b {
+  display: block;
+  height: 100%;
+  width: 0;
+  border-radius: var(--r-pill);
+  background: linear-gradient(90deg, var(--brass), var(--accent));
+}
+
+.products__nav {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+
+.counter {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.3em;
+  font-size: var(--fs-xs);
+  color: var(--text-3);
+  font-variant-numeric: tabular-nums;
+}
+
+.counter b {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  color: var(--text);
+}
+
+.counter i {
+  font-style: normal;
+  color: var(--brass);
+}
+
+[dir='rtl'] #prev svg,
+[dir='rtl'] #next svg {
+  transform: scaleX(-1);
+}
+
+/* ---- language switch ----------------------------------------------------- */
+[data-lang] {
+  display: none;
+}
+
+html[lang='fa'] [data-lang='fa'],
+html[lang='en'] [data-lang='en'],
+html[lang='ar'] [data-lang='ar'] {
+  display: revert;
+}
+
+.s-kicker [data-lang],
+.pcard__meta [data-lang] {
+  display: none;
+}
+
+html[lang='fa'] .s-kicker [data-lang='fa'],
+html[lang='en'] .s-kicker [data-lang='en'],
+html[lang='fa'] .pcard__meta [data-lang='fa'],
+html[lang='en'] .pcard__meta [data-lang='en'] {
+  display: inline;
+}
+
+html[lang='fa'] .products__title [data-lang='fa'],
+html[lang='en'] .products__title [data-lang='en'] {
+  display: block;
+}
+
+@media (max-width: 640px) {
+  .products__rail {
+    --card: 248px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .products__rail {
+    scroll-behavior: auto;
+  }
+
+  .pcard {
+    transform: none;
+    opacity: 1;
+  }
+}

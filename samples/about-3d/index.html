@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>درباره · عمق</title>
+    <link rel="stylesheet" href="../../assets/css/tokens.css" />
+    <link rel="stylesheet" href="../../assets/css/base.css" />
+    <link rel="stylesheet" href="../../assets/css/sample.css" />
+    <link rel="stylesheet" href="sample.css" />
+  </head>
+  <body class="sample">
+    <section class="about3d">
+      <div class="about3d__text">
+        <p class="s-kicker">
+          <span data-lang="fa">دربارهٔ من</span>
+          <span data-lang="en">About me</span>
+        </p>
+        <h2 class="s-title about3d__title">
+          <span data-lang="fa">دوازده سال،<br />یک سؤال</span>
+          <span data-lang="en">Twelve years,<br />one question</span>
+        </h2>
+        <div class="about3d__body">
+          <p>
+            <span data-lang="fa"
+              >از اولین سایتی که با وردپرس بالا بردم تا امروز، یک سؤال عوض نشده: چطور می‌شود چیزی ساخت که ارزشِ نگاه‌کردن داشته باشد؟ نه شلوغ‌تر، نه پرزرق‌وبرق‌تر — فقط دقیق‌تر.</span
+            >
+            <span data-lang="en"
+              >From the first site I put up on WordPress to today, one question has not changed: how do you build something worth looking at? Not busier, not flashier — just more exact.</span
+            >
+          </p>
+          <p>
+            <span data-lang="fa"
+              >کارم بین طراحی و مهندسی است: سیستم نشانه‌ها را می‌سازم، قطعات را در مرورگر امتحان می‌کنم، و بعد همان را به افزونه‌ای تبدیل می‌کنم که یک نفرِ دیگر بتواند بدون کد ویرایشش کند.</span
+            >
+            <span data-lang="en"
+              >My work sits between design and engineering: I build the token system, test the components in a browser, then turn them into a plugin someone else can edit without code.</span
+            >
+          </p>
+        </div>
+        <p class="about3d__sign serif">Aria Ghasemi</p>
+      </div>
+
+      <div class="about3d__stage" id="stage">
+        <div class="about3d__box" id="box">
+          <span class="leaf" style="--z: -150px; --rot: -10deg; --o: 6"></span>
+          <span class="leaf" style="--z: -100px; --rot: 5deg; --o: 4"></span>
+          <span class="leaf" style="--z: -50px; --rot: -3deg; --o: 2"></span>
+          <div class="about3d__card">
+            <div class="s-monogram">
+              <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+                <g stroke="currentColor" stroke-width="1.1">
+                  <rect x="16" y="16" width="32" height="32" rx="3" />
+                  <rect x="16" y="16" width="32" height="32" rx="3" transform="rotate(45 32 32)" />
+                </g>
+                <circle cx="32" cy="32" r="9" stroke="var(--accent)" stroke-width="1.2" />
+              </svg>
+            </div>
+            <p class="about3d__cardname">
+              <span data-lang="fa">آریا قاسمی</span>
+              <span data-lang="en">Aria Ghasemi</span>
+            </p>
+            <p class="about3d__cardrole">
+              <span data-lang="fa">طراح و توسعه‌دهنده</span>
+              <span data-lang="en">Designer &amp; developer</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="chip3d" style="--x: -6%; --y: 12%; --z: 120px; --d: 26px">
+          <b class="serif" data-count="12">0</b>
+          <span data-lang="fa">سال تجربه</span>
+          <span data-lang="en">years</span>
+        </div>
+        <div class="chip3d" style="--x: auto; --y: 46%; --z: 170px; --d: 40px; --end: 2%">
+          <b class="serif" data-count="48">0</b>
+          <span data-lang="fa">پروژه</span>
+          <span data-lang="en">projects</span>
+        </div>
+        <div class="chip3d" style="--x: 8%; --y: 74%; --z: 90px; --d: 20px">
+          <b class="serif" data-count="3">0</b>
+          <span data-lang="fa">زبان</span>
+          <span data-lang="en">languages</span>
+        </div>
+      </div>
+    </section>
+
+    <script src="../../assets/vendor/gsap.min.js"></script>
+    <script src="../../assets/vendor/ScrollTrigger.min.js"></script>
+    <script src="../../assets/js/sample-shell.js"></script>
+    <script src="sample.js"></script>
+  </body>
+</html>

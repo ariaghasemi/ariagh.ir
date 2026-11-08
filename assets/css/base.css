@@ -1,0 +1,326 @@
+/* =============================================================================
+   base.css — reset + shared primitives. Loaded by the dashboard and by every
+   sample, so a button looks like a button everywhere.
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  font-weight: 400;
+  line-height: var(--lh-body);
+  color: var(--text);
+  background: var(--surface-0);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Latin runs get the serif display face and tighter leading; Persian/Arabic
+   keep the generous line-height they need. */
+:lang(en) body,
+body :lang(en) {
+  line-height: var(--lh-latin);
+}
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul,
+ol {
+  list-style: none;
+  padding: 0;
+}
+
+/* Visible keyboard focus everywhere — non negotiable. */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--r-xs);
+}
+
+::selection {
+  background: var(--accent-glow);
+  color: var(--text);
+}
+
+/* ---- scrollbars ---------------------------------------------------------- */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--line-strong);
+  border: 3px solid transparent;
+  background-clip: content-box;
+  border-radius: var(--r-pill);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--text-3);
+  background-clip: content-box;
+}
+
+/* ---- headings ------------------------------------------------------------ */
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 600;
+  line-height: var(--lh-heading);
+  letter-spacing: var(--tracking-tight);
+  text-wrap: balance;
+}
+
+/* ---- primitives ---------------------------------------------------------- */
+
+.panel {
+  background: var(--surface-1);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow: var(--elev-1);
+  /* a brass hairline along the top edge: the "gold leaf" detail */
+  background-image: linear-gradient(180deg, var(--brass-soft), transparent 60px);
+}
+
+.panel--quiet {
+  box-shadow: none;
+  background-image: none;
+}
+
+.panel__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  padding: var(--sp-5) var(--sp-5) var(--sp-4);
+}
+
+.panel__title {
+  font-size: var(--fs-h3);
+  font-weight: 600;
+}
+
+.panel__note {
+  font-size: var(--fs-sm);
+  color: var(--text-3);
+}
+
+.rule {
+  height: 1px;
+  border: 0;
+  background: linear-gradient(90deg, var(--brass-line), var(--line) 30%, transparent);
+}
+
+/* small functional labels — sentence case, never tracked-out caps */
+.label {
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  color: var(--text-3);
+  letter-spacing: var(--tracking-label);
+}
+
+/* ---- buttons ------------------------------------------------------------- */
+.btn {
+  --btn-bg: var(--surface-2);
+  --btn-fg: var(--text);
+  --btn-line: var(--line-strong);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  padding: 0.5rem 0.9rem;
+  min-height: 36px;
+  border: 1px solid var(--btn-line);
+  border-radius: var(--r-sm);
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: nowrap;
+  transition:
+    background var(--dur-sm) var(--ease-out-quart),
+    border-color var(--dur-sm) var(--ease-out-quart),
+    transform var(--dur-sm) var(--ease-out-quart),
+    color var(--dur-sm) var(--ease-out-quart);
+}
+
+.btn:hover {
+  background: var(--surface-3);
+  border-color: var(--text-3);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn--accent {
+  --btn-bg: var(--accent);
+  --btn-fg: var(--accent-ink);
+  --btn-line: var(--accent);
+  font-weight: 600;
+}
+
+.btn--accent:hover {
+  --btn-bg: color-mix(in oklab, var(--accent) 88%, white);
+  --btn-line: color-mix(in oklab, var(--accent) 88%, white);
+}
+
+.btn--ghost {
+  --btn-bg: transparent;
+  --btn-line: var(--line);
+}
+
+.btn--ghost:hover {
+  --btn-bg: var(--surface-2);
+  --btn-line: var(--line-strong);
+}
+
+.btn--sm {
+  min-height: 30px;
+  padding: 0.3rem 0.6rem;
+  font-size: var(--fs-xs);
+}
+
+.btn--icon {
+  width: 36px;
+  padding: 0;
+}
+
+.btn--icon.btn--sm {
+  width: 30px;
+}
+
+/* ---- badges -------------------------------------------------------------- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.18em 0.6em;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-pill);
+  background: var(--surface-2);
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  color: var(--text-2);
+  white-space: nowrap;
+}
+
+.badge__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  flex: none;
+}
+
+.badge--ready {
+  color: var(--status-ready);
+  border-color: color-mix(in oklab, var(--status-ready) 40%, transparent);
+  background: color-mix(in oklab, var(--status-ready) 12%, transparent);
+}
+
+.badge--wip {
+  color: var(--status-wip);
+  border-color: color-mix(in oklab, var(--status-wip) 40%, transparent);
+  background: color-mix(in oklab, var(--status-wip) 12%, transparent);
+}
+
+.badge--planned {
+  color: var(--status-planned);
+  border-color: var(--line-strong);
+}
+
+.badge--blocked {
+  color: var(--status-blocked);
+  border-color: color-mix(in oklab, var(--status-blocked) 40%, transparent);
+  background: color-mix(in oklab, var(--status-blocked) 12%, transparent);
+}
+
+/* ---- misc ---------------------------------------------------------------- */
+.mono {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  letter-spacing: 0;
+}
+
+.serif {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

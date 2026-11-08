@@ -1,0 +1,99 @@
+/* =============================================================================
+   sample.css — scaffolding shared by every sample. Each sample then adds its
+   own sample.css from its own folder on top of this.
+   ========================================================================== */
+
+.sample {
+  min-height: 100dvh;
+  display: grid;
+  background: var(--surface-0);
+  /* every sample sits on its own pool of lapis light */
+  background-image: radial-gradient(
+    120% 90% at 50% 0%,
+    color-mix(in oklab, var(--lapis-900) 55%, transparent),
+    transparent 70%
+  );
+}
+
+.s-wrap {
+  width: min(1240px, 100% - 3rem);
+  margin-inline: auto;
+}
+
+.s-section {
+  position: relative;
+  display: grid;
+  align-content: center;
+  padding-block: clamp(3rem, 8vh, 6rem);
+}
+
+/* the small line of text above a headline — a real label, never decoration */
+.s-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  color: var(--brass);
+}
+
+.s-kicker::before {
+  content: '';
+  width: 22px;
+  height: 1px;
+  background: var(--brass);
+}
+
+.s-title {
+  font-size: var(--fs-display);
+  font-weight: 700;
+  line-height: var(--lh-display);
+  letter-spacing: var(--tracking-display);
+  color: var(--text);
+}
+
+.s-lede {
+  font-size: clamp(0.95rem, 1.3vw, 1.1rem);
+  color: var(--text-2);
+  max-width: 46ch;
+}
+
+.s-hr {
+  height: 1px;
+  border: 0;
+  background: linear-gradient(90deg, var(--brass-line), var(--line) 40%, transparent);
+}
+
+/* portrait stand-in: a shamsa (eight-point rosette) with a monogram, rather
+   than a stock photo. Drop a real <img> in when there is one. */
+.s-monogram {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  border-radius: var(--r-lg);
+  border: 1px solid var(--brass-line);
+  background:
+    radial-gradient(90% 90% at 50% 30%, color-mix(in oklab, var(--lapis-700) 45%, transparent), transparent 70%),
+    linear-gradient(160deg, var(--surface-2), var(--surface-1));
+  overflow: hidden;
+}
+
+.s-monogram svg {
+  width: 58%;
+  height: 58%;
+  color: var(--brass);
+}
+
+/* how the sample looks when the dashboard freezes it */
+[data-motion='reduced'] .s-title,
+[data-motion='reduced'] .s-lede {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+@media (max-width: 720px) {
+  .s-wrap {
+    width: min(1240px, 100% - 2rem);
+  }
+}

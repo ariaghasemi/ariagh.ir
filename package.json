@@ -1,0 +1,20 @@
+{
+  "name": "ariagh-ir",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Design system + component atelier for ariagh.ir \u2014 a multilingual (fa/en/ar) luxury personal site built on WordPress + Elementor.",
+  "type": "module",
+  "scripts": {
+    "vendor": "node scripts/vendor.mjs",
+    "downloads": "node scripts/build-downloads.mjs",
+    "build": "npm run vendor && npm run downloads && npm run check",
+    "dev": "node scripts/serve.mjs",
+    "check": "node scripts/check.mjs"
+  },
+  "devDependencies": {
+    "@fontsource-variable/vazirmatn": "5.3.0",
+    "@fontsource/instrument-serif": "5.3.0",
+    "archiver": "^7.0.1",
+    "gsap": "3.15.1"
+  }
+}
