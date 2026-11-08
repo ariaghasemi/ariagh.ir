@@ -537,6 +537,9 @@
 
 .stage__viewport {
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
   overflow: hidden;
   background:
     linear-gradient(var(--surface-inset), var(--surface-inset)) padding-box,
@@ -545,8 +548,8 @@
 }
 
 .stage__canvas {
+  flex: none;
   transform-origin: top center;
-  margin-inline: auto;
   background: var(--surface-0);
   border: 1px solid var(--line);
   border-radius: var(--r-sm);
@@ -609,14 +612,6 @@
     border-color var(--dur-md) var(--ease-out-quart),
     transform var(--dur-md) var(--ease-out-quart),
     box-shadow var(--dur-md) var(--ease-out-quart);
-  animation: card-in var(--dur-lg) var(--ease-out-expo) both;
-}
-
-@keyframes card-in {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
-  }
 }
 
 .card:hover {
@@ -1430,6 +1425,10 @@
 
   .rail-toggle {
     display: grid;
+  }
+
+  .navitem__key {
+    display: none;
   }
 
   .scrim {

@@ -305,10 +305,10 @@ function renderComponents() {
 
       <div class="cards">
         ${visible
-          .map((c, i) => {
+          .map((c) => {
             const selected = c.slug === state.selected;
             return `
-            <article class="card" data-slug="${c.slug}" data-selected="${selected}" style="animation-delay:${i * 45}ms">
+            <article class="card" data-slug="${c.slug}" data-selected="${selected}">
               <div class="card__thumb" aria-hidden="true">${MOTIF[c.group] ?? ''}</div>
               <div class="card__body">
                 <div class="card__top">
