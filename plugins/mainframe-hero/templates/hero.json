@@ -1,0 +1,365 @@
+[
+  {
+    "id": "0480170b",
+    "elType": "container",
+    "isInner": false,
+    "settings": {
+      "_title": "هیروی Mainframe",
+      "container_type": "flex",
+      "content_width": "full",
+      "flex_gap": {
+        "column": "0",
+        "row": "0",
+        "unit": "px",
+        "isLinked": true
+      },
+      "padding": {
+        "unit": "px",
+        "top": "0",
+        "right": "0",
+        "bottom": "0",
+        "left": "0",
+        "isLinked": true
+      },
+      "flex_direction": "column",
+      "flex_align_items": "stretch",
+      "flex_justify_content": "flex-start",
+      "min_height": {
+        "unit": "vh",
+        "size": 100
+      },
+      "width": {
+        "unit": "%",
+        "size": 100
+      },
+      "position": "relative",
+      "z_index": 1
+    },
+    "elements": [
+      {
+        "id": "7da5368c",
+        "elType": "container",
+        "isInner": true,
+        "settings": {
+          "_title": "ناوبار",
+          "container_type": "flex",
+          "content_width": "full",
+          "flex_gap": {
+            "column": "0",
+            "row": "0",
+            "unit": "px",
+            "isLinked": true
+          },
+          "padding": {
+            "unit": "px",
+            "top": "0",
+            "right": "0",
+            "bottom": "0",
+            "left": "0",
+            "isLinked": true
+          },
+          "flex_direction": "row",
+          "flex_align_items": "center",
+          "flex_justify_content": "space-between",
+          "width": {
+            "unit": "%",
+            "size": 100
+          },
+          "z_index": 10
+        },
+        "elements": [
+          {
+            "id": "48136a7c",
+            "elType": "widget",
+            "widgetType": "mfh-navbar",
+            "settings": {
+              "brand_text": "Mainframe®",
+              "brand_link": {
+                "url": "https://ariagh.ir",
+                "is_external": "",
+                "nofollow": ""
+              },
+              "show_mark": "yes",
+              "mark_char": "✳︎",
+              "show_separator": "yes",
+              "show_cta": "yes",
+              "cta_text": "Get in touch",
+              "cta_link": {
+                "url": "mailto:hello@mainframe.co",
+                "is_external": "",
+                "nofollow": ""
+              },
+              "breakpoint": 767,
+              "show_overlay_cta": "yes"
+            },
+            "elements": []
+          }
+        ]
+      },
+      {
+        "id": "a01c117a",
+        "elType": "container",
+        "isInner": true,
+        "settings": {
+          "_title": "محتوا",
+          "container_type": "flex",
+          "content_width": "full",
+          "flex_gap": {
+            "column": "0",
+            "row": "0",
+            "unit": "px",
+            "isLinked": true
+          },
+          "padding": {
+            "unit": "px",
+            "top": "32",
+            "right": "32",
+            "bottom": "32",
+            "left": "32",
+            "isLinked": false
+          },
+          "flex_direction": "column",
+          "flex_align_items": "flex-start",
+          "flex_justify_content": "center",
+          "flex_grow": "1",
+          "width": {
+            "unit": "px",
+            "size": 576
+          },
+          "width_tablet": {
+            "unit": "%",
+            "size": 100
+          },
+          "width_mobile": {
+            "unit": "%",
+            "size": 100
+          },
+          "padding_mobile": {
+            "unit": "px",
+            "top": "32",
+            "right": "24",
+            "bottom": "48",
+            "left": "24",
+            "isLinked": false
+          },
+          "z_index": 1
+        },
+        "elements": [
+          {
+            "id": "257a7407",
+            "elType": "widget",
+            "widgetType": "mfh-blur-intro",
+            "settings": {
+              "line_one": "Hey there, meet A.R.I.A,",
+              "show_line_two": "yes",
+              "line_two": "Mainframe's Adaptive Response Interface Agent",
+              "html_tag": "p",
+              "interactive": "",
+              "fluid": "yes",
+              "fluid_min": {
+                "unit": "px",
+                "size": 18
+              },
+              "fluid_vw": {
+                "unit": "px",
+                "size": 4
+              },
+              "fluid_max": {
+                "unit": "px",
+                "size": 26
+              },
+              "blur": {
+                "unit": "px",
+                "size": 4
+              },
+              "color": "#ffffff",
+              "align": "start",
+              "space_below": {
+                "unit": "px",
+                "size": 24
+              }
+            },
+            "elements": []
+          },
+          {
+            "id": "69fa69d8",
+            "elType": "widget",
+            "widgetType": "mfh-typewriter",
+            "settings": {
+              "text": "Glad you stopped in. Good taste tends to find us. Now, what are we building?",
+              "speed": 38,
+              "start_delay": 600,
+              "when": "load",
+              "html_tag": "p",
+              "reduced_motion": "instant",
+              "show_caret": "yes",
+              "caret_color": "#ffffff",
+              "caret_width": {
+                "unit": "px",
+                "size": 2
+              },
+              "caret_height": {
+                "unit": "em",
+                "size": 1.1
+              },
+              "caret_speed": {
+                "unit": "px",
+                "size": 1
+              },
+              "fluid": "yes",
+              "fluid_min": {
+                "unit": "px",
+                "size": 18
+              },
+              "fluid_vw": {
+                "unit": "px",
+                "size": 4
+              },
+              "fluid_max": {
+                "unit": "px",
+                "size": 26
+              },
+              "color": "#ffffff",
+              "min_height": {
+                "unit": "px",
+                "size": 54
+              },
+              "align": "start",
+              "space_below": {
+                "unit": "px",
+                "size": 24
+              }
+            },
+            "elements": []
+          },
+          {
+            "id": "c0c28483",
+            "elType": "widget",
+            "widgetType": "mfh-pills",
+            "settings": {
+              "items": [
+                {
+                  "_id": "89c6cc5b",
+                  "text": "Pitch us an idea",
+                  "style": "solid",
+                  "action": "link",
+                  "link": {
+                    "url": "#",
+                    "is_external": "",
+                    "nofollow": ""
+                  }
+                },
+                {
+                  "_id": "29ea26d2",
+                  "text": "Come work here",
+                  "style": "solid",
+                  "action": "link",
+                  "link": {
+                    "url": "#",
+                    "is_external": "",
+                    "nofollow": ""
+                  }
+                },
+                {
+                  "_id": "60ba5de3",
+                  "text": "Send a brief hello",
+                  "style": "solid",
+                  "action": "link",
+                  "link": {
+                    "url": "#",
+                    "is_external": "",
+                    "nofollow": ""
+                  }
+                },
+                {
+                  "_id": "94e85d86",
+                  "text": "See how we operate",
+                  "style": "solid",
+                  "action": "link",
+                  "link": {
+                    "url": "#",
+                    "is_external": "",
+                    "nofollow": ""
+                  }
+                },
+                {
+                  "_id": "a1019485",
+                  "text": "Reach us: hello@mainframe.co",
+                  "style": "outline",
+                  "action": "copy",
+                  "copy_value": "hello@mainframe.co",
+                  "show_copy_icon": "yes",
+                  "underline_value": "yes"
+                }
+              ],
+              "animate_in": "yes",
+              "entrance_delay": 400,
+              "entrance_distance": {
+                "unit": "px",
+                "size": 8
+              },
+              "entrance_duration": {
+                "unit": "px",
+                "size": 0.4
+              },
+              "align": "flex-start"
+            },
+            "elements": []
+          }
+        ]
+      },
+      {
+        "id": "7c6aa154",
+        "elType": "widget",
+        "widgetType": "mfh-scrub-video",
+        "settings": {
+          "video": {
+            "url": "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260826_041744_63efcd78-bf7d-4039-99e2-2461e8a61903.mp4",
+            "id": ""
+          },
+          "poster": {
+            "url": "",
+            "id": ""
+          },
+          "auto_setup": "yes",
+          "preload": "auto",
+          "sensitivity": {
+            "unit": "px",
+            "size": 0.8
+          },
+          "axis": "x",
+          "invert": "",
+          "wrap": "",
+          "start_time": 0,
+          "object_position_x": {
+            "unit": "%",
+            "size": 70
+          },
+          "object_position_y": {
+            "unit": "%",
+            "size": 50
+          },
+          "ease": {
+            "unit": "px",
+            "size": 0.25
+          },
+          "reduced_motion": "freeze",
+          "pointer_only": "yes",
+          "aria_label": "",
+          "height": {
+            "unit": "vh",
+            "size": 100
+          },
+          "z_index": 0,
+          "position": "fixed",
+          "overlay_color": "#000000",
+          "overlay_opacity": {
+            "unit": "px",
+            "size": 0.25
+          }
+        },
+        "elements": []
+      }
+    ]
+  }
+]

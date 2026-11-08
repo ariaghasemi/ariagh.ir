@@ -17,7 +17,13 @@ const archiver = require('archiver');
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const SAMPLES_DIR = join(root, 'samples');
+const PLUGINS_DIR = join(root, 'plugins');
 const DOWNLOADS_DIR = join(root, 'downloads');
+
+/** Plugins shipped as installable WordPress archives. */
+const PLUGIN_PACKAGES = [
+  { slug: 'mainframe-hero', dir: 'mainframe-hero' },
+];
 
 const REWRITE = /\.\.\/\.\.\/assets\//g;
 
@@ -148,6 +154,46 @@ into an Elementor widget:
 `;
 }
 
+/**
+ * Zip a whole plugin folder, as it would be uploaded to a WordPress site:
+ * the plugin directory is the archive root.
+ */
+async function buildPluginZip(pkg) {
+  const srcDir = join(PLUGINS_DIR, pkg.dir);
+  const output = createWriteStream(join(DOWNLOADS_DIR, `${pkg.slug}.zip`));
+  const archive = archiver('zip', { zlib: { level: 9 } });
+
+  const done = new Promise((resolve, reject) => {
+    output.on('close', resolve);
+    archive.on('error', reject);
+  });
+
+  archive.pipe(output);
+
+  const files = [];
+
+  const walk = async (dir, prefix) => {
+    for (const entry of await fs.readdir(dir, { withFileTypes: true })) {
+      const abs = join(dir, entry.name);
+      const rel = prefix ? `${prefix}/${entry.name}` : entry.name;
+
+      if (entry.isDirectory()) {
+        await walk(abs, rel);
+      } else {
+        archive.file(abs, { name: `${pkg.dir}/${rel}` });
+        files.push(rel);
+      }
+    }
+  };
+
+  await walk(srcDir, '');
+  await archive.finalize();
+  await done;
+
+  const size = (await fs.stat(join(DOWNLOADS_DIR, `${pkg.slug}.zip`))).size;
+  return { files: files.length, size };
+}
+
 const slugs = (await fs.readdir(SAMPLES_DIR, { withFileTypes: true }))
   .filter((e) => e.isDirectory())
   .map((e) => e.name)
@@ -162,4 +208,12 @@ for (const slug of slugs) {
   total += size;
   console.log(`  ✓ ${slug}.zip  (${files} files, ${(size / 1024).toFixed(0)} KB)`);
 }
+console.log('');
+console.log(`Building ${PLUGIN_PACKAGES.length} plugin packages…`);
+for (const pkg of PLUGIN_PACKAGES) {
+  const { files, size } = await buildPluginZip(pkg);
+  total += size;
+  console.log(`  ✓ ${pkg.slug}.zip  (${files} files, ${(size / 1024).toFixed(0)} KB)`);
+}
+
 console.log(`Done — ${(total / 1024 / 1024).toFixed(2)} MB total.`);

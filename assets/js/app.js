@@ -103,6 +103,29 @@ const GLYPHS = {
 const glyph = (name) =>
   `<svg class="navitem__glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${GLYPHS[name] ?? ''}</svg>`;
 
+/**
+ * Components come in two kinds. A `sample` is the plain HTML/CSS/JS folder in
+ * /samples and understands dir/lang/theme query parameters. An `app` is a
+ * built bundle with its own entry point and no parameters — it just opens.
+ */
+
+function isApp(c) {
+  return c.kind === 'app';
+}
+
+function demoPath(c) {
+  return isApp(c) ? c.demo : `samples/${c.slug}/index.html`;
+}
+
+function copyPath(c) {
+  return isApp(c) ? c.demo : `samples/${c.slug}/index.html`;
+}
+
+function embedSrc(c, dir) {
+  if (isApp(c)) return c.demo;
+  return `samples/${c.slug}/index.html?dir=${dir}&lang=${state.locale}&theme=${state.theme}`;
+}
+
 const MOTIF = {
   hero: '<i class="m-rings"></i><i class="m-orb"></i>',
   about: '<i class="m-panel a"></i><i class="m-panel b"></i>',
@@ -309,7 +332,9 @@ function renderComponents() {
             const selected = c.slug === state.selected;
             return `
             <article class="card" data-slug="${c.slug}" data-selected="${selected}">
-              <div class="card__thumb" aria-hidden="true">${MOTIF[c.group] ?? ''}</div>
+              ${c.poster
+                ? `<a class="card__thumb card__thumb--poster" href="${esc(demoPath(c))}" target="_blank" rel="noreferrer noopener" title="${esc(t('components.newTab'))}"><img src="${esc(c.poster)}" alt="${esc(tx(c.name))}" loading="lazy" decoding="async" /></a>`
+                : `<div class="card__thumb" aria-hidden="true">${MOTIF[c.group] ?? ''}</div>`}
               <div class="card__body">
                 <div class="card__top">
                   <h3 class="card__title">${esc(tx(c.name))}</h3>
@@ -322,10 +347,10 @@ function renderComponents() {
                 <button class="btn btn--sm btn--icon" type="button" data-copy="${esc(c.slug)}" title="${esc(t('components.copy'))}" aria-label="${esc(t('components.copy'))}">
                   <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M15 5.5A1.5 1.5 0 0 0 13.5 4h-8A1.5 1.5 0 0 0 4 5.5v8A1.5 1.5 0 0 0 5.5 15"/></svg>
                 </button>
-                <a class="btn btn--sm btn--icon" href="samples/${esc(c.slug)}/index.html" target="_blank" rel="noreferrer noopener" title="${esc(t('components.newTab'))}" aria-label="${esc(t('components.newTab'))}">
+                <a class="btn btn--sm btn--icon" href="${esc(demoPath(c))}" target="_blank" rel="noreferrer noopener" title="${esc(t('components.newTab'))}" aria-label="${esc(t('components.newTab'))}">
                   <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M14 5h5v5M19 5l-8 8M17 14v4a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h4"/></svg>
                 </a>
-                <a class="btn btn--sm" href="downloads/${esc(c.slug)}.zip" download title="${esc(t('components.download'))}">
+                <a class="btn btn--sm" href="downloads/${esc(c.slug)}.zip" download title="${esc(isApp(c) ? t('components.downloadPlugin') : t('components.download'))}">
                   <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11m0 0 4-4m-4 4-4-4M5 19h14"/></svg>
                   ${esc(t('components.download'))}
                 </a>
@@ -345,7 +370,7 @@ function renderStage(component) {
       <div class="stage__bar">
         <div class="stage__name">
           <span>${esc(tx(component.name))}</span>
-          <small class="mono">samples/${esc(component.slug)}/</small>
+          <small class="mono">${esc(isApp(component) ? component.demo.replace(/\/index\.html$/, '/') : `samples/${component.slug}/`)}</small>
         </div>
         <div class="stage__tools">
           <div class="seg" role="group" aria-label="${esc(t('components.width'))}">
@@ -364,7 +389,7 @@ function renderStage(component) {
           <button class="btn btn--sm btn--icon" type="button" data-reload title="${esc(t('components.reload'))}" aria-label="${esc(t('components.reload'))}">
             <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 5v6h-6"/></svg>
           </button>
-          <a class="btn btn--sm btn--icon" href="samples/${esc(component.slug)}/index.html" target="_blank" rel="noreferrer noopener" title="${esc(t('components.newTab'))}" aria-label="${esc(t('components.newTab'))}">
+          <a class="btn btn--sm btn--icon" href="${esc(demoPath(component))}" target="_blank" rel="noreferrer noopener" title="${esc(t('components.newTab'))}" aria-label="${esc(t('components.newTab'))}">
             <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M14 5h5v5M19 5l-8 8M17 14v4a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h4"/></svg>
           </a>
         </div>
@@ -696,7 +721,7 @@ function syncStage() {
   const device = DEVICES.find((d) => d.id === state.device) ?? DEVICES[0];
   const dir = state.dir ?? (LOCALES[state.locale]?.dir ?? 'rtl');
   const component = componentBySlug(state.selected) ?? COMPONENTS[0];
-  const src = `samples/${component.slug}/index.html?dir=${dir}&lang=${state.locale}&theme=${state.theme}`;
+  const src = embedSrc(component, dir);
   const signature = `${src}|${device.id}`;
 
   if (signature !== frameSignature || frame.dataset.sig !== signature) {
@@ -803,7 +828,9 @@ function bindEvents() {
 
     const copyBtn = target.closest('[data-copy]');
     if (copyBtn) {
-      copyText(`samples/${copyBtn.dataset.copy}/index.html`, t('components.copied'));
+      const copySlug = copyBtn.dataset.copy;
+      const copyComponent = componentBySlug(copySlug);
+      copyText(copyComponent ? copyPath(copyComponent) : `samples/${copySlug}/index.html`, t('components.copied'));
       return;
     }
 

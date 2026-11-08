@@ -1,0 +1,22 @@
+# Copyright (C) 2026 Aria Ghasemi
+# This file is distributed under the same license as the Mainframe Hero plugin.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Mainframe Hero 1.0.0\n"
+"Report-Msgid-Bugs-To: https://github.com/ariaghasemi/ariagh.ir/issues\n"
+"POT-Creation-Date: 2026-11-08 00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Persian <fa@li.org>\n"
+"Language: fa\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Domain: mainframe-hero\n"
+
+#: elementor/mfh-widget-blur-label.php:70
+msgid "Mainframe's Adaptive Response Interface Agent"
+msgstr ""

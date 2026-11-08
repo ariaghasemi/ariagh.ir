@@ -4,6 +4,7 @@
  *   - every CSS @import / url() resolves
  *   - braces balance in every stylesheet
  *   - every sample ships index.html + sample.css + sample.js
+ *   - every app entry points at a built demo, a poster and a plugin folder
  *   - every component in the catalog has a folder and a download
  *
  *   npm run check
@@ -69,6 +70,7 @@ const rel = (p) => p.slice(root.length + 1);
 const walk = async (dir, out = []) => {
   for (const entry of await fs.readdir(dir, { withFileTypes: true })) {
     if (entry.name === 'node_modules' || entry.name === '.git' || entry.name === 'downloads') continue;
+    if (entry.name === 'previews' && dir === root) continue; // build output
     const full = join(dir, entry.name);
     if (entry.isDirectory()) await walk(full, out);
     else out.push(full);
@@ -86,10 +88,19 @@ for (const f of csses) await checkCss(f);
 /* ---- sample + download completeness ------------------------------------- */
 const { COMPONENTS } = await import('../assets/js/catalog.js');
 for (const c of COMPONENTS) {
-  const dir = join(root, 'samples', c.slug);
-  for (const name of ['index.html', 'sample.css', 'sample.js']) {
-    if (!(await exists(join(dir, name)))) problems.push(`samples/${c.slug} → missing ${name}`);
+  if (c.kind === 'app') {
+    // Apps are built bundles: a demo to open, a poster to show, a source tree.
+    if (!(await exists(join(root, c.demo)))) problems.push(`${c.slug} → missing demo ${c.demo}`);
+    if (!(await exists(join(root, c.poster)))) problems.push(`${c.slug} → missing poster ${c.poster}`);
+    if (!(await exists(join(root, c.source)))) problems.push(`${c.slug} → missing source ${c.source}`);
+    if (!(await exists(join(root, c.docs)))) problems.push(`${c.slug} → missing plugin ${c.docs}`);
+  } else {
+    const dir = join(root, 'samples', c.slug);
+    for (const name of ['index.html', 'sample.css', 'sample.js']) {
+      if (!(await exists(join(dir, name)))) problems.push(`samples/${c.slug} → missing ${name}`);
+    }
   }
+
   if (!(await exists(join(root, 'downloads', `${c.slug}.zip`)))) {
     problems.push(`downloads/${c.slug}.zip → missing (run: npm run downloads)`);
   }

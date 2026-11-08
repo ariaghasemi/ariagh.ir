@@ -641,6 +641,39 @@
   display: block;
 }
 
+/* A card that ships a real screenshot instead of a generated motif. */
+.card__thumb--poster {
+  display: block;
+  cursor: pointer;
+}
+
+.card__thumb--poster img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 640ms cubic-bezier(0.16, 1, 0.3, 1), filter 380ms ease;
+}
+
+.card__thumb--poster::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, color-mix(in oklab, var(--surface-inset) 62%, transparent), transparent 58%);
+  opacity: 0;
+  transition: opacity 380ms ease;
+}
+
+.card__thumb--poster:hover img,
+.card__thumb--poster:focus-visible img {
+  transform: scale(1.04);
+}
+
+.card__thumb--poster:hover::after,
+.card__thumb--poster:focus-visible::after {
+  opacity: 1;
+}
+
 /* motif: concentric rings + a floating orb (hero) */
 .m-rings {
   inset: -22%;

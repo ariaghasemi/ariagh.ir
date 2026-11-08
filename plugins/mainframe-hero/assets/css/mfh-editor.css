@@ -1,0 +1,77 @@
+/**
+ * Mainframe Hero — Elementor panel styles.
+ *
+ * Only two things are styled here: the documentation blocks that sit inside
+ * the panel, and the live analysis report. Everything else inherits from
+ * Elementor, so the panel keeps its own look in every version.
+ *
+ * @package MainframeHero
+ */
+
+.mfh-doc-box {
+	padding-inline: 0;
+}
+
+.mfh-doc {
+	padding: 12px 14px;
+	background: #f4f6f9;
+	border: 1px solid #e0e4ea;
+	border-radius: 6px;
+	color: #2c3038;
+	font-size: 12px;
+	line-height: 1.75;
+}
+
+.mfh-doc__title {
+	margin: 0 0 6px;
+	font-size: 12px;
+	font-weight: 700;
+	color: #1b1e24;
+}
+
+.mfh-doc__body {
+	margin: 0;
+}
+
+.mfh-doc__list {
+	margin: 0 0 8px;
+	padding-inline-start: 18px;
+}
+
+.mfh-doc__list li {
+	margin-bottom: 4px;
+}
+
+.mfh-doc__list li:last-child {
+	margin-bottom: 0;
+}
+
+.mfh-doc__note {
+	margin: 0;
+	padding: 6px 8px;
+	background: #eaf2f1;
+	border-inline-start: 3px solid #0f766e;
+	border-radius: 3px;
+	font-size: 11.5px;
+	color: #14514b;
+}
+
+.mfh-doc__note--error {
+	background: #fdecea;
+	border-inline-start-color: #b3261e;
+	color: #7a1a14;
+}
+
+.mfh-doc__body .mfh-doc__list {
+	margin-top: 6px;
+}
+
+.elementor-panel .elementor-control-mf_auto_status .elementor-control-content {
+	display: block;
+}
+
+.elementor-control-mf_auto_status .elementor-control-field,
+.elementor-control-mf_auto_explain .elementor-control-field,
+.elementor-control-mf_docs .elementor-control-field {
+	display: block;
+}

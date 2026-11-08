@@ -9,9 +9,33 @@ export const GROUPS = [
   { id: 'about', name: { fa: 'درباره', en: 'About' } },
   { id: 'carousel', name: { fa: 'کاروسل', en: 'Carousel' } },
   { id: 'chrome', name: { fa: 'کادر صفحه', en: 'Page chrome' } },
+  { id: 'apps', name: { fa: 'برنامه‌ها', en: 'Apps' } },
 ];
 
 export const COMPONENTS = [
+  {
+    slug: 'mainframe-hero',
+    group: 'apps',
+    dimension: '2d',
+    kind: 'app',
+    status: 'ready',
+    version: '1.0.0',
+    updated: '2026-11-08',
+    name: { fa: 'Mainframe · هیرو', en: 'Mainframe · Hero' },
+    summary: {
+      fa: 'هیروی تمام‌صفحه برای آژانسِ Mainframe: ویدیوی پس‌زمینه‌ای که با حرکتِ اشاره‌گر اسکراب می‌شود، ناوبارِ شفاف با منوی موبایل، متنِ آغازینِ محو، متنِ تایپ‌شونده و دکمه‌های کپسولی. یک افزونهٔ کاملِ المنتور با شش ویجت و یک الگوی آماده همراهش است.',
+      en: 'A full-screen hero for the Mainframe agency: a background video scrubbed by pointer movement, a transparent navbar with a mobile menu, a blurred intro line, a typewriter, and capsule buttons. Ships as a complete Elementor plugin with six widgets and a ready-made template.',
+    },
+    tags: ['elementor', 'plugin', 'scrub', 'typewriter', 'container'],
+    deps: [],
+    files: ['mainframe-hero.php'],
+    // A built React/Vite app, not a /samples folder — so it has its own demo
+    // path, its own poster image, and no dir/lang/theme query parameters.
+    demo: 'previews/mainframe/index.html',
+    poster: 'assets/img/previews/mainframe-hero.jpg',
+    source: 'apps/mainframe-hero/',
+    docs: 'plugins/mainframe-hero/',
+  },
   {
     slug: 'hero-3d',
     group: 'hero',
@@ -145,6 +169,24 @@ export const COMPONENTS = [
 /** The plugin each component becomes. One row per WordPress plugin. */
 export const PLUGINS = [
   {
+    slug: 'mainframe-hero',
+    name: { fa: 'Mainframe · هیرو', en: 'Mainframe · Hero' },
+    status: 'ready',
+    version: '1.0.0',
+    purpose: {
+      fa: 'هیروی تمام‌صفحه را به عنوان مجموعه‌ای از ویجت‌ها و یک الگوی آماده به المنتور می‌آورد: ویدیوی اسکراب‌شونده با اشاره‌گر، کاراکتر واکنشی با تنظیم خودکار، ناوبار، متن محو، متن تایپ‌شونده و دکمه‌های کپسولی. رابط و مستندات کاملاً فارسی.',
+      en: 'Brings the full-screen hero to Elementor as a set of widgets plus a ready-made template: a pointer-scrubbed background video, a self-configuring reactive character, a navbar, blurred copy, a typewriter and capsule buttons. Persian interface and documentation throughout.',
+    },
+    widgets: [
+      { fa: 'ویدیوی حرکتی هیرو', en: 'Hero scrub video' },
+      { fa: 'کاراکتر واکنشی', en: 'Reactive character' },
+      { fa: 'ناوبار', en: 'Navbar' },
+      { fa: 'متنِ آغازینِ محو', en: 'Blur intro' },
+      { fa: 'متنِ تایپ‌شونده', en: 'Typewriter' },
+      { fa: 'دکمه‌های کپسولی', en: 'Action pills' },
+    ],
+  },
+  {
     slug: 'ari-core',
     name: { fa: 'هستهٔ آریا', en: 'Ari Core' },
     status: 'wip',
@@ -245,6 +287,17 @@ export const PLUGINS = [
 ];
 
 export const CHANGELOG = [
+  {
+    version: '1.0.0',
+    date: '2026-11-08',
+    entries: [
+      { kind: 'added', text: { fa: 'برنامهٔ Mainframe: هیروی تمام‌صفحه با ویدیوی اسکراب‌شونده، ناوبار، متن محو، تایپ‌رایتر و دکمه‌های کپسولی.', en: 'The Mainframe app: a full-screen hero with a scrubbed video, navbar, blurred copy, typewriter and capsule buttons.' } },
+      { kind: 'added', text: { fa: 'افزونهٔ المنتور mainframe-hero با شش ویجت و یک الگوی کانتینریِ آماده.', en: 'The mainframe-hero Elementor plugin with six widgets and a ready-made container template.' } },
+      { kind: 'added', text: { fa: 'ویجتِ کاراکتر واکنشی با تنظیم خودکار: تحلیلِ فریم در مرورگر برای یافتنِ نخستین فریمِ واقعی، ساختِ تصویرِ پیش‌فرض و محاسبهٔ حساسیت.', en: 'A self-configuring reactive character widget: in-browser frame analysis to find the first real frame, build a poster and derive sensitivity.' } },
+      { kind: 'added', text: { fa: 'کتابچهٔ راهنمای جامعِ درون‌برنامه‌ای به فارسی با نمودار، فرمول، جدولِ پیش‌فرض‌ها و عیب‌یابی.', en: 'An exhaustive in-plugin handbook in Persian, with diagrams, formulas, a defaults table and troubleshooting.' } },
+      { kind: 'changed', text: { fa: 'فهرست از «نمونه» و «برنامه» پشتیبانی می‌کند: برنامه‌ها پیش‌نمایشِ تصویری و دموی ساخته‌شدهٔ خود را دارند.', en: 'The catalogue now distinguishes samples from apps: apps carry their own poster image and built demo.' } },
+    ],
+  },
   {
     version: '0.1.0',
     date: '2026-11-08',
